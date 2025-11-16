@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>어르신 생활도우미</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg: #f3f5fb;
+            --card: #ffffff;
+            --primary: #2054b3;
+            --primary-soft: #e3edff;
+            --text-main: #111111;
+            --text-sub: #555555;
+            --border: #d0d6ea;
+            --accent: #f7b500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            padding: 16px;
+        }
+
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        /* 상단 광고 배너 (얇게) */
+        .top-ad {
+            width: 100%;
+            min-height: 60px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+        }
+
+        /* 헤더 */
+        header {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px 20px 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffe48a, #f7b500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-right: 4px;
+        }
+
+        .header-texts {
+            flex: 1 1 220px;
+        }
+
+        .site-title {
+            font-size: 50px;
+            margin-bottom: 6px;
+        }
+
+        .site-subtitle {
+            font-size: 25px;
+            color: var(--text-sub);
+        }
+
+        /* 시간대 카드 */
+        .time-card {
+            margin-top: 8px;
+            background: var(--primary-soft);
+            border-radius: 12px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .time-emoji {
+            font-size: 26px;
+        }
+
+        .time-text-main {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+
+        .time-text-sub {
+            font-size: 20px;
+            color: var(--text-sub);
+        }
+
+        /* 메인 버튼 그리드 */
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .big-btn {
+            background: var(--card);
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 90px;
+            cursor: pointer;
+            transition: background 0.12s, transform 0.12s, box-shadow 0.12s;
+        }
+
+        .big-btn:hover {
+            background: #f9fbff;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            transform: translateY(-1px);
+        }
+
+        .big-btn-main {
+            font-size: 34px;
+            margin-bottom: 2px;
+        }
+
+        .big-btn-sub {
+            font-size: 25px;
+            color: var(--text-sub);
+        }
+
+        .big-btn-tag {
+            align-self: flex-start;
+            margin-top: 4px;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        /* 추천 읽을거리 */
+        .article-area {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+            gap: 14px;
+        }
+
+        .article-card, .tip-card {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 16px 14px 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .article-title {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .article-meta {
+            font-size: 18px;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+
+        .article-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .article-more {
+            margin-top: 10px;
+            font-size: 20px;
+            color: var(--primary);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .tip-title {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .tip-list {
+            font-size: 18px;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding-left: 18px;
+        }
+
+        footer {
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--text-sub);
+            text-align: center;
+        }
+
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .article-area {
+                grid-template-columns: 1fr;
+            }
+            .site-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 상단 광고 자리 -->
+    <div class="top-ad">
+        광고 영역 (예: 728×90 배너)
+    </div>
+
+    <!-- 헤더 -->
+    <header>
+        <div class="logo-circle" aria-hidden="true">🌞</div>
+        <div class="header-texts">
+            <div class="site-title">어르신 생활도우미</div>
+            <div class="site-subtitle">
+                나이·띠·날짜 계산을 한 곳에서, 글씨는 크게, 버튼은 넓게.
+            </div>
+
+            <div class="time-card" id="timeCard">
+                <div class="time-emoji" id="timeEmoji">🌞</div>
+                <div>
+                    <div class="time-text-main" id="timeMain">좋은 아침입니다.</div>
+                    <div class="time-text-sub" id="timeSub">
+                        오늘도 필요한 계산은 제가 도와드릴게요.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 주요 기능 버튼 -->
+    <section class="section">
+        <div class="section-title">자주 쓰는 기능</div>
+        <div class="grid-main">
+            <button class="big-btn" onclick="location.href='age/'">
+                <div class="big-btn-main">나이 계산기</div>
+                <div class="big-btn-sub">생년월일을 넣으면 올해 몇 살인지 바로 계산합니다.</div>
+                <div class="big-btn-tag">나 / 가족 나이</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='age-man/'">
+                <div class="big-btn-main">만 나이 계산기</div>
+                <div class="big-btn-sub">병원·계약서에 쓰는 만 나이를 쉽게 알아봅니다.</div>
+                <div class="big-btn-tag">공식 서류용</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='age-table/'">
+                <div class="big-btn-main">2025년 나이 표</div>
+                <div class="big-btn-sub">출생 연도별로 올해 나이를 한 번에 보는 표입니다.</div>
+                <div class="big-btn-tag">빠른 확인</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='zodiac/'">
+                <div class="big-btn-main">띠·띠궁합</div>
+                <div class="big-btn-sub">손주 띠, 부부 띠궁합 등 띠 관련 정보를 정리해 드립니다.</div>
+                <div class="big-btn-tag">띠 정보</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='dday/'">
+                <div class="big-btn-main">디데이 계산기</div>
+                <div class="big-btn-sub">기념일·검진일·기도 날짜까지 며칠 남았는지 계산합니다.</div>
+                <div class="big-btn-tag">기념일 관리</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='school/'">
+                <div class="big-btn-main">학교 입학·졸업 계산</div>
+                <div class="big-btn-sub">손주가 지금 몇 학년인지, 언제 졸업하는지 알려드립니다.</div>
+                <div class="big-btn-tag">손주 정보</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='holiday/'">
+                <div class="big-btn-main">공휴일 한눈에</div>
+                <div class="big-btn-sub">올해 공휴일과 연휴를 달력처럼 정리해 보여드립니다.</div>
+                <div class="big-btn-tag">연휴 계획</div>
+            </button>
+
+            <button class="big-btn" onclick="location.href='nolucky/'">
+                <div class="big-btn-main">손 없는 날</div>
+                <div class="big-btn-sub">이사·행사에 많이 보는 손 없는 날을 모아드립니다.</div>
+                <div class="big-btn-tag">이사·행사</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- 읽을거리 + 작은 팁 -->
+    <section class="section article-area">
+        <div class="article-card">
+            <div class="article-title">손주와 더 친해지는 5가지 작은 습관</div>
+            <div class="article-meta">오늘의 읽을거리 · 3분이면 읽어요</div>
+            <div class="article-text">
+                손주와 대화가 어색하게 느껴질 때가 있지요.
+                너무 거창한 이벤트보다, 작은 말 한마디와 짧은 안부가 더 큰 힘이 됩니다.
+                오늘은 손주와 조금 더 가까워질 수 있는 아주 쉬운 습관들을 정리해 드렸습니다.
+            </div>
+            <div class="article-more" onclick="location.href='articles/'">자세히 읽어보기</div>
+        </div>
+
+        <div class="tip-card">
+            <div class="tip-title">휴대폰에 저장하면 더 편리합니다</div>
+            <ul class="tip-list">
+                <li>이 화면을 길게 눌러 '홈 화면에 추가'를 선택하세요.</li>
+                <li>앱처럼 아이콘이 생겨, 한 번에 열 수 있습니다.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 어르신 생활도우미 · 필요한 계산이 더 있다면 언제든 알려주세요.
+    </footer>
+</div>
+
+<script>
+    // 현재 시간에 따라 인사말/아이콘 변경
+    (function () {
+        const hour = new Date().getHours();
+        const emojiEl = document.getElementById("timeEmoji");
+        const mainEl = document.getElementById("timeMain");
+        const subEl = document.getElementById("timeSub");
+
+        if (hour >= 5 && hour < 11) {
+            emojiEl.textContent = "🌞";
+            mainEl.textContent = "좋은 아침입니다.";
+            subEl.textContent = "오늘도 필요한 계산은 제가 도와드릴게요.";
+        } else if (hour >= 11 && hour < 17) {
+            emojiEl.textContent = "🌤️";
+            mainEl.textContent = "즐거운 하루 보내고 계신가요?";
+            subEl.textContent = "점심 약속, 병원 예약일도 쉽게 계산해 보세요.";
+        } else if (hour >= 17 && hour < 21) {
+            emojiEl.textContent = "🌇";
+            mainEl.textContent = "하루를 잘 마무리하고 계신가요?";
+            subEl.textContent = "기념일과 손주 나이도 한 번 확인해 보셔도 좋습니다.";
+        } else {
+            emojiEl.textContent = "🌙";
+            mainEl.textContent = "고생 많으셨습니다. 이제 쉬실 시간입니다.";
+            subEl.textContent = "내일 필요한 계산도, 이곳에 오시면 제가 기억하고 있습니다.";
+        }
+    })();
+</script>
+</body>
+</html>
