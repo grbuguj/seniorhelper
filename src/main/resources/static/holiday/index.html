@@ -3,29 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공휴일 한눈에 - 어르신 생활도우미</title>
+    <title>공휴일 한눈에 보기</title>
+
     <link rel="stylesheet" href="../css/base.css">
 
+    <style>
+        body { background: var(--bg); }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-top: 12px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            font-size: 26px;
+            line-height: 1.55;
+            margin-bottom: 30px;
+        }
+
+        .year-nav {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .year-btn {
+            padding: 12px 18px;
+            font-size: 26px;
+            border-radius: 12px;
+            background: white;
+            border: 2px solid var(--border);
+            margin: 0 6px;
+        }
+
+        .year-current {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 20px;
+        }
+
+        .holiday-list {
+            margin-top: 20px;
+        }
+
+        .holiday-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 18px 22px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            font-size: 26px;
+            line-height: 1.5;
+        }
+
+        .h-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .back-btn-btm {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-main {
+            padding: 18px 26px;
+            font-size: 26px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            background: white;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="page">
-        <div class="page-header">
-            <div class="page-header-top">
-                <a href="../index.html" class="back-btn">←</a>
-                <div>
-                    <h1 class="page-title">공휴일 한눈에</h1>
-                </div>
-            </div>
-            <p class="page-subtitle">올해 공휴일과 연휴를 달력처럼 정리해 보여드립니다.</p>
-        </div>
-        
-        <div class="content-card">
-            <p style="font-size: 22px; text-align: center; color: var(--text-sub);">
-                이 기능은 곧 추가됩니다.
-            </p>
-        </div>
+
+<div class="container">
+
+    <div class="title">공휴일 한눈에</div>
+
+    <div class="info-box">
+        올해 공휴일과 연휴를 한눈에 확인하세요.<br>
+        설날, 추석, 대체공휴일까지 자동 계산됩니다.
     </div>
-    
-    <script src="../js/holiday.js"></script>
+
+    <div class="year-nav">
+        <button class="year-btn" onclick="prevYear()">◀ 이전년도</button>
+        <span id="yearText" class="year-current"></span>
+        <button class="year-btn" onclick="nextYear()">다음년도 ▶</button>
+    </div>
+
+    <div id="holidayList" class="holiday-list"></div>
+
+    <div class="back-btn-btm">
+        <button class="back-main" onclick="location.href='../index.html'">메인 화면</button>
+    </div>
+
+</div>
+
+<script src="korean-holiday.js"></script>
+<script>
+    let currentYear = new Date().getFullYear();
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadYear(currentYear);
+    });
+
+    function prevYear() {
+        currentYear--;
+        loadYear(currentYear);
+    }
+
+    function nextYear() {
+        currentYear++;
+        loadYear(currentYear);
+    }
+
+    function loadYear(year) {
+        document.getElementById("yearText").innerText = `${year}년`;
+
+        // 공휴일 데이터 가져오기
+        const holidays = KoreanHoliday.getHolidaysOfYear(year);
+
+        const listBox = document.getElementById("holidayList");
+        listBox.innerHTML = "";
+
+        holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        let html = "";
+        holidays.forEach(h => {
+            const d = new Date(h.date);
+            const dateStr = `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
+
+            html += `
+                <div class="holiday-item">
+                    <div class="h-name">${h.name}</div>
+                    <div>${dateStr}</div>
+                    ${h.substitute ? `<div style="color:#d9534f;">대체공휴일</div>` : ""}
+                </div>
+            `;
+        });
+
+        listBox.innerHTML = html;
+    }
+</script>
+
+
+
+
 </body>
 </html>
