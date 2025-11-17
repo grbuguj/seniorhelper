@@ -4,28 +4,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디데이 계산기 - 어르신 생활도우미</title>
+
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/dday.css">
+
+    <style>
+        .wrapper {
+            padding: 26px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .page-title {
+            font-size: 40px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .input-box {
+            background: var(--card);
+            padding: 26px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 22px;
+        }
+
+        .label {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .date-input {
+            width: 100%;
+            font-size: 28px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 32px;
+            margin-top: 18px;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+        }
+
+        .result-card {
+            background: var(--card);
+            border-radius: 16px;
+            border: 2px solid var(--primary);
+            padding: 26px;
+            margin-top: 26px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .result-line {
+            font-size: 28px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #1a73e8;
+            font-weight: 700;
+        }
+
+        .sub-btn-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .sub-btn {
+            font-size: 26px;
+            padding: 16px 22px;
+            margin: 6px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="page">
-        <div class="page-header">
-            <div class="page-header-top">
-                <a href="../index.html" class="back-btn">←</a>
-                <div>
-                    <h1 class="page-title">디데이 계산기</h1>
-                </div>
+
+<div class="wrapper">
+    <h1 class="page-title">디데이 계산기</h1>
+
+    <!-- 입력 영역 -->
+    <div class="input-box">
+        <div class="label">날짜를 선택해주세요</div>
+        <input type="date" id="targetDate" class="date-input">
+
+        <button class="btn" onclick="calcDday()">계산하기</button>
+
+        <div class="info-box">
+            <div style="font-size:30px; font-weight:600; margin-bottom:10px;">
+                D-Day(디데이)란?
             </div>
-            <p class="page-subtitle">기념일·검진일·기도 날짜까지 며칠 남았는지 계산합니다.</p>
+            디데이는 군사 작전의 공격일이나 작전 개시일을 의미하던 미국 군사 용어에서 시작되었습니다.
+            현재는 시험일, 수술일, 기념일, 약속일 등 일상에서도 특정 날짜까지 남은 일수를 나타낼 때 널리 사용됩니다.
+            <br><br>
+            본 계산기는 <span class="highlight">한국식 기준(오늘 제외)</span>으로
+            선택한 날짜까지 며칠 남았는지 또는 며칠 지났는지를 계산합니다.
         </div>
-        
-        <div class="content-card">
-            <p style="font-size: 22px; text-align: center; color: var(--text-sub);">
-                이 기능은 곧 추가됩니다.
-            </p>
-        </div>
+
     </div>
-    
-    <script src="../js/dday.js"></script>
+
+    <!-- 결과 영역 -->
+    <div id="resultArea"></div>
+
+
+    <div class="sub-btn-area">
+        <div style="font-size:28px; margin-bottom:14px;">다른 계산도 해보시겠어요?</div>
+
+        <button class="sub-btn" onclick="location.href='../date-diff/index.html'">
+            날짜 차이 계산기
+        </button>
+
+        <button class="sub-btn" onclick="location.href='../date-plusminus/index.html'">
+            날짜 더하기·빼기
+        </button>
+
+        <button class="sub-btn" onclick="location.href='../dday/annivercity.html'">
+            기념일 계산기
+        </button>
+
+        <button class="sub-btn" onclick="location.href='../../index.html'">
+            메인 화면
+        </button>
+    </div>
+
+</div>
+
+<script>
+    function setToday() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        document.getElementById("targetDate").value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    function getKoreanDayName(dateObj) {
+        const days = ["일","월","화","수","목","금","토"];
+        return days[dateObj.getDay()];
+    }
+
+    function calcDday() {
+        const input = document.getElementById("targetDate").value;
+        if (!input) return alert("날짜를 선택해주세요!");
+
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        const target = new Date(input);
+        target.setHours(0,0,0,0);
+
+        const diff = target - today;
+        const days = diff / (1000 * 60 * 60 * 24);
+
+        const y = target.getFullYear();
+        const m = target.getMonth() + 1;
+        const d = target.getDate();
+        const dow = getKoreanDayName(target);
+
+        const absDays = Math.abs(days);
+        const weeks = Math.floor(absDays / 7);
+        const remainDays = absDays % 7;
+
+        let summary = "";
+        if (days > 0) {
+            summary = `${y}년 ${m}월 ${d}일(${dow})은 오늘 기준 <span class="highlight">${days}일 남았습니다.</span>`;
+        } else if (days === 0) {
+            summary = `${y}년 ${m}월 ${d}일(${dow})은 <span class="highlight">오늘입니다!</span>`;
+        } else {
+            summary = `${y}년 ${m}월 ${d}일(${dow})은 오늘 기준 <span class="highlight">${absDays}일 지났습니다.</span>`;
+        }
+
+        const detail = `
+            총 <span class="highlight">${weeks}주 ${remainDays}일</span> 차이입니다.<br>
+            (D${days > 0 ? "-" + days : days === 0 ? "DAY" : "+" + absDays})
+        `;
+
+        document.getElementById("resultArea").innerHTML = `
+            <div class="result-card">
+                <div class="result-title">요약</div>
+                <div class="result-line">${summary}</div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-title">상세 정보</div>
+                <div class="result-line">${detail}</div>
+            </div>
+        `;
+
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+</script>
+
 </body>
 </html>

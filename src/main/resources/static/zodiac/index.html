@@ -5,27 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>띠·띠궁합 - 어르신 생활도우미</title>
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/zodiac.css">
+
+    <style>
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 32px;
+        }
+
+        .menu-card {
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .menu-card:hover {
+            background: var(--primary-soft);
+            transform: translateY(-2px);
+        }
+
+        .menu-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        .menu-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .sub-menu-section {
+            margin-top: 40px;
+        }
+
+        .sub-menu-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--text-sub);
+        }
+
+        .sub-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .sub-menu-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .sub-menu-card:hover {
+            background: var(--primary-soft);
+        }
+    </style>
 </head>
 <body>
     <div class="page">
-        <div class="page-header">
-            <div class="page-header-top">
-                <a href="../index.html" class="back-btn">←</a>
-                <div>
-                    <h1 class="page-title">띠·띠궁합</h1>
-                </div>
-            </div>
-            <p class="page-subtitle">손주 띠, 부부 띠궁합 등 띠 관련 정보를 정리해 드립니다.</p>
+        <a href="../index.html" class="back-btn">←</a>
+
+        <div class="page-title">띠·띠궁합</div>
+        <div class="page-subtitle">손주 띠, 부부 띠궁합 등 띠 관련 정보를 정리해 드립니다.</div>
+
+        <!-- 메인 메뉴 -->
+        <div class="menu-grid">
+            <a href="my-zodiac.html" class="menu-card">
+                <div class="menu-icon">🐲</div>
+                <div class="menu-title">내 띠<br>알아보기</div>
+            </a>
+
+            <a href="compatibility.html" class="menu-card">
+                <div class="menu-icon">❤️</div>
+                <div class="menu-title">띠궁합<br>확인하기</div>
+            </a>
         </div>
-        
-        <div class="content-card">
-            <p style="font-size: 22px; text-align: center; color: var(--text-sub);">
-                이 기능은 곧 추가됩니다.
-            </p>
+
+        <!-- 부가 기능 -->
+        <div class="sub-menu-section">
+            <div class="sub-menu-title">─── 더 보기 ───</div>
+
+            <div class="sub-menu-grid">
+                <a href="future-baby.html" class="sub-menu-card">
+                    👶 손주 띠 미리보기
+                </a>
+
+                <a href="personality.html" class="sub-menu-card">
+                    📖 띠별 성격/운세
+                </a>
+            </div>
         </div>
     </div>
-    
-    <script src="../js/zodiac.js"></script>
 </body>
 </html>

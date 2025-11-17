@@ -1,13 +1,16 @@
+/* ==================== 공통 레이아웃 ==================== */
 .page-header {
     margin-bottom: 20px;
 }
 
 .page-title {
-    font-size: 36px;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .page-subtitle {
-    font-size: 22px;
+    font-size: 26px;
     color: var(--text-sub);
 }
 
@@ -18,9 +21,21 @@
 }
 
 .back-btn {
-    font-size: 34px;
+    font-size: 40px;
     text-decoration: none;
-    color: var(--primary);
+    color: var(--text-main);
+}
+
+/* ==================== 입력 카드 (index 페이지용) ==================== */
+.input-card {
+    background: var(--card);
+    padding: 22px;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-top: 16px;
+    box-sizing: border-box;
 }
 
 .content-card {
@@ -32,6 +47,7 @@
     margin-bottom: 26px;
 }
 
+/* ==================== 입력 요소 ==================== */
 .label-big {
     font-size: 26px;
     display: block;
@@ -40,11 +56,29 @@
 
 .big-input {
     width: 100%;
-    padding: 12px;
-    font-size: 24px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    margin-bottom: 18px;
+    padding: 20px;
+    font-size: 28px;
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ==================== 버튼 ==================== */
+.big-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 22px;
+    font-size: 30px;
+    border-radius: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.big-btn:hover {
+    background: #184aa0;
 }
 
 .big-btn-main-action {
@@ -62,6 +96,89 @@
     opacity: .9;
 }
 
+/* ==================== 띠 선택 그리드 ==================== */
+.zodiac-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.zodiac-grid button {
+    padding: 14px 0;
+    font-size: 24px;
+    background: var(--primary-soft);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.zodiac-grid button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ==================== 연도 후보 버튼 ==================== */
+.cand-year-btn {
+    padding: 12px 18px;
+    font-size: 24px;
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary);
+    margin: 6px;
+    cursor: pointer;
+}
+
+.cand-year-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ==================== 결과 페이지 (result.html) ==================== */
+.result-wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.result-wrapper .page-title {
+    text-align: center;
+}
+
+.result-wrapper .page-subtitle {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.result-card {
+    background: var(--card);
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    padding: 22px;
+    margin-bottom: 18px;
+    font-size: 28px;
+    line-height: 1.6;
+}
+
+.result-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.result-line {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.highlight {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 30px;
+}
+
 .result-box {
     margin-top: 20px;
     background: var(--primary-soft);
@@ -74,7 +191,37 @@
     margin: 10px 0;
 }
 
-/* 아래 추천 기능 */
+.small-nav-btn {
+    padding: 14px 28px;
+    font-size: 26px;
+    border: 2px solid var(--primary);
+    background: var(--card);
+    border-radius: 14px;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.small-nav-btn:hover {
+    background: var(--primary-soft);
+}
+
+.back-main-btn {
+    margin-top: 32px;
+    padding: 18px 32px;
+    font-size: 30px;
+    width: 100%;
+    background: var(--primary);
+    border-radius: 16px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.back-main-btn:hover {
+    opacity: 0.92;
+}
+
+/* ==================== 아래 추천 기능 ==================== */
 .sub-section {
     margin-top: 20px;
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>띠별 성격/운세</title>
+    <link rel="stylesheet" href="../css/base.css">
+
+    <style>
+        .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px; }
+        .card { background:var(--card); border:2px solid var(--primary); border-radius:14px; padding:20px; text-align:center; font-size:26px; cursor:pointer; }
+        .detail { margin-top:30px; padding:26px; background:var(--card); border-radius:16px; border:2px solid var(--primary); }
+        .title { font-size:32px; margin-bottom:14px; }
+        .desc { font-size:26px; line-height:1.6; }
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="page-title">띠별 성격/운세</div>
+
+    <div class="grid" id="g"></div>
+
+    <div id="detail"></div>
+</div>
+
+<script>
+    const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
+    const emojis  = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
+
+    const personalities = {
+        "쥐":["총명하고 재치있음","계획적이고 현실적","사교성이 좋음"],
+        "소":["성실하고 책임감 강함","차분하고 신중함","꾸준한 노력"],
+        "호랑이":["용감하고 리더 성향","결단력 우수","정의감 강함"],
+        "토끼":["온화하고 친절함","감수성 풍부","대인관계 좋음"],
+        "용":["열정적·창의적","리더십 강함","자존심 강함"],
+        "뱀":["지혜롭고 분석적","직관력 우수","침착함"],
+        "말":["활발·외향적","낙천적","매력적인 성향"],
+        "양":["온순하고 정 많음","평화적","예술 감각"],
+        "원숭이":["영리하고 재능 다수","유머 감각","빠른 적응"],
+        "닭":["성실·부지런","관찰력 뛰어남","정직함"],
+        "개":["충직·성실","정의감 강함","배려심 깊음"],
+        "돼지":["순수·후함","편안한 성향","신뢰감 높음"]
+    };
+
+    document.getElementById("g").innerHTML =
+        animals.map((a,i)=>`
+            <div class="card" onclick="show('${a}', '${emojis[i]}')">${emojis[i]}<br>${a}띠</div>
+        `).join("");
+
+    function show(a, e){
+        document.getElementById("detail").innerHTML = `
+            <div class="detail">
+                <div class="title">${e} ${a}띠 성격</div>
+                <div class="desc">${personalities[a].map(v=>"• "+v).join("<br>")}</div>
+            </div>
+        `;
+    }
+</script>
+</body>
+</html>

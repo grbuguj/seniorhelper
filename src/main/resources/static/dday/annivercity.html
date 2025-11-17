@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기념일 계산기</title>
+    <link rel="stylesheet" href="../css/base.css">
+
+    <style>
+        .input-box {
+            background: var(--card);
+            padding: 26px;
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            margin-top: 20px;
+            text-align: center;
+        }
+        .big-input {
+            width: 100%;
+            padding: 18px;
+            font-size: 28px;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            text-align: center;
+        }
+        .btn-main {
+            width: 100%;
+            padding: 22px;
+            margin-top: 20px;
+            font-size: 30px;
+            border-radius: 14px;
+            border: none;
+            background: var(--primary);
+            color: white;
+        }
+        .btn-today {
+            margin-top: 14px;
+            font-size: 26px;
+            padding: 14px 20px;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+        }
+        .result-table {
+            margin-top: 26px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 26px;
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .result-table th, .result-table td {
+            border-bottom: 1px solid var(--border);
+            padding: 18px;
+        }
+        .result-table th {
+            background: #f0f4ff;
+            font-size: 28px;
+        }
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .sub-btns {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+        .small-btn {
+            padding: 18px 26px;
+            font-size: 26px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            background: white;
+        }
+        .info-box {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            margin-top: 40px;
+            font-size: 26px;
+            line-height: 1.55;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+
+    <a href="../index.html" class="back-btn">←</a>
+
+    <h1 class="page-title">기념일 계산기</h1>
+
+    <div class="input-box">
+        <div style="font-size:28px; margin-bottom:16px;">시작 날짜를 선택해주세요</div>
+
+        <input id="baseDate" type="date" class="big-input">
+
+        <button class="btn-today" onclick="setToday()">오늘 날짜로 입력</button>
+
+        <button class="btn-main" onclick="calc()">계산하기</button>
+    </div>
+
+    <div id="results"></div>
+
+    <div class="info-box">
+        <div style="font-size:30px; margin-bottom:10px;">기념일 계산이란?</div>
+        기념일 계산은 특정 날짜를 기준으로
+        며칠째 되는 날이 언제인지 계산하는 기능입니다.<br><br>
+
+        한국에서는 100일, 200일, 300일 등
+        ‘N일 기념일’ 문화가 널리 퍼져 있어
+        만난 날, 결혼기념일, 생일, 입사일 등을 기념할 때
+        자주 사용됩니다.
+    </div>
+
+    <div class="sub-btns">
+        <button class="small-btn" onclick="location.href='../date-diff/index.html'">날짜 차이 계산기</button>
+        <button class="small-btn" onclick="location.href='../date-plusminus/index.html'">날짜 더하기·빼기</button>
+        <button class="small-btn" onclick="location.href='../dday/index.html'">디데이 계산기</button>
+        <button class="small-btn" onclick="location.href='../index.html'">메인 화면</button>
+    </div>
+
+</div>
+
+<script>
+    const list = [
+        {days: 30, name: "30일째"},
+        {days: 50, name: "50일째"},
+        {days: 100, name: "100일째"},
+        {days: 200, name: "200일째"},
+        {days: 300, name: "300일째"},
+        {days: 365, name: "1주년"},
+        {days: 500, name: "500일"},
+        {days: 700, name: "700일"},
+        {days: 1000, name: "1000일"},
+        {days: 2000, name: "2000일"},
+        {days: 10000, name: "만일"}
+    ];
+
+    function setToday() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        document.getElementById("baseDate").value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    function calc() {
+        const d = document.getElementById("baseDate").value;
+        if (!d) return alert("날짜를 선택해주세요!");
+
+        const base = new Date(d);
+
+        let rows = `
+            <table class="result-table">
+                <tr>
+                    <th>기념일</th>
+                    <th>날짜</th>
+                </tr>
+        `;
+
+        list.forEach(item => {
+            const target = new Date(base);
+            target.setDate(target.getDate() + item.days);
+
+            const result = `${target.getFullYear()}년 ${target.getMonth()+1}월 ${target.getDate()}일`;
+
+            rows += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><span class="highlight">${result}</span></td>
+                </tr>
+            `;
+        });
+
+        rows += `</table>`;
+
+        document.getElementById("results").innerHTML = rows;
+    }
+</script>
+
+</body>
+</html>

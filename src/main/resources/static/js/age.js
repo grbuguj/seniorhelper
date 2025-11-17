@@ -9,3 +9,4 @@ function goAgeResult() {
     location.href = `/age/result.html?year=${y}`;
 }
 
+
