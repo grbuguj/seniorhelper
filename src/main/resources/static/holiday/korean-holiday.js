@@ -1,14 +1,7 @@
-// korean-holiday.js
-
-// 음력 → 양력 변환기 (한국천문연구원 알고리즘 기반 경량 버전)
-function lunarToSolar(yy, mm, dd) {
-    const months = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    const nleap = (yy - 1) / 4 - (yy - 1) / 100 + (yy - 1) / 400;
-    const base = yy * 365 + nleap + months[mm - 1] + dd;
-    const d = new Date(yy, 0, 1);
-    d.setDate(d.getDate() + (base - (yy * 365 + nleap + months[0] + 1)));
-    return d;
-}
+// korean-holiday.js (리팩터링 버전)
+// - 2025~2030년 공휴일 계산
+// - 양력 고정 공휴일 + 음력(설날, 부처님오신날, 추석) → KoreanLunarCalendar로 계산
+// - 대체공휴일 로직은 기존 방식 유지
 
 // YYYY-MM-DD 문자열 생성
 function formatDate(date) {
@@ -18,76 +11,217 @@ function formatDate(date) {
     return `${y}-${m}-${d}`;
 }
 
-// 대체공휴일 적용
-function applyAlternativeHolidays(holidays) {
-    const result = [...holidays];
+// 날짜에 일수 더하기
+function addDays(dateStr, days) {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + days);
+    return formatDate(date);
+}
 
-    holidays.forEach(h => {
-        const date = new Date(h.date);
-        const day = date.getDay();
+// 요일 구하기 (0=일요일, 6=토요일)
+function getDayOfWeek(dateStr) {
+    return new Date(dateStr).getDay();
+}
 
-        if (day === 0 || day === 6) {
-            // 주말이면 다음 월요일을 대체공휴일로 추가
-            const sub = new Date(date);
-            sub.setDate(sub.getDate() + (day === 0 ? 1 : 2));
-            result.push({
-                name: `${h.name} 대체공휴일`,
-                date: formatDate(sub),
-                substitute: true
-            });
+// 해당 년도인지 체크
+function isSameYear(dateStr, year) {
+    return new Date(dateStr).getFullYear() === year;
+}
+
+// 주말인지 체크
+function isWeekend(dateStr) {
+    const day = getDayOfWeek(dateStr);
+    return day === 0 || day === 6;
+}
+
+// 대체공휴일 찾기 (이미 공휴일/주말이 아닌 첫 평일)
+function findSubstituteDate(dateStr, existingDates) {
+    let checkDate = new Date(dateStr);
+    const originalDay = getDayOfWeek(dateStr);
+
+    // 토요일 → 다음 다음날(월), 일요일 → 다음날(월)
+    if (originalDay === 6) {
+        checkDate.setDate(checkDate.getDate() + 2);
+    } else if (originalDay === 0) {
+        checkDate.setDate(checkDate.getDate() + 1);
+    }
+
+    while (true) {
+        const checkStr = formatDate(checkDate);
+        const dayOfWeek = checkDate.getDay();
+
+        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+            const isHoliday = existingDates.includes(checkStr);
+            if (!isHoliday) {
+                return checkStr;
+            }
         }
-    });
+        checkDate.setDate(checkDate.getDate() + 1);
+    }
+}
 
-    return result;
+// 음력 → 양력 변환 헬퍼
+function lunarToSolarDate(year, lunarMonth, lunarDay, isLeap) {
+    const cal = new KoreanLunarCalendar();
+    const ok = cal.setLunarDate(year, lunarMonth, lunarDay, isLeap);
+    if (!ok) return null;
+
+    const sol = cal.getSolarCalendar();
+    const dateStr = formatDate(new Date(sol.year, sol.month - 1, sol.day));
+    return {
+        dateStr,
+        solarYear: sol.year,
+        solarMonth: sol.month,
+        solarDay: sol.day
+    };
 }
 
 // 메인 함수
 function getKoreanHolidays(year) {
+    // 2025~2030년만 지원
+    if (year < 2025 || year > 2030) {
+        return [];
+    }
+
     const holidays = [];
+    const allDates = [];
 
-    // 양력 공휴일
-    holidays.push({ name: "신정", date: `${year}-01-01` });
-    holidays.push({ name: "삼일절", date: `${year}-03-01` });
-    holidays.push({ name: "제헌절", date: `${year}-07-17` });
-    holidays.push({ name: "광복절", date: `${year}-08-15` });
-    holidays.push({ name: "개천절", date: `${year}-10-03` });
-    holidays.push({ name: "한글날", date: `${year}-10-09` });
-    holidays.push({ name: "성탄절", date: `${year}-12-25` });
+    // 1) 양력 고정 공휴일
+    holidays.push({ name: "신정", date: `${year}-01-01`, isFixed: true });
+    holidays.push({ name: "삼일절", date: `${year}-03-01`, isFixed: true });
+    holidays.push({ name: "어린이날", date: `${year}-05-05`, isFixed: true });
+    holidays.push({ name: "현충일", date: `${year}-06-06`, isFixed: false }); // 대체공휴일 없음
+    holidays.push({ name: "광복절", date: `${year}-08-15`, isFixed: true });
+    holidays.push({ name: "개천절", date: `${year}-10-03`, isFixed: true });
+    holidays.push({ name: "한글날", date: `${year}-10-09`, isFixed: true });
+    holidays.push({ name: "성탄절", date: `${year}-12-25`, isFixed: true });
 
-    // 음력 공휴일: 설날(음력 1/1)
-    const seollal = lunarToSolar(year, 1, 1);
-    const seollalEve = new Date(seollal); seollalEve.setDate(seollalEve.getDate() - 1);
-    const seollalNext = new Date(seollal); seollalNext.setDate(seollalNext.getDate() + 1);
+    // 2) 선거일(예: 2026 지선)
+    if (year === 2026) {
+        holidays.push({ name: "제9회 전국동시지방선거", date: "2026-06-03", isFixed: false });
+    }
 
-    holidays.push({ name: "설날 연휴", date: formatDate(seollalEve) });
-    holidays.push({ name: "설날", date: formatDate(seollal) });
-    holidays.push({ name: "설날 연휴", date: formatDate(seollalNext) });
+    // 3) 음력 공휴일 (설날, 부처님 오신 날, 추석) → KoreanLunarCalendar로 계산
 
-    // 부처님 오신날 (음력 4/8)
-    const budda = lunarToSolar(year, 4, 8);
-    holidays.push({ name: "부처님 오신 날", date: formatDate(budda) });
+    // 3-1) 설날 (음력 1월 1일 기준, 전날/다음날 포함 3일)
+    const seollalMain = lunarToSolarDate(year, 1, 1, false);
+    if (seollalMain) {
+        const mainDate = seollalMain.dateStr;
+        const beforeDate = addDays(mainDate, -1);
+        const afterDate = addDays(mainDate, 1);
 
-    // 추석 (음력 8/15)
-    const chuseok = lunarToSolar(year, 8, 15);
-    const chuseokEve = new Date(chuseok); chuseokEve.setDate(chuseokEve.getDate() - 1);
-    const chuseokNext = new Date(chuseok); chuseokNext.setDate(chuseokNext.getDate() + 1);
+        if (isSameYear(beforeDate, year)) {
+            holidays.push({
+                name: "설날 연휴",
+                date: beforeDate,
+                isLunar: true,
+                isMainDay: true,
+                lunarMonth: 1,
+                lunarDay: 0  // 표시용으로 쓰려면 원하는 값으로 바꿔도 됨
+            });
+        }
+        holidays.push({
+            name: "설날",
+            date: mainDate,
+            isLunar: true,
+            isMainDay: true,
+            lunarMonth: 1,
+            lunarDay: 1
+        });
+        if (isSameYear(afterDate, year)) {
+            holidays.push({
+                name: "설날 연휴",
+                date: afterDate,
+                isLunar: true,
+                isMainDay: true,
+                lunarMonth: 1,
+                lunarDay: 2
+            });
+        }
+    }
 
-    holidays.push({ name: "추석 연휴", date: formatDate(chuseokEve) });
-    holidays.push({ name: "추석", date: formatDate(chuseok) });
-    holidays.push({ name: "추석 연휴", date: formatDate(chuseokNext) });
+    // 3-2) 부처님 오신 날 (음력 4월 8일)
+    const buddha = lunarToSolarDate(year, 4, 8, false);
+    if (buddha && isSameYear(buddha.dateStr, year)) {
+        holidays.push({
+            name: "부처님 오신 날",
+            date: buddha.dateStr,
+            isLunar: true,
+            isMainDay: true,
+            lunarMonth: 4,
+            lunarDay: 8
+        });
+    }
 
-    // 어린이날 (5/5)
-    const children = new Date(year, 4, 5);
-    holidays.push({ name: "어린이날", date: formatDate(children) });
+    // 3-3) 추석 (음력 8월 15일 기준, 전날/다음날 포함 3일)
+    const chuseokMain = lunarToSolarDate(year, 8, 15, false);
+    if (chuseokMain) {
+        const mainDate = chuseokMain.dateStr;
+        const beforeDate = addDays(mainDate, -1);
+        const afterDate = addDays(mainDate, 1);
 
-    // 정렬
-    holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
+        if (isSameYear(beforeDate, year)) {
+            holidays.push({
+                name: "추석 연휴",
+                date: beforeDate,
+                isLunar: true,
+                isMainDay: true,
+                lunarMonth: 8,
+                lunarDay: 14
+            });
+        }
+        holidays.push({
+            name: "추석",
+            date: mainDate,
+            isLunar: true,
+            isMainDay: true,
+            lunarMonth: 8,
+            lunarDay: 15
+        });
+        if (isSameYear(afterDate, year)) {
+            holidays.push({
+                name: "추석 연휴",
+                date: afterDate,
+                isLunar: true,
+                isMainDay: true,
+                lunarMonth: 8,
+                lunarDay: 16
+            });
+        }
+    }
 
-    // 대체공휴일 적용
-    return applyAlternativeHolidays(holidays);
+    // 4) 해당 년도만 필터링 (혹시라도 cross-year 걸린 것 정리)
+    const yearHolidays = holidays.filter(h => isSameYear(h.date, year));
+
+    // 5) 모든 날짜 수집 (대체공휴일 중복 방지용)
+    yearHolidays.forEach(h => allDates.push(h.date));
+
+    // 6) 대체공휴일 처리
+    const processedHolidays = [];
+
+    yearHolidays.forEach(h => {
+        const canHaveSubstitute = (h.isFixed || h.isMainDay) && h.name !== "현충일";
+
+        if (canHaveSubstitute && isWeekend(h.date)) {
+            const subDate = findSubstituteDate(h.date, allDates);
+            allDates.push(subDate);
+
+            processedHolidays.push({
+                ...h,
+                substituteDate: subDate,
+                isWeekendOriginal: true
+            });
+        } else {
+            processedHolidays.push(h);
+        }
+    });
+
+    return processedHolidays;
 }
 
 // 전역 등록
 window.KoreanHoliday = {
-    getHolidaysOfYear: getKoreanHolidays
+    getHolidaysOfYear: getKoreanHolidays,
+    MIN_YEAR: 2025,
+    MAX_YEAR: 2030
 };

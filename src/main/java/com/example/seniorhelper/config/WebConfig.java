@@ -21,6 +21,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/school/").setViewName("forward:/school/index.html");
         registry.addViewController("/holiday/").setViewName("forward:/holiday/index.html");
         registry.addViewController("/nolucky/").setViewName("forward:/nolucky/index.html");
-        registry.addViewController("/articles/").setViewName("forward:/articles/index.html");
+        registry.addViewController("/datediff/").setViewName("forward:/date-diff/index.html");
+        registry.addViewController("/dateplus/").setViewName("forward:/date-plusminus/index.html");
+        registry.addViewController("/annivercity/").setViewName("forward:/dday/annivercity.html");
+        registry.addViewController("/convert/").setViewName("forward:/convert/index.html");
     }
 }
