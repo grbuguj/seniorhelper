@@ -1,0 +1,92 @@
+<!-- SEO 메타태그 템플릿 -->
+<!-- 각 페이지에 복사해서 사용하세요 -->
+<!-- {PAGE_NAME}, {DESCRIPTION}, {URL_PATH} 를 실제 값으로 교체 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>{PAGE_NAME} | 시니어 계산 도우미</title>
+    <meta name="description" content="{DESCRIPTION}">
+    <meta name="keywords" content="{KEYWORDS}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://woong.io.kr/{URL_PATH}/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{PAGE_NAME} | 시니어 계산 도우미">
+    <meta property="og:description" content="{DESCRIPTION}">
+    <meta property="og:url" content="https://woong.io.kr/{URL_PATH}/">
+    <meta property="og:site_name" content="시니어 계산 도우미">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{PAGE_NAME}">
+    <meta name="twitter:description" content="{DESCRIPTION}">
+    
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "{PAGE_NAME}",
+      "url": "https://woong.io.kr/{URL_PATH}/",
+      "description": "{DESCRIPTION}",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
+    }
+    </script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/base.css">
+</head>
+
+<!-- 페이지 공통 요소 -->
+
+<!-- 글자 크게 보기 버튼 (body 시작 직후) -->
+<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+
+<!-- 광고 공간 (필요한 위치에 추가) -->
+<!-- TODO: AdSense 승인 후 활성화 -->
+<!--
+<div class="ad-space">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-0000000000000000"
+         data-ad-slot="0000000000"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+-->
+<div class="ad-space" style="min-height:90px;background:#f9f9f9;border:1px dashed #ddd;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#999;margin:20px 0;">
+    광고 영역 (승인 대기중)
+</div>
+
+<!-- Footer (body 끝나기 전) -->
+<footer style="margin-top:30px;padding:20px;text-align:center;background:var(--card);border-radius:12px;border:1px solid var(--border);">
+    <p style="margin-bottom:10px;">© 2025 시니어 계산 도우미</p>
+    <p>
+        <a href="../privacy/" style="color:var(--primary);margin:0 8px;">개인정보 처리방침</a> | 
+        <a href="../terms/" style="color:var(--primary);margin:0 8px;">이용약관</a> | 
+        <a href="../contact/" style="color:var(--primary);margin:0 8px;">문의하기</a>
+    </p>
+</footer>
+
+<!-- 공통 JS (body 끝) -->
+<script src="../js/common.js"></script>
+
+<!-- Google AdSense (승인 후 활성화) -->
+<!--
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+     crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->

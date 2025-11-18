@@ -1,9 +1,122 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <title>어르신 생활도우미</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>시니어 계산 도우미 - 나이, 날짜, 띠, 공휴일 계산기</title>
+    <meta name="description" content="어르신을 위한 쉬운 계산기 모음. 나이 계산, 만 나이, 띠 확인, 공휴일, 손없는날, 양력음력 변환까지 한 곳에서. 큰 글씨, 큰 버튼으로 편리하게 이용하세요.">
+    <meta name="keywords" content="나이 계산기, 만 나이, 띠 확인, 공휴일, 손없는날, 양력음력변환, 디데이, 어르신, 시니어">
+    <meta name="author" content="시니어 계산 도우미">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://woong.io.kr/">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="시니어 계산 도우미 - 나이, 날짜, 띠, 공휴일 계산기">
+    <meta property="og:description" content="어르신을 위한 쉬운 계산기 모음. 큰 글씨, 큰 버튼으로 편리하게 이용하세요.">
+    <meta property="og:url" content="https://woong.io.kr/">
+    <meta property="og:site_name" content="시니어 계산 도우미">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="시니어 계산 도우미">
+    <meta name="twitter:description" content="어르신을 위한 쉬운 계산기 모음">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌞</text></svg>">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "시니어 계산 도우미",
+      "url": "https://woong.io.kr/",
+      "description": "어르신을 위한 각종 계산기 모음 서비스",
+      "publisher": {
+        "@type": "Organization",
+        "name": "시니어 계산 도우미"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://woong.io.kr/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "WebApplication",
+            "name": "나이 계산기",
+            "url": "https://woong.io.kr/age/",
+            "description": "생년월일로 현재 나이 계산",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "WebApplication",
+            "name": "만 나이 계산기",
+            "url": "https://woong.io.kr/age-man/",
+            "description": "공식 서류용 만 나이 계산",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "WebApplication",
+            "name": "공휴일 한눈에",
+            "url": "https://woong.io.kr/holiday/",
+            "description": "연도별 공휴일 및 대체공휴일 확인",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "WebApplication",
+            "name": "손없는날",
+            "url": "https://woong.io.kr/nolucky/",
+            "description": "이사·행사에 좋은 손없는날 확인",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "WebApplication",
+            "name": "양력음력 변환기",
+            "url": "https://woong.io.kr/convert/",
+            "description": "양력과 음력 날짜 변환",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "All"
+          }
+        }
+      ]
+    }
+    </script>
     <style>
         :root {
             --bg: #f3f5fb;
@@ -23,10 +136,35 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: system-ui, -apple-system, "Noto Sans KR", BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: var(--bg);
             color: var(--text-main);
             padding: 16px;
+        }
+
+        /* 글자 크게 보기 */
+        body.large-text {
+            font-size: 125%;
+        }
+
+        body.large-text .site-title {
+            font-size: 62px;
+        }
+
+        body.large-text .site-subtitle {
+            font-size: 31px;
+        }
+
+        body.large-text .big-btn-main {
+            font-size: 42px;
+        }
+
+        body.large-text .big-btn-sub {
+            font-size: 31px;
+        }
+
+        body.large-text .section-title {
+            font-size: 30px;
         }
 
         .page {
@@ -34,18 +172,18 @@
             margin: 0 auto;
         }
 
-        /* 상단 광고 배너 (얇게) */
-        .top-ad {
+        /* 광고 영역 (주석 처리됨) */
+        .ad-space {
             width: 100%;
-            min-height: 60px;
-            background: #ffffff;
-            border: 1px solid var(--border);
+            min-height: 90px;
+            background: #f9f9f9;
+            border: 1px dashed #ddd;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            color: var(--text-sub);
+            color: #999;
             margin-bottom: 16px;
         }
 
@@ -61,6 +199,27 @@
             align-items: center;
             gap: 16px;
             margin-bottom: 18px;
+            position: relative;
+        }
+
+        /* 글자 크기 버튼 */
+        .text-size-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .text-size-btn:hover {
+            opacity: 0.9;
         }
 
         .logo-circle {
@@ -225,9 +384,23 @@
 
         footer {
             margin-top: 24px;
-            font-size: 13px;
+            padding: 20px;
+            font-size: 14px;
             color: var(--text-sub);
             text-align: center;
+            background: var(--card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 720px) {
@@ -239,7 +412,13 @@
                 grid-template-columns: 1fr;
             }
             .site-title {
-                font-size: 24px;
+                font-size: 38px;
+            }
+            .text-size-btn {
+                top: 10px;
+                right: 10px;
+                font-size: 14px;
+                padding: 8px 14px;
             }
         }
     </style>
@@ -247,19 +426,31 @@
 <body>
 <div class="page">
 
-    <!-- 상단 광고 자리 -->
-    <div class="top-ad">
-        광고 영역 (예: 728×90 배너)
+    <!-- 광고 공간 (AdSense 승인 후 활성화) -->
+    <!-- TODO: Google AdSense 승인 후 아래 주석 해제 -->
+    <!--
+    <div class="ad-space">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-0000000000000000"
+             data-ad-slot="0000000000"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
     </div>
+    -->
+    <div class="ad-space">광고 영역 (승인 대기중)</div>
 
     <!-- 헤더 -->
     <header>
-        <div class="logo-circle" aria-hidden="true">🌞</div>
+        <!-- 글자 크게 보기 버튼 -->
+        <button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+
+        <div class="logo-circle" aria-label="로고" role="img">🌞</div>
         <div class="header-texts">
-            <div class="site-title">어르신 생활도우미</div>
-            <div class="site-subtitle">
+            <h1 class="site-title">시니어 계산 도우미</h1>
+            <p class="site-subtitle">
                 나이·띠·날짜 계산을 한 곳에서, 글씨는 크게, 버튼은 넓게.
-            </div>
+            </p>
 
             <div class="time-card" id="timeCard">
                 <div class="time-emoji" id="timeEmoji">🌞</div>
@@ -275,7 +466,7 @@
 
     <!-- 주요 기능 버튼 -->
     <section class="section">
-        <div class="section-title">자주 쓰는 기능</div>
+        <h2 class="section-title">자주 쓰는 기능</h2>
         <div class="grid-main">
             <button class="big-btn" onclick="location.href='age/'">
                 <div class="big-btn-main">나이 계산기</div>
@@ -320,24 +511,24 @@
             </button>
 
             <button class="big-btn" onclick="location.href='nolucky/'">
-                <div class="big-btn-main">손 없는 날</div>
-                <div class="big-btn-sub">이사·행사에 많이 보는 손 없는 날을 모아드립니다.</div>
+                <div class="big-btn-main">손없는날</div>
+                <div class="big-btn-sub">이사·행사에 많이 보는 손없는날을 모아드립니다.</div>
                 <div class="big-btn-tag">이사·행사</div>
             </button>
 
-            <button class="big-btn" onclick="location.href='datediff/'">
+            <button class="big-btn" onclick="location.href='date-diff/'">
                 <div class="big-btn-main">날짜 차이 계산기</div>
                 <div class="big-btn-sub">두 날짜 사이가 며칠 차이인지 빠르게 알려드립니다.</div>
                 <div class="big-btn-tag">빠른 계산</div>
             </button>
 
-            <button class="big-btn" onclick="location.href='dateplus/'">
+            <button class="big-btn" onclick="location.href='date-plusminus/'">
                 <div class="big-btn-main">날짜 더하기·빼기</div>
                 <div class="big-btn-sub">특정 날짜에서 +일/-일 계산을 쉽게 도와드립니다.</div>
                 <div class="big-btn-tag">날짜 계산</div>
             </button>
 
-            <button class="big-btn" onclick="location.href='annivercity/'">
+            <button class="big-btn" onclick="location.href='anniversary/'">
                 <div class="big-btn-main">기념일 계산기</div>
                 <div class="big-btn-sub">기념일로부터 100일, 200일 등을 쉽게 계산합니다.</div>
                 <div class="big-btn-tag">기념일 계산</div>
@@ -376,10 +567,19 @@
     </section>
 
     <footer>
-        © 2025 어르신 생활도우미 · 필요한 계산이 더 있다면 언제든 알려주세요.
+        <p>© 2025 시니어 계산 도우미 · 필요한 계산이 더 있다면 언제든 알려주세요.</p>
+        <p style="margin-top: 10px;">
+            <a href="privacy/">개인정보 처리방침</a> |
+            <a href="terms/">이용약관</a> |
+            <a href="contact/">문의하기</a>
+        </p>
     </footer>
 </div>
 
+<!-- 공통 JS -->
+<script src="js/common.js"></script>
+
+<!-- 시간대별 인사말 -->
 <script>
     // 현재 시간에 따라 인사말/아이콘 변경
     (function () {
@@ -407,5 +607,16 @@
         }
     })();
 </script>
+
+<!-- Google AdSense (승인 후 활성화) -->
+<!-- TODO: AdSense 승인 후 아래 주석 해제하고 pub-id 입력 -->
+<!--
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+     crossorigin="anonymous"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
 </body>
 </html>

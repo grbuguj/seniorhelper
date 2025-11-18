@@ -10,7 +10,7 @@
 
 body {
     background: var(--bg);
-    font-family: "Segoe UI", sans-serif;
+    font-family: system-ui, -apple-system, "Noto Sans KR", "Segoe UI", sans-serif;
     margin: 0;
     padding: 16px;
 }
@@ -74,6 +74,12 @@ body {
     opacity: .9;
 }
 
+/* 메인 페이지 큰 버튼 */
+.big-btn-main {
+    font-size: 32px;
+    font-weight: 600;
+}
+
 .result-box {
     margin-top: 20px;
     background: var(--primary-light);
@@ -107,4 +113,57 @@ body {
     text-decoration: none;
     color: var(--primary);
     font-weight: 600;
+}
+
+/* ============================================
+   글자 크게 보기 기능
+   ============================================ */
+body.large-text {
+    font-size: 125%;
+}
+
+body.large-text .title {
+    font-size: 45px;
+}
+
+body.large-text .subtitle,
+body.large-text .label,
+body.large-text .big-input,
+body.large-text .link-btn {
+    font-size: 1.25em;
+}
+
+body.large-text .big-btn,
+body.large-text .big-btn-main,
+body.large-text .result-text {
+    font-size: 1.25em;
+}
+
+/* 글자 크기 버튼 스타일 */
+.text-size-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.text-size-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .text-size-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
 }
