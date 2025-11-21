@@ -22,9 +22,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/holiday/").setViewName("forward:/holiday/index.html");
         registry.addViewController("/nolucky/").setViewName("forward:/nolucky/index.html");
         registry.addViewController("/date-diff/").setViewName("forward:/date-diff/index.html");
-        registry.addViewController("/date-plusminus/").setViewName("forward:/date-plusminus/index.html");
+        registry.addViewController("/date-plus/").setViewName("forward:/date-plus/index.html");
+        registry.addViewController("/date-minus/").setViewName("forward:/date-minus/index.html");
+        registry.addViewController("/solar-to-lunar/").setViewName("forward:/solar-to-lunar/index.html");
+        registry.addViewController("/lunar-to-solar/").setViewName("forward:/lunar-to-solar/index.html");
         registry.addViewController("/anniversary/").setViewName("forward:/anniversary/index.html");
-        registry.addViewController("/convert/").setViewName("forward:/convert/index.html");
         
         // 정책 페이지
         registry.addViewController("/privacy/").setViewName("forward:/privacy/index.html");
