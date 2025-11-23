@@ -93,21 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnTodayLunar) {
         btnTodayLunar.addEventListener('click', function() {
             const today = new Date();
-            const year = today.getFullYear();
-            const month = today.getMonth() + 1;
-            const day = today.getDate();
-            
-            // 오늘을 음력으로 변환
-            const result = convertSolarToLunar(year, month, day);
-            
-            if (!result.error) {
-                document.getElementById('lunarYear').value = result.lunarYear;
-                document.getElementById('lunarMonth').value = result.lunarMonth;
-                document.getElementById('lunarDay').value = result.lunarDay;
-                document.getElementById('lunarLeap').value = result.isLeap ? '1' : '0';
-            } else {
-                alert('오늘 날짜를 음력으로 변환하는 중 오류가 발생했습니다.');
-            }
+            document.getElementById('lunarYear').value = today.getFullYear();
+            document.getElementById('lunarMonth').value = today.getMonth() + 1;
+            document.getElementById('lunarDay').value = today.getDate();
         });
     }
     
