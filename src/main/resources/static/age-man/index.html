@@ -3,236 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>만 나이 계산기 | 정확한 만 나이 확인</title>
-    <meta name="description" content="생년월일로 정확한 만 나이를 계산하세요">
+
+    <!-- SEO Meta Tags -->
+    <title>만 나이 계산기 - 공식 서류용 만 나이 확인 | woong.io.kr</title>
+    <meta name="description" content="병원, 은행, 관공서 등 공식 서류에 필요한 만 나이를 정확하게 계산해드립니다. 생년월일만 입력하세요.">
+    <meta name="keywords" content="만 나이, 만 나이 계산기, 공식 나이, 서류 나이, 생년월일 만나이">
+
     <link rel="canonical" href="https://woong.io.kr/age-man/">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --accent: #ec4899;
-            --bg: #fafafa;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --border: #e5e7eb;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        header {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .header-left { display: flex; align-items: center; gap: 16px; }
-        .logo { font-size: 2rem; }
-        .page-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .home-btn {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
-        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
-        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
-        .input-group { margin-bottom: 20px; }
-        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
-        .input-field {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.2s;
-        }
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
-        .result-box {
-            margin-top: 24px;
-            padding: 24px;
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-radius: 12px;
-            border: 2px solid var(--primary);
-        }
-        .result-main {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        .result-detail {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-        .sidebar { display: flex; flex-direction: column; gap: 20px; }
-        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
-        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
-        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
-        .sidebar-link {
-            padding: 12px 16px;
-            background: var(--bg);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
-        .sidebar-tip {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-        @media (max-width: 1024px) {
-            .main-layout { grid-template-columns: 1fr; }
-            .sidebar { order: -1; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
-    </style>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="만 나이 계산기 | woong.io.kr">
+    <meta property="og:description" content="공식 서류용 만 나이를 정확하게 계산하세요">
+    <meta property="og:url" content="https://woong.io.kr/age-man/">
+
+    <meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "만 나이 계산기",
+      "url": "https://woong.io.kr/age-man/",
+      "description": "공식 서류용 만 나이 계산 도구",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/age.css">
 </head>
+
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">🎂</span>
-            <h1 class="page-title">만 나이 계산</h1>
-        </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
+<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+<div class="page">
 
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="input-group">
-                    <label class="input-label">생년월일</label>
-                    <input type="date" id="birthDate" class="input-field">
-                </div>
-                <button class="btn-primary" onclick="calculate()">만 나이 계산</button>
-                <div id="result"></div>
-            </div>
-        </main>
+    <a href="/index.html" class="back-btn">←</a>
 
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>한국나이 계산</span></a>
-                    <a href="../age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
-                    <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                </div>
-            </div>
+    <div class="page-title">만 나이 계산기</div>
+    <div class="page-subtitle">출생 연도를 넣으면 올해 나이를 알려드립니다.</div>
 
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    만 나이는 공식 문서에서 사용되는 법적 나이입니다. 생일이 지나야 한 살 올라갑니다.
-                </div>
-            </div>
-        </aside>
+    <!-- 입력 -->
+    <div class="input-card">
+        <input id="birthYear"
+               class="big-input"
+               type="number"
+               placeholder="예: 1950" />
+
+        <button class="big-btn" onclick="goAgeResult()">계산하기</button>
     </div>
+
+    <div style="margin-top:32px; font-size:30px; font-weight:600;">
+        혹시 연도가 기억나지 않으신가요?
+    </div>
+
+    <!-- 띠 선택 -->
+    <div class="input-card">
+
+        <div style="font-size:26px; margin-bottom:12px; color:var(--text-sub);">
+            태어난 띠를 누르시면 가능한 출생 연도가 아래에 나옵니다.
+        </div>
+
+        <!-- 12띠 버튼 -->
+        <div class="zodiac-grid">
+            <button onclick="selectZodiac('쥐')">쥐띠</button>
+            <button onclick="selectZodiac('소')">소띠</button>
+            <button onclick="selectZodiac('호랑이')">호랑이띠</button>
+            <button onclick="selectZodiac('토끼')">토끼띠</button>
+
+            <button onclick="selectZodiac('용')">용띠</button>
+            <button onclick="selectZodiac('뱀')">뱀띠</button>
+            <button onclick="selectZodiac('말')">말띠</button>
+            <button onclick="selectZodiac('양')">양띠</button>
+
+            <button onclick="selectZodiac('원숭이')">원숭이띠</button>
+            <button onclick="selectZodiac('닭')">닭띠</button>
+            <button onclick="selectZodiac('개')">개띠</button>
+            <button onclick="selectZodiac('돼지')">돼지띠</button>
+        </div>
+
+        <!-- 여기 아래에 연도 후보 표시됨 -->
+        <div id="yearList" style="margin-top:20px; font-size:26px;"></div>
+    </div>
+
 </div>
 
+
 <script>
-    window.onload = function() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('birthDate').value = `${yyyy-30}-${mm}-${dd}`;
-    };
-
-    function calculate() {
-        const birthDate = document.getElementById('birthDate').value;
-        if (!birthDate) {
-            alert('생년월일을 입력해주세요');
-            return;
-        }
-
-        const birth = new Date(birthDate);
-        const today = new Date();
-
-        let age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            age--;
-        }
-
-        const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
-        if (nextBirthday < today) {
-            nextBirthday.setFullYear(today.getFullYear() + 1);
-        }
-
-        const daysUntilBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
-
-        let html = `
-                <div class="result-box">
-                    <div class="result-main">만 ${age}세</div>
-                    <div class="result-detail">
-                        • 생년월일: ${birth.getFullYear()}년 ${birth.getMonth()+1}월 ${birth.getDate()}일<br>
-                        • 한국나이: 만 ${age + 1}세 (올해 생일 전) / 만 ${age + 2}세 (생일 후)<br>
-                        • 다음 생일까지: ${daysUntilBirthday}일 남음
-                    </div>
-                </div>
-            `;
-
-        document.getElementById('result').innerHTML = html;
+    function goAgeResult() {
+        const y = document.getElementById("birthYear").value;
+        if (!y) return alert("출생 연도를 입력해주세요.");
+        location.href = `/age/result.html?year=${y}`;
     }
 
-    document.getElementById('birthDate').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') calculate();
-    });
+    const CURRENT_YEAR = new Date().getFullYear();
+
+    // 12지 코드
+    const zodiacOrder = {
+        "쥐": 4, "소": 5, "호랑이": 6, "토끼": 7,
+        "용": 8, "뱀": 9, "말": 10, "양": 11,
+        "원숭이": 0, "닭": 1, "개": 2, "돼지": 3
+    };
+
+    function selectZodiac(zodiac) {
+        const targetIdx = zodiacOrder[zodiac];
+        const years = [];
+
+        // 120년 범위
+        for (let y = CURRENT_YEAR - 120; y <= CURRENT_YEAR; y++) {
+            if (y % 12 === targetIdx) {
+                years.push(y);
+            }
+        }
+
+        const box = document.getElementById("yearList");
+
+        box.innerHTML = `
+            <div style="font-size:28px; color:var(--primary); font-weight:600; margin-bottom:12px;">
+                가능한 출생 연도
+            </div>
+        ` + years.map(y =>
+            `<button class="cand-year-btn" onclick="goYear(${y})">${y}년</button>`
+        ).join("");
+    }
+
+    function goYear(y) {
+        location.href = `/age/result.html?year=${y}`;
+    }
 </script>
+
 </body>
 </html>
