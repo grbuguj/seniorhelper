@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>음력→양력 변환 - 음력 날짜를 양력으로 | 시니어 계산 도우미</title>
+    <meta name="description" content="음력 날짜를 양력으로 빠르게 변환하세요. 제사, 명절, 전통 기념일을 양력으로 확인할 수 있습니다.">
+    <meta name="keywords" content="음력양력변환, 음력을양력으로, 제사날짜, 음력생일">
+    
+    <link rel="canonical" href="https://woong.io.kr/lunar-to-solar/">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="음력→양력 변환 | 시니어 계산 도우미">
+    <meta property="og:description" content="음력 날짜를 양력으로 변환하세요">
+    <meta property="og:url" content="https://woong.io.kr/lunar-to-solar/">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "음력→양력 변환",
+      "url": "https://woong.io.kr/lunar-to-solar/",
+      "description": "음력 날짜를 양력으로 변환하는 도구",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        body { background: var(--bg); }
+        .container { max-width: 720px; margin: 0 auto; padding: 20px; }
+        .page-title { font-size: 34px; text-align: center; font-weight: 700; margin-top: 12px; margin-bottom: 26px; }
+        .card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 22px 20px 24px; margin-bottom: 26px; }
+        .card-title { font-size: 26px; font-weight: 700; margin-bottom: 18px; }
+        .field-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+        .field { flex: 1 1 0; min-width: 0; }
+        .field label { display: block; font-size: 20px; margin-bottom: 6px; color: #555; }
+        .field input, .field select { width: 100%; padding: 14px 16px; font-size: 22px; border-radius: 12px; border: 1px solid var(--border); box-sizing: border-box; }
+        .primary-btn { width: 100%; margin-top: 4px; padding: 15px 18px; font-size: 24px; border-radius: 12px; background: var(--primary); color: #fff; border: none; cursor: pointer; }
+        .secondary-btn { width: 100%; margin-top: 4px; padding: 15px 18px; font-size: 24px; border-radius: 12px; background: #666; color: #fff; border: none; cursor: pointer; }
+        .result-box { margin-top: 18px; padding: 16px 14px; border-radius: 12px; border: 1px solid var(--border); background: #f9fbff; font-size: 22px; line-height: 1.6; }
+        .hint-text { margin-top: 10px; font-size: 18px; color: #666; line-height: 1.5; }
+        .nav-buttons { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .nav-btn { padding: 12px 18px; font-size: 20px; border-radius: 24px; border: 1px solid var(--primary); background: #fff; cursor: pointer; }
+    </style>
+</head>
+<body>
+<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+
+<div class="container">
+    <div class="page-title">음력 → 양력 변환</div>
+    
+    <div class="card">
+        <div class="card-title">음력 날짜 입력</div>
+        
+        <div class="field-row">
+            <div class="field">
+                <label for="lunarYear">연도</label>
+                <input id="lunarYear" type="number" placeholder="예: 2025">
+            </div>
+            <div class="field">
+                <label for="lunarMonth">월</label>
+                <input id="lunarMonth" type="number" placeholder="예: 10">
+            </div>
+            <div class="field">
+                <label for="lunarDay">일</label>
+                <input id="lunarDay" type="number" placeholder="예: 9">
+            </div>
+        </div>
+        
+        <div class="field-row">
+            <div class="field">
+                <label for="lunarLeap">윤달 여부</label>
+                <select id="lunarLeap">
+                    <option value="0">평달</option>
+                    <option value="1">윤달</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="secondary-btn" id="btnTodayLunar">오늘 날짜 입력하기</button>
+        <button class="primary-btn" id="btnLunarToSolar">양력으로 변환하기</button>
+        
+        <div id="lunarResult" class="result-box">음력 날짜와 윤달 여부를 입력한 뒤 버튼을 눌러주세요.</div>
+        
+        <div class="hint-text">
+            제사·차례·전통 기념일 등 음력 날짜를 오늘 달력 기준으로 알고 싶을 때 사용합니다.
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="location.href='../solar-to-lunar/'">양력→음력 변환</button>
+        <button class="nav-btn" onclick="location.href='../date-plus/'">날짜 더하기</button>
+        <button class="nav-btn" onclick="location.href='../date-minus/'">날짜 빼기</button>
+        <button class="nav-btn" onclick="location.href='../'">메인 화면</button>
+    </div>
+</div>
+
+<footer style="margin-top:40px;padding:20px;text-align:center;background:var(--card);border-radius:12px;">
+    <p>© 2025 시니어 계산 도우미</p>
+    <p><a href="../privacy/">개인정보 처리방침</a> | <a href="../terms/">이용약관</a> | <a href="../contact/">문의하기</a></p>
+</footer>
+
+<script src="../js/common.js"></script>
+<script src="../convert/korean-lunar-calendar.min.js"></script>
+<script src="../convert/convert.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손주 띠 미리보기</title>
+    <link rel="stylesheet" href="../css/base.css">
+
+    <style>
+        .year-input { width: 200px; padding: 16px; font-size: 32px; text-align:center; border:2px solid var(--border); border-radius:14px; }
+        .btn { width:100%; padding:18px; font-size:28px; margin-top:16px; background:var(--primary); color:white; border:none; border-radius:12px; }
+        .result { margin-top: 30px; padding: 26px; background:var(--card); border-radius:16px; border:2px solid var(--primary); font-size:30px; text-align:center;}
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="page-title">손주 띠 미리보기</div>
+
+    <div style="font-size:26px; margin-bottom:20px;">태어날 해(년도)를 입력하세요.</div>
+
+    <input id="by" class="year-input" placeholder="2026"> 년
+    <button class="btn" onclick="calc()">확인하기</button>
+
+    <div id="ra"></div>
+</div>
+
+<script>
+    const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
+    const emojis  = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
+
+    function calc(){
+        const y = document.getElementById("by").value;
+        if(!y) return alert("해(년도)를 입력하세요.");
+        const idx = (y-4)%12;
+        document.getElementById("ra").innerHTML =
+            `<div class="result">${y}년은 ${emojis[idx]} ${animals[idx]}띠입니다!</div>`;
+    }
+</script>
+</body>
+</html>

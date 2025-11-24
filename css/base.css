@@ -1,0 +1,169 @@
+:root {
+    --bg: #f8f9fc;
+    --card: #ffffff;
+    --border: #ccd3e6;
+    --primary: #2054b3;
+    --primary-light: #e9f1ff;
+    --text-main: #111;
+    --text-sub: #666;
+}
+
+body {
+    background: var(--bg);
+    font-family: system-ui, -apple-system, "Noto Sans KR", "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 16px;
+}
+
+.page {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 22px;
+    color: var(--text-sub);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-box {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+    border: 2px solid var(--border);
+}
+
+.label {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.big-input {
+    width: 100%;
+    font-size: 26px;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.big-btn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    font-size: 32px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+.big-btn:hover {
+    opacity: .9;
+}
+
+/* 메인 페이지 큰 버튼 */
+.big-btn-main {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.result-box {
+    margin-top: 20px;
+    background: var(--primary-light);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #bcd0ff;
+}
+
+.result-text {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+/* 하단 기능 이동 버튼 */
+.link-grid {
+    display: grid;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.link-btn {
+    display: block;
+    background: #ffffff;
+    border: 2px solid var(--border);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 26px;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   글자 크게 보기 기능
+   ============================================ */
+body.large-text {
+    font-size: 125%;
+}
+
+body.large-text .title {
+    font-size: 45px;
+}
+
+body.large-text .subtitle,
+body.large-text .label,
+body.large-text .big-input,
+body.large-text .link-btn {
+    font-size: 1.25em;
+}
+
+body.large-text .big-btn,
+body.large-text .big-btn-main,
+body.large-text .result-text {
+    font-size: 1.25em;
+}
+
+/* 글자 크기 버튼 스타일 */
+.text-size-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.text-size-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .text-size-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

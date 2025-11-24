@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 - 시니어 계산 도우미</title>
+    <meta name="description" content="시니어 계산 도우미에 문의 및 의견을 보내주세요">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://woong.io.kr/contact/">
+    
+    <link rel="stylesheet" href="../css/base.css">
+    
+    <style>
+        body {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .contact-box {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .contact-box h2 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .email {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin: 30px auto;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        ul {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        li {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 글자 크게 보기 버튼 -->
+    <button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+    
+    <h1>문의하기</h1>
+    
+    <div class="contact-box">
+        <h2>📧 이메일로 문의주세요</h2>
+        <div class="email">woong.io.kr@gmail.com</div>
+        <p>서비스 이용 관련 문의, 건의사항, 오류 신고 등을 보내주시면<br>확인 후 빠르게 답변드리겠습니다.</p>
+    </div>
+    
+    <div class="contact-box">
+        <h2>💡 이런 것들을 보내주세요</h2>
+        <ul>
+            <li><strong>기능 개선 제안</strong>: "이런 계산기가 있으면 좋겠어요"</li>
+            <li><strong>오류 신고</strong>: "이 기능에서 이상한 결과가 나와요"</li>
+            <li><strong>사용 문의</strong>: "이 기능을 어떻게 사용하나요?"</li>
+            <li><strong>일반 문의</strong>: 서비스와 관련된 모든 질문</li>
+        </ul>
+    </div>
+    
+    <div class="contact-box">
+        <h2>⏰ 답변 시간</h2>
+        <p>보통 1~2일 이내에 답변드립니다.<br>주말 및 공휴일에는 답변이 늦어질 수 있습니다.</p>
+    </div>
+    
+    <div class="text-center">
+        <a href="../" class="back-btn">메인으로 돌아가기</a>
+    </div>
+    
+    <script src="../js/common.js"></script>
+</body>
+</html>
