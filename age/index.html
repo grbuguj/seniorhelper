@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>나이 계산기 - 생년월일로 나이 확인 | woong.io.kr</title>
+    <meta name="description" content="생년월일 또는 띠를 입력하면 현재 나이를 바로 계산해드립니다. 한국나이, 만나이, 연나이를 한눈에 확인하세요.">
+    <meta name="keywords" content="나이 계산기, 나이 확인, 생년월일 나이, 띠로 나이, 한국나이, 만나이">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://woong.io.kr/age/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="나이 계산기 | woong.io.kr">
+    <meta property="og:description" content="생년월일이나 띠로 현재 나이를 바로 계산하세요.">
+    <meta property="og:url" content="https://woong.io.kr/age/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="나이 계산기">
+    <meta name="twitter:description" content="생년월일이나 띠로 현재 나이를 바로 계산하세요">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "나이 계산기",
+      "url": "https://woong.io.kr/age/",
+      "description": "생년월일이나 띠를 입력하면 한국나이, 만나이, 연나이를 계산해주는 도구",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/age.css">
+</head>
+
+<body>
+<!-- 글자 크게 보기 버튼 -->
+<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+
+<div class="page">
+
+    <a href="/index.html" class="back-btn">←</a>
+
+    <div class="page-title">나이 계산기</div>
+    <div class="page-subtitle">출생 연도를 넣으면 올해 나이를 알려드립니다.</div>
+
+    <!-- 입력 -->
+    <div class="input-card">
+        <input id="birthYear"
+               class="big-input"
+               type="number"
+               placeholder="예: 1950" />
+
+        <button class="big-btn" onclick="goAgeResult()">계산하기</button>
+    </div>
+
+    <div style="margin-top:32px; font-size:30px; font-weight:600;">
+        혹시 연도가 기억나지 않으신가요?
+    </div>
+
+    <!-- 띠 선택 -->
+    <div class="input-card">
+
+        <div style="font-size:26px; margin-bottom:12px; color:var(--text-sub);">
+            태어난 띠를 누르시면 가능한 출생 연도가 아래에 나옵니다.
+        </div>
+
+        <!-- 12띠 버튼 -->
+        <div class="zodiac-grid">
+            <button onclick="selectZodiac('쥐')">쥐띠</button>
+            <button onclick="selectZodiac('소')">소띠</button>
+            <button onclick="selectZodiac('호랑이')">호랑이띠</button>
+            <button onclick="selectZodiac('토끼')">토끼띠</button>
+
+            <button onclick="selectZodiac('용')">용띠</button>
+            <button onclick="selectZodiac('뱀')">뱀띠</button>
+            <button onclick="selectZodiac('말')">말띠</button>
+            <button onclick="selectZodiac('양')">양띠</button>
+
+            <button onclick="selectZodiac('원숭이')">원숭이띠</button>
+            <button onclick="selectZodiac('닭')">닭띠</button>
+            <button onclick="selectZodiac('개')">개띠</button>
+            <button onclick="selectZodiac('돼지')">돼지띠</button>
+        </div>
+
+        <!-- 여기 아래에 연도 후보 표시됨 -->
+        <div id="yearList" style="margin-top:20px; font-size:26px;"></div>
+    </div>
+
+</div>
+
+
+<script>
+    function goAgeResult() {
+        const y = document.getElementById("birthYear").value;
+        if (!y) return alert("출생 연도를 입력해주세요.");
+        location.href = `/age/result.html?year=${y}`;
+    }
+
+    const CURRENT_YEAR = new Date().getFullYear();
+
+    // 12지 코드
+    const zodiacOrder = {
+        "쥐": 4, "소": 5, "호랑이": 6, "토끼": 7,
+        "용": 8, "뱀": 9, "말": 10, "양": 11,
+        "원숭이": 0, "닭": 1, "개": 2, "돼지": 3
+    };
+
+    function selectZodiac(zodiac) {
+        const targetIdx = zodiacOrder[zodiac];
+        const years = [];
+
+        // 120년 범위
+        for (let y = CURRENT_YEAR - 120; y <= CURRENT_YEAR; y++) {
+            if (y % 12 === targetIdx) {
+                years.push(y);
+            }
+        }
+
+        const box = document.getElementById("yearList");
+
+        box.innerHTML = `
+            <div style="font-size:28px; color:var(--primary); font-weight:600; margin-bottom:12px;">
+                가능한 출생 연도
+            </div>
+        ` + years.map(y =>
+            `<button class="cand-year-btn" onclick="goYear(${y})">${y}년</button>`
+        ).join("");
+    }
+
+    function goYear(y) {
+        location.href = `/age/result.html?year=${y}`;
+    }
+</script>
+
+<!-- Footer -->
+<footer style="margin-top:40px;padding:20px;text-align:center;background:var(--card);border-radius:12px;border:1px solid var(--border);">
+    <p style="margin-bottom:10px;">© 2025 woong.io.kr</p>
+    <p>
+        <a href="../privacy/" style="color:var(--primary);margin:0 8px;">개인정보 처리방침</a> |
+        <a href="../terms/" style="color:var(--primary);margin:0 8px;">이용약관</a> |
+        <a href="../contact/" style="color:var(--primary);margin:0 8px;">문의하기</a>
+    </p>
+</footer>
+
+<script src="../js/common.js"></script>
+
+</body>
+</html>

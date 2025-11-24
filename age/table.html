@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025년 나이표 - 어르신 생활도우미</title>
+    
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/age.css">
+    
+    <style>
+        .table-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .table-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        
+        .year-info {
+            font-size: 32px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .table-notice {
+            font-size: 24px;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+        
+        /* 나이표 테이블 */
+        .age-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .age-table thead {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .age-table th {
+            padding: 18px 12px;
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .age-table tbody tr {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .age-table tbody tr:hover {
+            background: var(--primary-soft);
+        }
+        
+        .age-table tbody tr.current-year {
+            background: #e8f0ff;
+        }
+        
+        .age-table td {
+            padding: 16px 12px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .age-table .year-col {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .age-table .animal-col {
+            color: var(--text-main);
+        }
+        
+        .age-table .age-col {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .age-table .ganji-col {
+            color: var(--text-sub);
+            font-size: 22px;
+        }
+        
+        .view-btn {
+            padding: 10px 20px;
+            font-size: 22px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .view-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .future-year {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-wrapper">
+    
+    <a href="/index.html" class="back-btn">←</a>
+    
+    <div class="table-header">
+        <div class="page-title">2025년 나이표</div>
+        <div class="year-info">을사(乙巳)년 뱀띠해</div>
+        <div class="table-notice">아래 표의 나이는 한국 나이입니다.</div>
+        <div class="table-notice">자세한 정보는 보기를 눌러보세요.</div>
+    </div>
+    
+    <table class="age-table">
+        <thead>
+            <tr>
+                <th>출생연도</th>
+                <th>띠</th>
+                <th>나이</th>
+                <th>육십갑자</th>
+                <th>보기</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- JavaScript로 동적 생성 -->
+        </tbody>
+    </table>
+    
+    <button class="back-main-btn" onclick="location.href='/index.html'">메인 화면</button>
+    
+</div>
+
+<script>
+    const CURRENT_YEAR = 2025;
+    
+    // 띠 배열 (쥐부터 시작, 12년 주기)
+    const animals = ["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
+    
+    // 천간 (10년 주기)
+    const gan = [
+        ["갑","甲"], ["을","乙"], ["병","丙"], ["정","丁"], ["무","戊"],
+        ["기","己"], ["경","庚"], ["신","辛"], ["임","壬"], ["계","癸"]
+    ];
+    
+    // 지지 (12년 주기)
+    const ji = [
+        ["자","子"], ["축","丑"], ["인","寅"], ["묘","卯"], ["진","辰"], ["사","巳"],
+        ["오","午"], ["미","未"], ["신","申"], ["유","酉"], ["술","戌"], ["해","亥"]
+    ];
+    
+    // 테이블 생성
+    const tbody = document.getElementById("tableBody");
+    
+    // 2030년부터 1906년까지 (미래 5년 + 과거 120년)
+    for (let year = 2030; year >= 1906; year--) {
+        const tr = document.createElement("tr");
+        
+        // 2025년 행 하이라이트
+        if (year === CURRENT_YEAR) {
+            tr.classList.add("current-year");
+        }
+        
+        // 출생연도
+        const yearTd = document.createElement("td");
+        yearTd.className = "year-col";
+        yearTd.textContent = year + "년";
+        
+        // 띠
+        const animalTd = document.createElement("td");
+        animalTd.className = "animal-col";
+        animalTd.textContent = animals[year % 12];
+        
+        // 나이 (한국나이 = 현재년도 - 출생년도 + 1)
+        const ageTd = document.createElement("td");
+        ageTd.className = "age-col";
+        const koreanAge = CURRENT_YEAR - year + 1;
+        
+        if (year > CURRENT_YEAR) {
+            ageTd.textContent = "-";
+            ageTd.classList.add("future-year");
+        } else {
+            ageTd.textContent = koreanAge + "세";
+        }
+        
+        // 육십갑자
+        const ganjiTd = document.createElement("td");
+        ganjiTd.className = "ganji-col";
+        const ganIdx = (year - 4) % 10;
+        const jiIdx = (year - 4) % 12;
+        ganjiTd.textContent = `${gan[ganIdx][1]}${ji[jiIdx][1]}(${gan[ganIdx][0]}${ji[jiIdx][0]})`;
+        
+        // 보기 버튼
+        const viewTd = document.createElement("td");
+        const viewBtn = document.createElement("button");
+        viewBtn.className = "view-btn";
+        viewBtn.textContent = "보기";
+        
+        if (year > CURRENT_YEAR) {
+            viewBtn.disabled = true;
+            viewBtn.style.opacity = "0.4";
+            viewBtn.style.cursor = "not-allowed";
+        } else {
+            viewBtn.onclick = () => {
+                location.href = `/age/result.html?year=${year}`;
+            };
+        }
+        
+        viewTd.appendChild(viewBtn);
+        
+        tr.appendChild(yearTd);
+        tr.appendChild(animalTd);
+        tr.appendChild(ageTd);
+        tr.appendChild(ganjiTd);
+        tr.appendChild(viewTd);
+        
+        tbody.appendChild(tr);
+    }
+</script>
+
+</body>
+</html>

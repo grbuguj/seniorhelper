@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>띠궁합 확인</title>
+    <link rel="stylesheet" href="../css/base.css">
+
+    <style>
+        .title-large { font-size: 32px; margin-bottom: 18px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .zbtn {
+            padding: 22px 10px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            font-size: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .zbtn.selected {
+            border: 3px solid var(--primary);
+            background: var(--primary-soft);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .input-box {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+            text-align: center;
+        }
+        .year-input {
+            width: 170px;
+            padding: 14px;
+            font-size: 30px;
+            text-align: center;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+        }
+        .go-btn {
+            width: 100%;
+            padding: 18px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 28px;
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="page-title">띠궁합 확인</div>
+
+    <div class="title-large">첫 번째 사람의 띠를 선택하세요</div>
+
+    <div class="grid" id="p1"></div>
+
+    <div class="input-box">
+        <div style="font-size: 24px;">띠를 모르시나요?</div>
+        <input id="y1" class="year-input" placeholder="1950"> 년
+        <button class="go-btn" onclick="setByYear(1)">확인</button>
+    </div>
+
+    <hr style="margin: 30px 0;">
+
+    <div class="title-large">두 번째 사람의 띠를 선택하세요</div>
+
+    <div class="grid" id="p2"></div>
+
+    <div class="input-box">
+        <div style="font-size: 24px;">띠를 모르시나요?</div>
+        <input id="y2" class="year-input" placeholder="1950"> 년
+        <button class="go-btn" onclick="setByYear(2)">확인</button>
+    </div>
+
+    <button class="go-btn" onclick="goResult()">궁합 확인하기</button>
+</div>
+
+<script>
+    const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
+    const emojis  = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
+
+    let p1 = null, p2 = null;
+
+    function renderButtons(target, who) {
+        document.getElementById(target).innerHTML =
+            animals.map((a,i)=>`
+                <button class="zbtn" id="${who}-${i}"
+                    onclick="select('${who}', '${a}', '${emojis[i]}', ${i})">
+                    ${emojis[i]}<br>${a}
+                </button>
+            `).join("");
+    }
+    renderButtons("p1", "p1");
+    renderButtons("p2", "p2");
+
+    function clearSelection(who) {
+        animals.forEach((_,i)=>{
+            document.getElementById(`${who}-${i}`).classList.remove("selected");
+        });
+    }
+
+    function select(who, animal, emoji, index){
+        if(who==="p1") p1=[animal,emoji];
+        else p2=[animal,emoji];
+
+        clearSelection(who);
+        document.getElementById(`${who}-${index}`).classList.add("selected");
+    }
+
+    function setByYear(who){
+        const y = who===1 ? document.getElementById("y1").value : document.getElementById("y2").value;
+        if(!y) return alert("연도를 입력하세요");
+        const idx = (y-4)%12;
+        const a = animals[idx], e = emojis[idx];
+
+        if(who===1) p1=[a,e];
+        else p2=[a,e];
+
+        clearSelection("p"+who);
+        document.getElementById(`p${who}-${idx}`).classList.add("selected");
+        alert(a+"띠로 선택되었습니다.");
+    }
+
+    function goResult(){
+        if(!p1 || !p2) return alert("두 분 모두 선택해주세요.");
+        location.href = `compatibility-result.html?a1=${p1[0]}&e1=${p1[1]}&a2=${p2[0]}&e2=${p2[1]}`;
+    }
+</script>
+</body>
+</html>

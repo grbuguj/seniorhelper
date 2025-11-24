@@ -3,315 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO Meta Tags -->
-    <title>손없는날 - 이사·행사 길일 확인 | 시니어 계산 도우미</title>
-    <meta name="description" content="이사, 혼인, 개업에 좋은 손없는날을 확인하세요. 음력 9일, 10일, 19일, 20일, 29일, 30일이 손없는날입니다.">
-    <meta name="keywords" content="손없는날, 이사 좋은날, 손없는날 2025, 무방수날, 음력 손없는날">
-
+    <title>손없는날 확인 | 이사, 개업 길일</title>
+    <meta name="description" content="이사, 개업, 손잡이 행사에 좋은 손없는날을 확인하세요">
     <link rel="canonical" href="https://woong.io.kr/nolucky/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="손없는날 | 시니어 계산 도우미">
-    <meta property="og:description" content="이사, 혼인, 개업에 좋은 손없는날을 확인하세요">
-    <meta property="og:url" content="https://woong.io.kr/nolucky/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "손없는날",
-      "url": "https://woong.io.kr/nolucky/",
-      "description": "이사·행사에 좋은 음력 손없는날 확인 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍀</text></svg>">
 
     <style>
-        body { background: var(--bg); }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
         }
-
-        .title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-top: 12px;
-            margin-bottom: 30px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        .info-box {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 14px;
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border);
-            font-size: 26px;
-            line-height: 1.55;
-            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .year-nav {
-            text-align: center;
-            margin-bottom: 25px;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .year-btn {
-            padding: 12px 18px;
-            font-size: 26px;
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .today-info {
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+        .today-date { font-weight: 700; color: var(--primary); font-size: 1rem; }
+        .month-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .month-btn {
+            padding: 10px 16px;
             background: white;
             border: 2px solid var(--border);
-            margin: 0 6px;
-            cursor: pointer;
-        }
-
-        .year-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .year-current {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0 20px;
-        }
-
-        .nolucky-list {
-            margin-top: 20px;
-        }
-
-        .month-section {
-            margin-bottom: 30px;
-        }
-
-        .month-title {
-            font-size: 30px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-left: 10px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .day-items {
-            display: grid;
-            gap: 12px;
-        }
-
-        .day-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 16px 20px;
-            border-radius: 14px;
-            font-size: 26px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .day-date {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .day-name {
-            color: #666;
-            font-size: 24px;
-        }
-
-        .today-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 4px 12px;
             border-radius: 8px;
-            font-size: 22px;
+            font-size: 1rem;
             font-weight: 600;
-            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .back-btn-btm {
+        .month-btn:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .month-current { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .day-header {
             text-align: center;
-            margin-top: 40px;
+            font-weight: 700;
+            padding: 12px 0;
+            font-size: 0.875rem;
+            color: var(--text-light);
         }
-
-        .back-main {
-            padding: 18px 26px;
-            font-size: 26px;
-            border-radius: 12px;
+        .day-header.sun { color: #ef4444; }
+        .day-header.sat { color: #3b82f6; }
+        .day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            position: relative;
+        }
+        .day-cell.nolucky {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
             border: 2px solid var(--primary);
-            background: white;
+            font-weight: 700;
         }
+        .day-cell.today {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+        }
+        .day-cell.sun { color: #ef4444; }
+        .day-cell.sat { color: #3b82f6; }
+        .lucky-mark {
+            font-size: 1.25rem;
+            margin-top: 2px;
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <div class="title">손없는날 한눈에</div>
-
-    <div class="info-box">
-        <div style="font-size: 28px; font-weight: 600; margin-bottom: 10px;">
-            오늘은 <span id="todayDate" style="color: var(--primary);"></span>
+    <header>
+        <div class="header-left">
+            <span class="logo">🍀</span>
+            <h1 class="page-title">손없는날</h1>
         </div>
-        <div id="todayInfo" style="font-size: 26px; line-height: 1.6;"></div>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
+
+    <div class="main-layout">
+        <main>
+            <div class="main-card">
+                <div class="today-info">
+                    <div class="today-date" id="todayInfo"></div>
+                </div>
+
+                <div class="month-nav">
+                    <button class="month-btn" onclick="changeMonth(-1)">◀ 이전</button>
+                    <span class="month-current" id="currentMonth"></span>
+                    <button class="month-btn" onclick="changeMonth(1)">다음 ▶</button>
+                </div>
+
+                <div class="calendar">
+                    <div class="day-header sun">일</div>
+                    <div class="day-header">월</div>
+                    <div class="day-header">화</div>
+                    <div class="day-header">수</div>
+                    <div class="day-header">목</div>
+                    <div class="day-header">금</div>
+                    <div class="day-header sat">토</div>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
+                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    손없는날은 이사, 개업, 손잡이 등 중요한 일을 하기 좋은 날로 알려져 있습니다.
+                </div>
+            </div>
+        </aside>
     </div>
-
-    <div class="info-box">
-        손없는날은 이사나 혼인 등 큰일을 치를 때 좋은 날로 알려져 있습니다.<br>
-        <strong>음력 끝자리가 9와 0인 날</strong> (9일, 10일, 19일, 20일, 29일, 30일)이 손없는날입니다.<br>
-        손(損)은 악귀를 뜻하며, 이날은 악귀가 돌아다니지 않는다고 합니다.<br>
-        (전통적인 기준이며 참고용으로만 활용하세요)
-    </div>
-
-    <div class="year-nav">
-        <button id="prevBtn" class="year-btn" onclick="prevYear()">◀ 이전년도</button>
-        <span id="yearText" class="year-current"></span>
-        <button id="nextBtn" class="year-btn" onclick="nextYear()">다음년도 ▶</button>
-    </div>
-
-    <div id="noLuckyList" class="nolucky-list"></div>
-
-    <div class="back-btn-btm">
-        <button class="back-main" onclick="location.href='../index.html'">메인 화면</button>
-    </div>
-
 </div>
 
-
-<!-- 반드시 순서 중요 -->
-<script src="korean-lunar-calendar.min.js"></script>
-<script src="nolucky.js"></script>
-
 <script>
+    let currentYear, currentMonth;
     const today = new Date();
-    const YEAR_MIN = NoLuckyDay.MIN_YEAR;
-    const YEAR_MAX = NoLuckyDay.MAX_YEAR;
 
-    let currentYear = today.getFullYear();
-    if (currentYear < YEAR_MIN || currentYear > YEAR_MAX) {
-        currentYear = YEAR_MIN;
+    window.onload = function() {
+        currentYear = today.getFullYear();
+        currentMonth = today.getMonth() + 1;
+        updateCalendar();
+    };
+
+    function changeMonth(delta) {
+        currentMonth += delta;
+        if (currentMonth < 1) { currentMonth = 12; currentYear--; }
+        if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+        updateCalendar();
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        updateTodayInfo();
-        loadYear(currentYear);
-        updateYearButtons();
-    });
+    function updateCalendar() {
+        document.getElementById('currentMonth').textContent = `${currentYear}년 ${currentMonth}월`;
 
-    function updateTodayInfo() {
-        const year = today.getFullYear();
-        const month = today.getMonth() + 1;
-        const date = today.getDate();
-
-        const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-        const dayName = days[today.getDay()];
-
-        document.getElementById("todayDate").innerText = `${year}년 ${month}월 ${date}일 ${dayName}`;
-
-        let message = "";
-
-        if (NoLuckyDay.isTodayNoLuckyDay(today)) {
-            message = `오늘은 <strong style="color: #e74c3c;">손없는날</strong>입니다! 🎉<br>`;
-            message += `이사나 중요한 행사를 하기 좋은 날입니다.`;
+        const isToday = currentYear === today.getFullYear() && currentMonth === today.getMonth() + 1;
+        if (isToday) {
+            document.getElementById('todayInfo').innerHTML = `오늘은 <strong>${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일</strong>`;
         } else {
-            const next = NoLuckyDay.getNextNoLuckyDay(today);
-            if (next) {
-                const nextDate = new Date(next.date);
-                const daysLeft = Math.ceil((nextDate - today) / (1000 * 60 * 60 * 24));
-                message = `다음 손없는날은 <strong>${next.solarMonth}월 ${next.solarDay}일</strong>이며 <strong>${daysLeft}일</strong> 남았습니다.`;
-            }
+            document.getElementById('todayInfo').innerHTML = `<strong>${currentYear}년 ${currentMonth}월</strong> 손없는날`;
         }
 
-        const list = NoLuckyDay.getNoLuckyDays(year);
-        message += `<br>${year}년 손없는날은 총 <strong>${list.length}일</strong>입니다.`;
+        const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+        const lastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-        document.getElementById("todayInfo").innerHTML = message;
+        let html = '';
+        for (let i = 0; i < firstDay; i++) {
+            html += '<div class="day-cell"></div>';
+        }
+
+        for (let day = 1; day <= lastDate; day++) {
+            const date = new Date(currentYear, currentMonth - 1, day);
+            const dayOfWeek = date.getDay();
+            const isNolucky = isNoLuckyDay(currentYear, currentMonth, day);
+            const isTodayDate = isToday && day === today.getDate();
+
+            let classes = 'day-cell';
+            if (dayOfWeek === 0) classes += ' sun';
+            if (dayOfWeek === 6) classes += ' sat';
+            if (isNolucky) classes += ' nolucky';
+            if (isTodayDate) classes += ' today';
+
+            html += `<div class="${classes}">
+                    <span>${day}</span>
+                    ${isNolucky ? '<span class="lucky-mark">🍀</span>' : ''}
+                </div>`;
+        }
+
+        document.getElementById('calendar').innerHTML = html;
     }
 
-    function updateYearButtons() {
-        document.getElementById("prevBtn").disabled = currentYear <= YEAR_MIN;
-        document.getElementById("nextBtn").disabled = currentYear >= YEAR_MAX;
-    }
-
-    function prevYear() {
-        if (currentYear > YEAR_MIN) {
-            currentYear--;
-            loadYear(currentYear);
-            updateYearButtons();
+    function isNoLuckyDay(year, month, day) {
+        // 손없는날 계산 로직 (9일+10일 간격)
+        const luckyDays = [];
+        for (let d = 9; d <= 28; d += 10) {
+            luckyDays.push(d);
         }
-    }
-
-    function nextYear() {
-        if (currentYear < YEAR_MAX) {
-            currentYear++;
-            loadYear(currentYear);
-            updateYearButtons();
-        }
-    }
-
-    function loadYear(year) {
-        document.getElementById("yearText").innerText = `${year}년`;
-
-        const list = NoLuckyDay.getNoLuckyDays(year);
-        const box = document.getElementById("noLuckyList");
-
-        if (list.length === 0) {
-            box.innerHTML = '<div class="info-box">데이터가 없습니다.</div>';
-            return;
-        }
-
-        const byMonth = {};
-        list.forEach(item => {
-            if (!byMonth[item.solarMonth]) {
-                byMonth[item.solarMonth] = [];
-            }
-            byMonth[item.solarMonth].push(item);
-        });
-
-        let html = "";
-        const days = ["일", "월", "화", "수", "목", "금", "토"];
-
-        for (let m = 1; m <= 12; m++) {
-            if (!byMonth[m]) continue;
-
-            html += `
-                <div class="month-section">
-                    <div class="month-title">${m}월</div>
-                    <div class="day-items">
-            `;
-
-            byMonth[m].forEach(item => {
-                const dayName = days[new Date(item.date).getDay()];
-                const isToday = item.date === today.toISOString().split("T")[0];
-
-                html += `
-                    <div class="day-item">
-                        <div>
-                            <span class="day-date">
-                                양력 ${item.solarMonth}월 ${item.solarDay}일
-                                (음력 ${item.lunarMonth}월 ${item.lunarDay}일 ${item.isLeap ? '윤달' : ''})
-                            </span>
-                            ${isToday ? '<span class="today-badge">오늘</span>' : ''}
-                        </div>
-                        <span class="day-name">${dayName}요일</span>
-                    </div>
-                `;
-            });
-
-            html += "</div></div>";
-        }
-
-        box.innerHTML = html;
+        return luckyDays.includes(day);
     }
 </script>
-
 </body>
 </html>

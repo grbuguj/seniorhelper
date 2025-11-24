@@ -3,171 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO Meta Tags -->
-    <title>2025년 공휴일 한눈에 - 대체공휴일까지 | 시니어 계산 도우미</title>
-    <meta name="description" content="2025년 공휴일을 한눈에 확인하세요. 설날, 추석 대체공휴일까지 자동 계산됩니다. 연휴 계획에 활용하세요.">
-    <meta name="keywords" content="2025년 공휴일, 대체공휴일, 설날 연휴, 추석 연휴, 공휴일 달력">
-
+    <title>2025년 공휴일 한눈에 | 대체공휴일</title>
+    <meta name="description" content="2025년 공휴일을 한눈에 확인하세요. 설날, 추석 대체공휴일까지 자동 계산됩니다">
     <link rel="canonical" href="https://woong.io.kr/holiday/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="2025년 공휴일 한눈에 | 시니어 계산 도우미">
-    <meta property="og:description" content="2025년 공휴일을 한눈에 확인하세요. 대체공휴일까지 자동 계산">
-    <meta property="og:url" content="https://woong.io.kr/holiday/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "공휴일 한눈에",
-      "url": "https://woong.io.kr/holiday/",
-      "description": "연도별 공휴일과 대체공휴일 확인 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>">
 
     <style>
-        body { background: var(--bg); }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
         }
-
-        .title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-top: 12px;
-            margin-bottom: 30px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        .info-box {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 14px;
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border);
-            font-size: 26px;
-            line-height: 1.55;
-            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .year-nav {
-            text-align: center;
-            margin-bottom: 25px;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .year-btn {
-            padding: 12px 18px;
-            font-size: 26px;
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .today-info {
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+        .today-date { font-weight: 700; color: var(--primary); font-size: 1rem; }
+        .year-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .year-btn {
+            padding: 10px 16px;
             background: white;
             border: 2px solid var(--border);
-            margin: 0 6px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .year-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .year-current {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0 20px;
-        }
-
-        .holiday-list {
-            margin-top: 20px;
-        }
-
+        .year-btn:hover:not(:disabled) { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .year-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .year-current { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .holiday-list { display: flex; flex-direction: column; gap: 16px; }
         .holiday-item {
-            background: var(--card);
+            padding: 20px;
+            background: linear-gradient(to right, #f9fafb, #ffffff);
             border: 1px solid var(--border);
-            padding: 18px 22px;
-            border-radius: 14px;
-            margin-bottom: 16px;
-            font-size: 26px;
-            line-height: 1.5;
-        }
-
-        .h-name {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 28px;
-        }
-
-        .h-date {
-            color: #555;
-            margin-top: 4px;
-        }
-
-        .h-substitute-info {
-            color: #999;
-            font-size: 24px;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px dashed #ddd;
-        }
-
-        .h-substitute-date {
-            color: #e74c3c;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .back-btn-btm {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .back-main {
-            padding: 18px 26px;
-            font-size: 26px;
+            border-left: 4px solid var(--primary);
             border-radius: 12px;
-            border: 2px solid var(--primary);
-            background: white;
+            transition: all 0.2s;
         }
+        .holiday-item:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .h-name { font-size: 1.125rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+        .h-date { font-size: 1rem; color: var(--text-light); }
+        .h-substitute-info {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border);
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        .h-substitute-date { color: var(--accent); font-weight: 700; margin-top: 4px; font-size: 0.875rem; }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <div class="title">공휴일 한눈에</div>
-
-    <div class="info-box">
-        <div style="font-size: 28px; font-weight: 600; margin-bottom: 10px;">
-            오늘은 <span id="todayDate" style="color: var(--primary);"></span>
+    <header>
+        <div class="header-left">
+            <span class="logo">🎉</span>
+            <h1 class="page-title">공휴일 한눈에</h1>
         </div>
-        <div id="remainingHolidays" style="font-size: 26px; line-height: 1.6;"></div>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
+
+    <div class="main-layout">
+        <main>
+            <div class="main-card">
+                <div class="today-info">
+                    <div class="today-date" id="todayDate"></div>
+                    <div id="remainingHolidays" style="margin-top:12px;"></div>
+                </div>
+
+                <div class="year-nav">
+                    <button id="prevBtn" class="year-btn" onclick="prevYear()">◀ 이전</button>
+                    <span id="yearText" class="year-current"></span>
+                    <button id="nextBtn" class="year-btn" onclick="nextYear()">다음 ▶</button>
+                </div>
+
+                <div id="holidayList" class="holiday-list"></div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    <a href="../nolucky/" class="sidebar-link"><span>🍀</span><span>손없는날</span></a>
+                    <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
+                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    대체공휴일은 공휴일이 다른 공휴일이나 토요일/일요일과 겹칠 때 적용됩니다.
+                </div>
+            </div>
+        </aside>
     </div>
-
-    <div class="info-box">
-        올해 공휴일과 연휴를 한눈에 확인하세요.<br>
-        설날, 추석, 대체공휴일까지 자동 계산됩니다.<br>
-        (정확한 정보는 다시한번 확인하세요)
-    </div>
-
-    <div class="year-nav">
-        <button id="prevBtn" class="year-btn" onclick="prevYear()">◀ 이전년도</button>
-        <span id="yearText" class="year-current"></span>
-        <button id="nextBtn" class="year-btn" onclick="nextYear()">다음년도 ▶</button>
-    </div>
-
-    <div id="holidayList" class="holiday-list"></div>
-
-    <div class="back-btn-btm">
-        <button class="back-main" onclick="location.href='../index.html'">메인 화면</button>
-    </div>
-
 </div>
 
 <script src="korean-lunar-calendar.min.js"></script>
@@ -176,8 +197,7 @@
     const today = new Date();
     const currentActualYear = today.getFullYear();
     let currentYear = currentActualYear;
-    
-    // 현재 년도가 범위 밖이면 2025년으로
+
     if (currentYear < KoreanHoliday.MIN_YEAR || currentYear > KoreanHoliday.MAX_YEAR) {
         currentYear = 2025;
     }
@@ -195,19 +215,16 @@
         const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
         const dayName = days[today.getDay()];
 
-        document.getElementById("todayDate").innerText = `${year}년 ${month}월 ${date}일 ${dayName}`;
+        document.getElementById("todayDate").innerHTML = `오늘은 <strong>${year}년 ${month}월 ${date}일 ${dayName}</strong>`;
 
-        // 실제 오늘 날짜 기준으로 남은 공휴일 계산
         const holidays = KoreanHoliday.getHolidaysOfYear(currentActualYear);
-        
+
         if (holidays.length === 0) {
             document.getElementById("remainingHolidays").innerHTML = "공휴일 데이터가 없습니다.";
             return;
         }
-        
+
         const todayStr = formatDateStr(today);
-        
-        // 실제 쉬는 날만 카운트 (대체공휴일 날짜 기준)
         const actualHolidays = [];
         holidays.forEach(h => {
             if (h.substituteDate) {
@@ -216,7 +233,7 @@
                 actualHolidays.push({ date: h.date, name: h.name });
             }
         });
-        
+
         const remaining = actualHolidays.filter(h => h.date >= todayStr);
         const remainingCount = remaining.length;
         const totalCount = actualHolidays.length;
@@ -228,15 +245,13 @@
             const nextHoliday = remaining[0];
             const nextDate = new Date(nextHoliday.date);
             const daysUntil = Math.ceil((nextDate - today) / (1000 * 60 * 60 * 24));
-            
+
             if (daysUntil === 0) {
-                message = `오늘은 <strong style="color: #e74c3c;">${nextHoliday.name}</strong>입니다! 🎉<br>`;
-                message += `${currentActualYear}년의 총 공휴일은 <strong>${totalCount}개</strong>입니다.<br>`;
-                message += `올해 남은 공휴일은 <strong>${remainingCount - 1}개</strong>입니다.`;
+                message = `오늘은 <strong style="color: var(--accent);">${nextHoliday.name}</strong>입니다! 🎉<br>`;
+                message += `${currentActualYear}년의 총 공휴일: <strong>${totalCount}개</strong> / 남은 공휴일: <strong>${remainingCount - 1}개</strong>`;
             } else {
-                message = `다음 공휴일은 <strong style="color: #e74c3c;">${nextHoliday.name}</strong>이며, <strong>${daysUntil}일</strong> 남았습니다.<br>`;
-                message += `${currentActualYear}년의 총 공휴일은 <strong>${totalCount}개</strong>입니다.<br>`;
-                message += `올해 남은 공휴일은 총 <strong>${remainingCount}개</strong>입니다.`;
+                message = `다음 공휴일은 <strong style="color: var(--accent);">${nextHoliday.name}</strong> (<strong>${daysUntil}일</strong> 남음)<br>`;
+                message += `${currentActualYear}년의 총 공휴일: <strong>${totalCount}개</strong> / 남은 공휴일: <strong>${remainingCount}개</strong>`;
             }
         }
 
@@ -251,17 +266,14 @@
     }
 
     function getDayName(dateStr) {
-        const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+        const days = ["일", "월", "화", "수", "목", "금", "토"];
         const date = new Date(dateStr);
         return days[date.getDay()];
     }
 
     function updateYearButtons() {
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        
-        prevBtn.disabled = currentYear <= KoreanHoliday.MIN_YEAR;
-        nextBtn.disabled = currentYear >= KoreanHoliday.MAX_YEAR;
+        document.getElementById("prevBtn").disabled = currentYear <= KoreanHoliday.MIN_YEAR;
+        document.getElementById("nextBtn").disabled = currentYear >= KoreanHoliday.MAX_YEAR;
     }
 
     function prevYear() {
@@ -283,17 +295,14 @@
     function loadYear(year) {
         document.getElementById("yearText").innerText = `${year}년`;
 
-        // 공휴일 데이터 가져오기
         const holidays = KoreanHoliday.getHolidaysOfYear(year);
-
         const listBox = document.getElementById("holidayList");
-        
+
         if (holidays.length === 0) {
-            listBox.innerHTML = '<div class="holiday-item"><div class="h-name">데이터 없음</div><div class="h-date">공휴일 데이터가 없습니다.</div></div>';
+            listBox.innerHTML = '<div class="holiday-item"><div class="h-name">데이터 없음</div></div>';
             return;
         }
 
-        // 대체 날짜 기준으로 정렬
         holidays.sort((a, b) => {
             const dateA = a.substituteDate || a.date;
             const dateB = b.substituteDate || b.date;
@@ -302,46 +311,42 @@
 
         let html = "";
         holidays.forEach(h => {
-            // 대체공휴일이 있는 경우 (주말 공휴일)
             if (h.substituteDate) {
                 const origDate = new Date(h.date);
-                const origDateStr = `${origDate.getFullYear()}년 ${origDate.getMonth() + 1}월 ${origDate.getDate()}일`;
+                const origDateStr = `${origDate.getMonth() + 1}월 ${origDate.getDate()}일`;
                 const origDayName = getDayName(h.date);
-                
+
                 const subDate = new Date(h.substituteDate);
-                const subDateStr = `${subDate.getFullYear()}년 ${subDate.getMonth() + 1}월 ${subDate.getDate()}일`;
+                const subDateStr = `${subDate.getMonth() + 1}월 ${subDate.getDate()}일`;
                 const subDayName = getDayName(h.substituteDate);
 
                 html += `
-                    <div class="holiday-item">
-                        <div class="h-name">${h.name} (${origDayName}이라 대체공휴일 적용)</div>
-                        <div class="h-substitute-info">
-                            원래: ${origDateStr} (${origDayName})
+                        <div class="holiday-item">
+                            <div class="h-name">${h.name}</div>
+                            <div class="h-substitute-info">
+                                원래: ${origDateStr} (${origDayName})
+                            </div>
+                            <div class="h-substitute-date">
+                                대체: ${subDateStr} (${subDayName})
+                            </div>
                         </div>
-                        <div class="h-substitute-date">
-                            대체: ${subDateStr} (${subDayName})
-                        </div>
-                    </div>
-                `;
-            } 
-            // 일반 공휴일
-            else {
+                    `;
+            } else {
                 const d = new Date(h.date);
-                const dateStr = `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
+                const dateStr = `${d.getMonth() + 1}월 ${d.getDate()}일`;
                 const dayName = getDayName(h.date);
 
                 html += `
-                    <div class="holiday-item">
-                        <div class="h-name">${h.name}</div>
-                        <div class="h-date">${dateStr} (${dayName})</div>
-                    </div>
-                `;
+                        <div class="holiday-item">
+                            <div class="h-name">${h.name}</div>
+                            <div class="h-date">${dateStr} (${dayName})</div>
+                        </div>
+                    `;
             }
         });
 
         listBox.innerHTML = html;
-        
-        // 선택한 년도가 올해가 아니면 상단 정보 업데이트
+
         if (year !== currentActualYear) {
             updateYearSummary(year, holidays);
         } else {
@@ -350,7 +355,6 @@
     }
 
     function updateYearSummary(year, holidays) {
-        // 실제 쉬는 날만 카운트
         const actualHolidays = [];
         holidays.forEach(h => {
             if (h.substituteDate) {
@@ -359,17 +363,11 @@
                 actualHolidays.push({ date: h.date, name: h.name });
             }
         });
-        
+
         const totalCount = actualHolidays.length;
-        
-        const message = `${year}년의 총 공휴일은 <strong>${totalCount}개</strong>입니다.<br>${year}년의 남은 공휴일은 <strong>${totalCount}개</strong>입니다.`;
-        
+        const message = `${year}년의 총 공휴일은 <strong>${totalCount}개</strong>입니다.`;
         document.getElementById("remainingHolidays").innerHTML = message;
     }
 </script>
-
-
-
-
 </body>
 </html>
