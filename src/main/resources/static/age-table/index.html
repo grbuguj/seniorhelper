@@ -3,344 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>2025년 나이표 - 출생연도별 나이 확인 | woong.io.kr</title>
-    <meta name="description" content="2025년 기준 출생연도별 나이를 한눈에 확인하세요. 띠, 육십갑자 정보와 함께 1906년부터 2030년까지 모든 연도의 나이를 제공합니다.">
-    <meta name="keywords" content="나이표, 2025년 나이, 출생연도, 띠, 육십갑자, 나이 확인">
-    
-    <!-- Canonical URL -->
+    <title>2025년 나이표 | 출생연도별 나이</title>
+    <meta name="description" content="2025년 기준 출생연도별 나이표를 확인하세요">
     <link rel="canonical" href="https://woong.io.kr/age-table/">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="2025년 나이표 - 출생연도별 나이 확인">
-    <meta property="og:description" content="출생연도별 나이를 한눈에 확인하세요. 띠와 육십갑자 정보도 함께 제공합니다.">
-    <meta property="og:url" content="https://woong.io.kr/age-table/">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="2025년 나이표">
-    <meta name="twitter:description" content="출생연도별 나이를 한눈에 확인하세요">
-    
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "2025년 나이표",
-      "url": "https://woong.io.kr/age-table/",
-      "description": "출생연도별 2025년 기준 나이를 확인할 수 있는 나이표",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      }
-    }
-    </script>
-    
-    <link rel="stylesheet" href="../css/base.css">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
         body {
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-        
-        .table-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .page-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .page-title {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        
-        .year-info {
-            font-size: 28px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .table-notice {
-            font-size: 22px;
-            color: var(--text-sub);
-            margin: 8px 0;
-        }
-        
-        /* 광고 공간 */
-        .ad-space {
-            min-height: 90px;
-            background: #f9f9f9;
-            border: 1px dashed #ddd;
-            border-radius: 10px;
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #999;
-            margin: 20px 0;
+            justify-content: space-between;
         }
-        
-        /* 나이표 테이블 */
-        .age-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin: 20px 0;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        .age-table thead {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .age-table th {
-            padding: 18px 12px;
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .age-table tbody tr {
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .age-table tbody tr:hover {
-            background: #f0f4ff;
-        }
-        
-        .age-table tbody tr.current-year {
-            background: #e8f0ff;
-            font-weight: 600;
-        }
-        
-        .age-table td {
-            padding: 14px 10px;
-            font-size: 22px;
-            text-align: center;
-        }
-        
-        .year-col {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-        
-        .age-col {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 26px;
-        }
-        
-        .ganji-col {
-            color: var(--text-sub);
-            font-size: 20px;
-        }
-        
-        .view-btn {
-            padding: 8px 16px;
-            font-size: 20px;
+        .home-btn {
+            padding: 10px 20px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .year-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .year-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        
-        .view-btn:hover {
-            opacity: 0.9;
+        .year-btn:hover { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); }
+        .year-display { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .age-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        
-        .view-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
+        .age-table th, .age-table td {
+            padding: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
         }
-        
-        .future-year {
-            color: #999;
-        }
-        
-        .back-main-btn {
-            display: block;
-            margin: 30px auto;
-            padding: 16px 32px;
-            font-size: 24px;
-            background: var(--primary);
+        .age-table th {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            border: none;
+            font-weight: 700;
+        }
+        .age-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
             border-radius: 12px;
-            cursor: pointer;
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
-        
-        /* 글자 크게 보기 */
-        body.large-text .page-title {
-            font-size: 45px;
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
         }
-        
-        body.large-text .age-table th,
-        body.large-text .age-table td {
-            font-size: 1.3em;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        @media (max-width: 768px) {
-            .age-table th,
-            .age-table td {
-                padding: 10px 6px;
-                font-size: 18px;
-            }
-            
-            .ganji-col {
-                font-size: 16px;
-            }
-            
-            .view-btn {
-                font-size: 16px;
-                padding: 6px 12px;
-            }
-        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
 <body>
+<div class="container">
+    <header>
+        <div class="header-left">
+            <span class="logo">📋</span>
+            <h1 class="page-title">나이표</h1>
+        </div>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
 
-<!-- 글자 크게 보기 버튼 -->
-<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
+    <div class="main-layout">
+        <main>
+            <div class="main-card">
+                <div class="year-selector">
+                    <button class="year-btn" onclick="changeYear(-1)">◀ 이전</button>
+                    <span class="year-display" id="yearDisplay">2025년</span>
+                    <button class="year-btn" onclick="changeYear(1)">다음 ▶</button>
+                </div>
 
-<div class="table-wrapper">
-    
-    <div class="page-header">
-        <h1 class="page-title">2025년 나이표</h1>
-        <div class="year-info">을사(乙巳)년 뱀띠해</div>
-        <p class="table-notice">아래 표의 나이는 <strong>한국 나이</strong>입니다.</p>
-        <p class="table-notice">자세한 정보는 보기를 눌러보세요.</p>
+                <table class="age-table" id="ageTable">
+                    <thead>
+                    <tr>
+                        <th>출생년도</th>
+                        <th>띠</th>
+                        <th>만 나이</th>
+                        <th>한국나이</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                    <a href="../age-man/" class="sidebar-link"><span>📆</span><span>만 나이 계산</span></a>
+                    <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    출생연도별 나이를 한눈에 확인하세요. 만 나이는 생일 전/후 기준입니다.
+                </div>
+            </div>
+        </aside>
     </div>
-    
-    <!-- 광고 공간 -->
-    <!-- TODO: AdSense 승인 후 활성화 -->
-    <div class="ad-space">광고 영역 (승인 대기중)</div>
-    
-    <table class="age-table">
-        <thead>
-            <tr>
-                <th>출생연도</th>
-                <th>띠</th>
-                <th>나이</th>
-                <th>육십갑자</th>
-                <th>보기</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- JavaScript로 동적 생성 -->
-        </tbody>
-    </table>
-    
-    <!-- 광고 공간 -->
-    <div class="ad-space">광고 영역 (승인 대기중)</div>
-    
-    <button class="back-main-btn" onclick="location.href='../'">메인 화면으로</button>
-    
 </div>
 
-<script src="../js/common.js"></script>
 <script>
-    const CURRENT_YEAR = 2025;
-    
-    // 띠 배열 (쥐부터 시작, 12년 주기)
-    const animals = ["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
-    
-    // 천간 (10년 주기)
-    const gan = [
-        ["갑","甲"], ["을","乙"], ["병","丙"], ["정","丁"], ["무","戊"],
-        ["기","己"], ["경","庚"], ["신","辛"], ["임","壬"], ["계","癸"]
-    ];
-    
-    // 지지 (12년 주기)
-    const ji = [
-        ["자","子"], ["축","丑"], ["인","寅"], ["묘","卯"], ["진","辰"], ["사","巳"],
-        ["오","午"], ["미","未"], ["신","申"], ["유","酉"], ["술","戌"], ["해","亥"]
-    ];
-    
-    // 테이블 생성
-    const tbody = document.getElementById("tableBody");
-    
-    // 2030년부터 1906년까지
-    for (let year = 2030; year >= 1906; year--) {
-        const tr = document.createElement("tr");
-        
-        // 2025년 행 하이라이트
-        if (year === CURRENT_YEAR) {
-            tr.classList.add("current-year");
-        }
-        
-        // 출생연도
-        const yearTd = document.createElement("td");
-        yearTd.className = "year-col";
-        yearTd.textContent = year + "년";
-        
-        // 띠
-        const animalTd = document.createElement("td");
-        animalTd.textContent = animals[year % 12];
-        
-        // 나이
-        const ageTd = document.createElement("td");
-        ageTd.className = "age-col";
-        const koreanAge = CURRENT_YEAR - year + 1;
-        
-        if (year > CURRENT_YEAR) {
-            ageTd.textContent = "-";
-            ageTd.classList.add("future-year");
-        } else {
-            ageTd.textContent = koreanAge + "세";
-        }
-        
-        // 육십갑자
-        const ganjiTd = document.createElement("td");
-        ganjiTd.className = "ganji-col";
-        const ganIdx = (year - 4) % 10;
-        const jiIdx = (year - 4) % 12;
-        ganjiTd.textContent = `${gan[ganIdx][1]}${ji[jiIdx][1]}(${gan[ganIdx][0]}${ji[jiIdx][0]})`;
-        
-        // 보기 버튼
-        const viewTd = document.createElement("td");
-        const viewBtn = document.createElement("button");
-        viewBtn.className = "view-btn";
-        viewBtn.textContent = "보기";
-        
-        if (year > CURRENT_YEAR) {
-            viewBtn.disabled = true;
-        } else {
-            viewBtn.onclick = () => {
-                location.href = `../age/result.html?year=${year}`;
-            };
-        }
-        
-        viewTd.appendChild(viewBtn);
-        
-        tr.appendChild(yearTd);
-        tr.appendChild(animalTd);
-        tr.appendChild(ageTd);
-        tr.appendChild(ganjiTd);
-        tr.appendChild(viewTd);
-        
-        tbody.appendChild(tr);
+    let currentYear = 2025;
+    const zodiacAnimals = ['원숭이', '닭', '개', '돼지', '쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양'];
+
+    function changeYear(delta) {
+        currentYear += delta;
+        if (currentYear < 1900) currentYear = 1900;
+        if (currentYear > 2100) currentYear = 2100;
+        updateTable();
     }
+
+    function updateTable() {
+        document.getElementById('yearDisplay').textContent = `${currentYear}년`;
+
+        let html = '';
+        for (let birthYear = currentYear - 1; birthYear >= currentYear - 100; birthYear--) {
+            const manAge = currentYear - birthYear - 1;
+            const koreanAge = currentYear - birthYear + 1;
+            const zodiacIndex = (birthYear - 4) % 12;
+            const zodiac = zodiacAnimals[zodiacIndex];
+
+            html += `
+                    <tr>
+                        <td>${birthYear}년</td>
+                        <td>${zodiac}</td>
+                        <td>${manAge}세</td>
+                        <td>${koreanAge}세</td>
+                    </tr>
+                `;
+        }
+
+        document.getElementById('tableBody').innerHTML = html;
+    }
+
+    window.onload = updateTable;
 </script>
-
-<!-- Google AdSense (승인 후 활성화) -->
-<!--
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
-     crossorigin="anonymous"></script>
--->
-
 </body>
 </html>

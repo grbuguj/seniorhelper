@@ -3,321 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO Meta Tags -->
-    <title>양력음력 변환기 - 음력↔양력 날짜 변환 | woong.io.kr</title>
-    <meta name="description" content="양력을 음력으로, 음력을 양력으로 빠르게 변환하세요. 제사, 명절, 생일 등 음력 날짜 확인에 활용하세요.">
-    <meta name="keywords" content="양력음력변환, 음력변환기, 양력변환, 제사날짜, 음력생일">
-
+    <title>양력음력 변환기 | 음력↔양력 날짜 변환</title>
+    <meta name="description" content="양력을 음력으로, 음력을 양력으로 빠르게 변환하세요">
     <link rel="canonical" href="https://woong.io.kr/convert/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="양력음력 변환기 | woong.io.kr">
-    <meta property="og:description" content="양력↔음력 날짜를 빠르게 변환하세요">
-    <meta property="og:url" content="https://woong.io.kr/convert/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "양력음력 변환기",
-      "url": "https://woong.io.kr/convert/",
-      "description": "양력과 음력 날짜를 상호 변환하는 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
         body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .page-title {
-            font-size: 34px;
-            text-align: center;
-            font-weight: 700;
-            margin-top: 12px;
-            margin-bottom: 26px;
-        }
-
-        .card {
-            background: var(--card);
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
             border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border);
-            padding: 22px 20px 24px;
-            margin-bottom: 26px;
-        }
-
-        .card-title {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 18px;
-        }
-
-        .field-row {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .field {
-            flex: 1 1 0;
-            min-width: 0;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .field label {
-            display: block;
-            font-size: 20px;
-            margin-bottom: 6px;
-            color: #555;
-        }
-
-        .field input,
-        .field select {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 22px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-sizing: border-box;
-        }
-
-        .primary-btn {
-            width: 100%;
-            margin-top: 4px;
-            padding: 15px 18px;
-            font-size: 24px;
-            border-radius: 12px;
+        .home-btn {
+            padding: 10px 20px;
             background: var(--primary);
-            color: #fff;
+            color: white;
             border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 20px; }
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
+        .input-row { display: flex; gap: 12px; margin-bottom: 12px; }
+        .input-field, .select-field {
+            flex: 1;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .input-field:focus, .select-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .primary-btn:active {
-            opacity: 0.9;
-        }
-
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
         .result-box {
-            margin-top: 18px;
-            padding: 16px 14px;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             border-radius: 12px;
-            border: 1px solid var(--border);
-            background: #f9fbff;
-            font-size: 22px;
-            line-height: 1.6;
+            border: 2px solid var(--primary);
         }
-
-        .result-main {
-            margin-bottom: 4px;
-        }
-
-        .result-sub {
-            color: #555;
-        }
-
+        .result-main { font-size: 1.125rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .result-sub { font-size: 0.875rem; color: var(--text-light); }
         .hint-text {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 26px 4px 14px;
-        }
-
-        .info-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .info-card {
-            background: var(--card);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            padding: 16px 16px 18px;
-            font-size: 20px;
+            margin-top: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 8px;
+            font-size: 0.75rem;
             line-height: 1.6;
         }
-
-        .info-card-title {
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .nav-buttons {
-            margin-top: 30px;
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
-
-        .nav-btn {
-            padding: 12px 18px;
-            font-size: 20px;
-            border-radius: 24px;
-            border: 1px solid var(--primary);
-            background: #fff;
-            cursor: pointer;
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 30px;
-            }
-            .card-title {
-                font-size: 24px;
-            }
-            .field input,
-            .field select {
-                font-size: 20px;
-            }
-            .primary-btn {
-                font-size: 22px;
-            }
-            .result-box {
-                font-size: 20px;
-            }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+            .input-row { flex-direction: column; }
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
 <body>
-
 <div class="container">
-
-    <div class="page-title">양력·음력 변환기</div>
-
-    <!-- 양력 → 음력 -->
-    <div class="card">
-        <div class="card-title">양력 → 음력 변환</div>
-
-        <div class="field-row">
-            <div class="field">
-                <label for="solarYear">연도</label>
-                <input id="solarYear" type="number" placeholder="예: 2025">
-            </div>
-            <div class="field">
-                <label for="solarMonth">월</label>
-                <input id="solarMonth" type="number" placeholder="예: 11">
-            </div>
-            <div class="field">
-                <label for="solarDay">일</label>
-                <input id="solarDay" type="number" placeholder="예: 28">
-            </div>
+    <header>
+        <div class="header-left">
+            <span class="logo">🌙</span>
+            <h1 class="page-title">양력음력 변환</h1>
         </div>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
 
-        <button class="primary-btn" id="btnTodaySolar" style="background: #666; margin-bottom: 10px;">오늘 날짜 입력하기</button>
+    <div class="main-layout">
+        <main>
+            <!-- 양력 → 음력 -->
+            <div class="main-card">
+                <h2 class="card-title">☀️ 양력 → 음력</h2>
+                <div class="input-group">
+                    <label class="input-label">양력 날짜</label>
+                    <div class="input-row">
+                        <input type="number" id="solarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
+                        <input type="number" id="solarMonth" class="input-field" placeholder="월" min="1" max="12">
+                        <input type="number" id="solarDay" class="input-field" placeholder="일" min="1" max="31">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="solarToLunar()">음력으로 변환</button>
+                <div id="solarResult"></div>
+                <div class="hint-text">
+                    💡 양력 날짜를 입력하면 해당하는 음력 날짜로 변환합니다
+                </div>
+            </div>
 
-        <button class="primary-btn" id="btnSolarToLunar">양력 → 음력 변환하기</button>
+            <!-- 음력 → 양력 -->
+            <div class="main-card">
+                <h2 class="card-title">🌙 음력 → 양력</h2>
+                <div class="input-group">
+                    <label class="input-label">음력 날짜</label>
+                    <div class="input-row">
+                        <input type="number" id="lunarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
+                        <input type="number" id="lunarMonth" class="input-field" placeholder="월" min="1" max="12">
+                        <input type="number" id="lunarDay" class="input-field" placeholder="일" min="1" max="30">
+                    </div>
+                    <div class="input-row">
+                        <select id="isLeapMonth" class="select-field">
+                            <option value="0">평달</option>
+                            <option value="1">윤달</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="lunarToSolar()">양력으로 변환</button>
+                <div id="lunarResult"></div>
+                <div class="hint-text">
+                    💡 음력 날짜를 입력하면 해당하는 양력 날짜로 변환합니다. 윤달이 있는 해는 윤달을 선택하세요.
+                </div>
+            </div>
+        </main>
 
-        <div id="solarResult" class="result-box">
-            날짜를 입력한 뒤 버튼을 눌러주세요.
-        </div>
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../solar-to-lunar/" class="sidebar-link"><span>☀️</span><span>양력→음력 전용</span></a>
+                    <a href="../lunar-to-solar/" class="sidebar-link"><span>🌙</span><span>음력→양력 전용</span></a>
+                    <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                </div>
+            </div>
 
-        <div class="hint-text">
-            양력 생일이나 기념일을 음력으로 알고 싶을 때 사용합니다.
-        </div>
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    제사나 명절, 음력 생일 등을 확인할 때 유용합니다. 윤달이 있는 해는 주의하세요!
+                </div>
+            </div>
+        </aside>
     </div>
-
-    <!-- 음력 → 양력 -->
-    <div class="card">
-        <div class="card-title">음력 → 양력 변환</div>
-
-        <div class="field-row">
-            <div class="field">
-                <label for="lunarYear">연도</label>
-                <input id="lunarYear" type="number" placeholder="예: 2025">
-            </div>
-            <div class="field">
-                <label for="lunarMonth">월</label>
-                <input id="lunarMonth" type="number" placeholder="예: 10">
-            </div>
-            <div class="field">
-                <label for="lunarDay">일</label>
-                <input id="lunarDay" type="number" placeholder="예: 9">
-            </div>
-        </div>
-
-        <div class="field-row">
-            <div class="field">
-                <label for="lunarLeap">윤달 여부</label>
-                <select id="lunarLeap">
-                    <option value="0">평달</option>
-                    <option value="1">윤달</option>
-                </select>
-            </div>
-        </div>
-
-        <button class="primary-btn" id="btnTodayLunar" style="background: #666; margin-bottom: 10px;">오늘 날짜 입력하기</button>
-
-        <button class="primary-btn" id="btnLunarToSolar">음력 → 양력 변환하기</button>
-
-        <div id="lunarResult" class="result-box">
-            음력 날짜와 윤달 여부를 입력한 뒤 버튼을 눌러주세요.
-        </div>
-
-        <div class="hint-text">
-            제사·차례·전통 기념일 등 음력 날짜를 오늘 달력 기준으로 알고 싶을 때 사용합니다.
-        </div>
-    </div>
-
-    <!-- 읽을거리 섹션 -->
-    <div class="section-title">알아두면 좋은 정보</div>
-    <div class="info-cards">
-        <div class="info-card">
-            <div class="info-card-title">왜 음력 생일은 매년 날짜가 달라질까요?</div>
-            <div>
-                음력은 달의 움직임을 기준으로 하기 때문에 양력과 달의 길이가 조금씩 다릅니다.
-                이 차이를 맞추기 위해 몇 년에 한 번씩 윤달이 들어가고,
-                그 결과 같은 음력 생일이라도 양력 날짜는 매년 조금씩 달라집니다.
-            </div>
-        </div>
-        <div class="info-card">
-            <div class="info-card-title">윤달은 어떤 달인가요?</div>
-            <div>
-                윤달은 계절과 달력을 맞추기 위해 끼워 넣는 한 달입니다.
-                보통 3년에 한 번 정도 들어가며,
-                날짜를 입력할 때 윤달 여부를 꼭 확인해야 합니다.
-            </div>
-        </div>
-        <div class="info-card">
-            <div class="info-card-title">전통 행사는 왜 음력 기준이 많을까요?</div>
-            <div>
-                제사, 명절, 큰 잔치 등은 자연과 계절의 리듬을 중시해
-                대부분 음력 기준으로 정해졌습니다.
-                지금도 제사·차례·전통 기념일은 음력을 기준으로 많이 계산합니다.
-            </div>
-        </div>
-    </div>
-
-    <!-- 아래 네비게이션 버튼 -->
-    <div class="nav-buttons">
-        <button class="nav-btn" onclick="location.href='../dday/'">디데이 계산기</button>
-        <button class="nav-btn" onclick="location.href='../diff/'">날짜 차이 계산기</button>
-        <button class="nav-btn" onclick="location.href='../plusminus/'">날짜 더하기·빼기</button>
-        <button class="nav-btn" onclick="location.href='../anniversary/'">기념일 계산기</button>
-        <button class="nav-btn" onclick="location.href='../index.html'">메인 화면</button>
-    </div>
-
 </div>
 
-<script src="./korean-lunar-calendar.min.js"></script>
-<script src="./convert.js"></script>
+<script src="../holiday/korean-lunar-calendar.min.js"></script>
+<script>
+    // 오늘 날짜로 초기화
+    window.onload = function() {
+        const today = new Date();
+        document.getElementById('solarYear').value = today.getFullYear();
+        document.getElementById('solarMonth').value = today.getMonth() + 1;
+        document.getElementById('solarDay').value = today.getDate();
 
+        document.getElementById('lunarYear').value = today.getFullYear();
+    };
+
+    function solarToLunar() {
+        const year = parseInt(document.getElementById('solarYear').value);
+        const month = parseInt(document.getElementById('solarMonth').value);
+        const day = parseInt(document.getElementById('solarDay').value);
+
+        if (!year || !month || !day) {
+            alert('날짜를 모두 입력해주세요');
+            return;
+        }
+
+        try {
+            const lunar = KoreanLunarCalendar.solarToLunar(year, month, day);
+            const leapText = lunar.isLeapMonth ? ' (윤달)' : '';
+
+            let html = `
+                    <div class="result-box">
+                        <div class="result-main">음력: ${lunar.year}년 ${lunar.month}월 ${lunar.day}일${leapText}</div>
+                        <div class="result-sub">양력: ${year}년 ${month}월 ${day}일 → 음력 변환 결과</div>
+                    </div>
+                `;
+            document.getElementById('solarResult').innerHTML = html;
+        } catch (e) {
+            alert('변환 중 오류가 발생했습니다: ' + e.message);
+        }
+    }
+
+    function lunarToSolar() {
+        const year = parseInt(document.getElementById('lunarYear').value);
+        const month = parseInt(document.getElementById('lunarMonth').value);
+        const day = parseInt(document.getElementById('lunarDay').value);
+        const isLeap = parseInt(document.getElementById('isLeapMonth').value);
+
+        if (!year || !month || !day) {
+            alert('날짜를 모두 입력해주세요');
+            return;
+        }
+
+        try {
+            const solar = KoreanLunarCalendar.lunarToSolar(year, month, day, isLeap);
+            const leapText = isLeap ? ' (윤달)' : '';
+
+            let html = `
+                    <div class="result-box">
+                        <div class="result-main">양력: ${solar.year}년 ${solar.month}월 ${solar.day}일</div>
+                        <div class="result-sub">음력: ${year}년 ${month}월 ${day}일${leapText} → 양력 변환 결과</div>
+                    </div>
+                `;
+            document.getElementById('lunarResult').innerHTML = html;
+        } catch (e) {
+            alert('변환 중 오류가 발생했습니다: ' + e.message);
+        }
+    }
+
+    // Enter 키 지원
+    ['solarYear', 'solarMonth', 'solarDay'].forEach(id => {
+        document.getElementById(id).addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') solarToLunar();
+        });
+    });
+
+    ['lunarYear', 'lunarMonth', 'lunarDay'].forEach(id => {
+        document.getElementById(id).addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') lunarToSolar();
+        });
+    });
+</script>
 </body>
 </html>
