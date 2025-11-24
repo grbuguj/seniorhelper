@@ -3,92 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>날짜 빼기 - 며칠 전 날짜 계산 | woong.io.kr</title>
-    <meta name="description" content="특정 날짜에서 며칠 전을 계산하세요. 날짜 역산에 활용하세요.">
-    <meta name="keywords" content="날짜 빼기, 며칠 전, 날짜 계산">
-    
-    <link rel="canonical" href="https://woong.io.kr/date-minus/">
-    
-    <meta property="og:title" content="날짜 빼기 | woong.io.kr">
-    <meta property="og:url" content="https://woong.io.kr/date-minus/">
-    
-    <link rel="stylesheet" href="../css/base.css">
+    <title>날짜 더하기 계산기</title>
+    <meta name="description" content="특정 날짜에서 N일 후의 날짜를 계산하세요">
+    <link rel="canonical" href="https://woong.io.kr/date-plus/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>➕</text></svg>">
+
     <style>
-        body { background: var(--bg); }
-        .container { max-width: 720px; margin: 0 auto; padding: 20px; }
-        .page-title { font-size: 34px; text-align: center; font-weight: 700; margin: 26px 0; }
-        .card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 22px; margin-bottom: 26px; }
-        .field { margin-bottom: 16px; }
-        .field label { display: block; font-size: 20px; margin-bottom: 6px; color: #555; }
-        .field input { width: 100%; padding: 14px; font-size: 22px; border-radius: 12px; border: 1px solid var(--border); box-sizing: border-box; }
-        .primary-btn { width: 100%; padding: 15px; font-size: 24px; border-radius: 12px; background: var(--primary); color: #fff; border: none; cursor: pointer; margin-top: 10px; }
-        .result-box { margin-top: 18px; padding: 16px; border-radius: 12px; background: #f9fbff; font-size: 22px; border: 1px solid var(--border); }
-        .nav-buttons { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .nav-btn { padding: 12px 18px; font-size: 20px; border-radius: 24px; border: 1px solid var(--primary); background: #fff; cursor: pointer; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
+        .result-box {
+            margin-top: 24px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+        }
+        .result-main {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
 <body>
-<button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
-
 <div class="container">
-    <div class="page-title">날짜 빼기</div>
-    
-    <div class="card">
-        <div class="field">
-            <label for="startDate">시작 날짜</label>
-            <input id="startDate" type="date">
+    <header>
+        <div class="header-left">
+            <span class="logo">➕</span>
+            <h1 class="page-title">날짜 더하기</h1>
         </div>
-        
-        <div class="field">
-            <label for="days">뺄 일수</label>
-            <input id="days" type="number" placeholder="예: 30">
-        </div>
-        
-        <button class="primary-btn" onclick="setToday()">오늘 날짜로</button>
-        <button class="primary-btn" onclick="calculate()">계산하기</button>
-        
-        <div id="result" class="result-box">날짜와 일수를 입력하세요.</div>
-    </div>
-    
-    <div class="nav-buttons">
-        <button class="nav-btn" onclick="location.href='../date-plus/'">날짜 더하기</button>
-        <button class="nav-btn" onclick="location.href='../solar-to-lunar/'">양력→음력</button>
-        <button class="nav-btn" onclick="location.href='../lunar-to-solar/'">음력→양력</button>
-        <button class="nav-btn" onclick="location.href='../'">홈으로</button>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
+
+    <div class="main-layout">
+        <main>
+            <div class="main-card">
+                <div class="input-group">
+                    <label class="input-label">기준 날짜</label>
+                    <input type="date" id="baseDate" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">더할 일수</label>
+                    <input type="number" id="days" class="input-field" placeholder="예: 100" min="0">
+                </div>
+                <button class="btn-primary" onclick="calculate()">계산하기</button>
+                <div id="result"></div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
+                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    계약 만료일, 출산 예정일 등을 계산할 때 유용합니다.
+                </div>
+            </div>
+        </aside>
     </div>
 </div>
 
-<footer style="margin-top:40px;padding:20px;text-align:center;background:var(--card);border-radius:12px;">
-    <p>© 2025 woong.io.kr</p>
-    <p><a href="../privacy/">개인정보 처리방침</a> | <a href="../terms/">이용약관</a> | <a href="../contact/">문의하기</a></p>
-</footer>
-
-<script src="../js/common.js"></script>
 <script>
-function setToday() {
-    const today = new Date();
-    document.getElementById('startDate').value = today.toISOString().split('T')[0];
-}
+    window.onload = function() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('baseDate').value = `${yyyy}-${mm}-${dd}`;
+        document.getElementById('days').value = 100;
+    };
 
-function calculate() {
-    const dateVal = document.getElementById('startDate').value;
-    const daysVal = parseInt(document.getElementById('days').value);
-    
-    if (!dateVal || !daysVal) {
-        document.getElementById('result').innerText = '날짜와 일수를 모두 입력해주세요.';
-        return;
+    function calculate() {
+        const baseDate = document.getElementById('baseDate').value;
+        const days = parseInt(document.getElementById('days').value);
+
+        if (!baseDate || !days) {
+            alert('날짜와 일수를 모두 입력해주세요');
+            return;
+        }
+
+        const base = new Date(baseDate);
+        const result = new Date(base);
+        result.setDate(result.getDate() + days);
+
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+
+        let html = `
+                <div class="result-box">
+                    <div class="result-main">${result.getFullYear()}년 ${result.getMonth()+1}월 ${result.getDate()}일 (${dayNames[result.getDay()]})</div>
+                    <div style="text-align:center; font-size:0.875rem; color:var(--text-light);">
+                        ${base.getFullYear()}년 ${base.getMonth()+1}월 ${base.getDate()}일 + ${days}일
+                    </div>
+                </div>
+            `;
+
+        document.getElementById('result').innerHTML = html;
     }
-    
-    const start = new Date(dateVal);
-    const result = new Date(start);
-    result.setDate(result.getDate() - daysVal);
-    
-    document.getElementById('result').innerHTML = 
-        `<div style="font-size:24px;margin-bottom:8px;">${start.getFullYear()}년 ${start.getMonth()+1}월 ${start.getDate()}일에서</div>` +
-        `<div style="font-size:24px;margin-bottom:8px;">${daysVal}일 전은</div>` +
-        `<div style="font-size:28px;color:var(--primary);font-weight:700;">${result.getFullYear()}년 ${result.getMonth()+1}월 ${result.getDate()}일</div>`;
-}
+
+    ['baseDate', 'days'].forEach(id => {
+        document.getElementById(id).addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
+        });
+    });
 </script>
 </body>
 </html>

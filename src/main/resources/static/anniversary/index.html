@@ -3,227 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>기념일 계산기 - 100일, 200일, 1000일 계산 | woong.io.kr</title>
-    <meta name="description" content="특정 날짜부터 100일, 200일, 1000일이 언제인지 계산하세요. 결혼기념일, 만남 기념일 등을 쉽게 확인하세요.">
-    <meta name="keywords" content="기념일 계산기, 100일 계산, 200일 계산, 1000일, 결혼기념일, 만남 기념일">
-    
+    <title>기념일 계산기 | 100일, 200일, 1주년</title>
+    <meta name="description" content="연인, 결혼, 입사 등 기념일을 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/anniversary/">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="기념일 계산기 | woong.io.kr">
-    <meta property="og:description" content="100일, 200일, 1000일 기념일을 계산하세요">
-    <meta property="og:url" content="https://woong.io.kr/anniversary/">
-    
-    <meta name="twitter:card" content="summary">
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "기념일 계산기",
-      "url": "https://woong.io.kr/anniversary/",
-      "description": "특정 날짜로부터 N일째 되는 날을 계산하는 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-    
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
 
     <style>
-        .input-box {
-            background: var(--card);
-            padding: 26px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
             border-radius: 16px;
-            border: 2px solid var(--border);
-            margin-top: 20px;
-            text-align: center;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .big-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 28px;
-            border-radius: 14px;
-            border: 2px solid var(--border);
-            text-align: center;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .btn-main {
-            width: 100%;
-            padding: 22px;
-            margin-top: 20px;
-            font-size: 30px;
-            border-radius: 14px;
-            border: none;
+        .home-btn {
+            padding: 10px 20px;
             background: var(--primary);
             color: white;
-            cursor: pointer;
-        }
-        .btn-today {
-            margin-top: 14px;
-            font-size: 26px;
-            padding: 14px 20px;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            cursor: pointer;
-        }
-        .result-table {
-            margin-top: 26px;
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 26px;
-            background: var(--card);
-            border-radius: 14px;
-            overflow: hidden;
-        }
-        .result-table th, .result-table td {
-            border-bottom: 1px solid var(--border);
-            padding: 18px;
-        }
-        .result-table th {
-            background: #f0f4ff;
-            font-size: 28px;
-        }
-        .highlight {
-            color: var(--primary);
+            border: none;
+            border-radius: 8px;
             font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
         }
-        .sub-btns {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
         }
-        .small-btn {
-            padding: 18px 26px;
-            font-size: 26px;
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
+        .result-grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .result-card {
+            padding: 16px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             border-radius: 12px;
             border: 2px solid var(--primary);
-            background: white;
-            cursor: pointer;
+            text-align: center;
         }
-        .info-box {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            margin-top: 40px;
-            font-size: 26px;
-            line-height: 1.55;
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
         }
+        .result-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+            .result-grid { grid-template-columns: 1fr; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
-
 <body>
-<div class="page">
+<div class="container">
+    <header>
+        <div class="header-left">
+            <span class="logo">💝</span>
+            <h1 class="page-title">기념일 계산</h1>
+        </div>
+        <a href="../" class="home-btn">홈으로</a>
+    </header>
 
-    <a href="../index.html" class="back-btn">←</a>
+    <div class="main-layout">
+        <main>
+            <div class="main-card">
+                <div class="input-group">
+                    <label class="input-label">시작 날짜 (예: 사귄 날, 결혼일, 입사일)</label>
+                    <input type="date" id="startDate" class="input-field">
+                </div>
+                <button class="btn-primary" onclick="calculate()">기념일 계산</button>
+                <div id="result"></div>
+            </div>
+        </main>
 
-    <h1 class="page-title">기념일 계산기</h1>
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">관련 기능</h3>
+                <div class="sidebar-links">
+                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                    <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
+                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                </div>
+            </div>
 
-    <div class="input-box">
-        <div style="font-size:28px; margin-bottom:16px;">시작 날짜를 선택해주세요</div>
-
-        <input id="baseDate" type="date" class="big-input">
-
-        <button class="btn-today" onclick="setToday()">오늘 날짜로 입력</button>
-
-        <button class="btn-main" onclick="calc()">계산하기</button>
+            <div class="sidebar-card">
+                <div class="sidebar-tip">
+                    <strong>💡 Tip</strong><br>
+                    100일, 200일, 300일, 1주년, 2주년 등 주요 기념일을 한번에 확인하세요!
+                </div>
+            </div>
+        </aside>
     </div>
-
-    <div id="results"></div>
-
-    <div class="info-box">
-        <div style="font-size:30px; margin-bottom:10px;">기념일 계산이란?</div>
-        기념일 계산은 특정 날짜를 기준으로
-        며칠째 되는 날이 언제인지 계산하는 기능입니다.<br><br>
-
-        한국에서는 100일, 200일, 300일 등
-        'N일 기념일' 문화가 널리 퍼져 있어
-        만난 날, 결혼기념일, 생일, 입사일 등을 기념할 때
-        자주 사용됩니다.
-    </div>
-
-    <div class="sub-btns">
-        <button class="small-btn" onclick="location.href='../date-diff/index.html'">날짜 차이 계산기</button>
-        <button class="small-btn" onclick="location.href='../date-plusminus/index.html'">날짜 더하기·빼기</button>
-        <button class="small-btn" onclick="location.href='../dday/index.html'">디데이 계산기</button>
-        <button class="small-btn" onclick="location.href='../index.html'">홈으로</button>
-    </div>
-
 </div>
 
-<!-- Footer -->
-<footer style="margin-top:40px;padding:20px;text-align:center;background:var(--card);border-radius:12px;border:1px solid var(--border);">
-    <p style="margin-bottom:10px;">© 2025 woong.io.kr</p>
-    <p>
-        <a href="../privacy/" style="color:var(--primary);margin:0 8px;">개인정보 처리방침</a> | 
-        <a href="../terms/" style="color:var(--primary);margin:0 8px;">이용약관</a> | 
-        <a href="../contact/" style="color:var(--primary);margin:0 8px;">문의하기</a>
-    </p>
-</footer>
-
-<script src="../js/common.js"></script>
-
 <script>
-    const list = [
-        {days: 30, name: "30일째"},
-        {days: 50, name: "50일째"},
-        {days: 100, name: "100일째"},
-        {days: 200, name: "200일째"},
-        {days: 300, name: "300일째"},
-        {days: 365, name: "1주년"},
-        {days: 500, name: "500일"},
-        {days: 700, name: "700일"},
-        {days: 1000, name: "1000일"},
-        {days: 2000, name: "2000일"},
-        {days: 10000, name: "만일"}
-    ];
-
-    function setToday() {
+    window.onload = function() {
         const today = new Date();
         const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const dd = String(today.getDate()).padStart(2, "0");
-        document.getElementById("baseDate").value = `${yyyy}-${mm}-${dd}`;
-    }
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('startDate').value = `${yyyy-1}-${mm}-${dd}`;
+    };
 
-    function calc() {
-        const d = document.getElementById("baseDate").value;
-        if (!d) return alert("날짜를 선택해주세요!");
+    function calculate() {
+        const startDate = document.getElementById('startDate').value;
+        if (!startDate) {
+            alert('시작 날짜를 입력해주세요');
+            return;
+        }
 
-        const base = new Date(d);
+        const start = new Date(startDate);
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
 
-        let rows = `
-            <table class="result-table">
-                <tr>
-                    <th>기념일</th>
-                    <th>날짜</th>
-                </tr>
-        `;
+        const anniversaries = [
+            { label: '100일', days: 100 },
+            { label: '200일', days: 200 },
+            { label: '300일', days: 300 },
+            { label: '500일', days: 500 },
+            { label: '1000일', days: 1000 },
+            { label: '1주년', days: 365 },
+            { label: '2주년', days: 730 },
+            { label: '3주년', days: 1095 }
+        ];
 
-        list.forEach(item => {
-            const target = new Date(base);
-            target.setDate(target.getDate() + item.days);
+        let html = '<div class="result-grid">';
+        anniversaries.forEach(ann => {
+            const result = new Date(start);
+            result.setDate(result.getDate() + ann.days);
 
-            const result = `${target.getFullYear()}년 ${target.getMonth()+1}월 ${target.getDate()}일`;
-
-            rows += `
-                <tr>
-                    <td>${item.name}</td>
-                    <td><span class="highlight">${result}</span></td>
-                </tr>
-            `;
+            html += `
+                    <div class="result-card">
+                        <div class="result-label">${ann.label}</div>
+                        <div class="result-value">
+                            ${result.getFullYear()}.${String(result.getMonth()+1).padStart(2,'0')}.${String(result.getDate()).padStart(2,'0')}
+                            <br><small style="font-size:0.875rem;">(${dayNames[result.getDay()]})</small>
+                        </div>
+                    </div>
+                `;
         });
+        html += '</div>';
 
-        rows += `</table>`;
-
-        document.getElementById("results").innerHTML = rows;
+        document.getElementById('result').innerHTML = html;
     }
-</script>
 
+    document.getElementById('startDate').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') calculate();
+    });
+</script>
 </body>
 </html>
