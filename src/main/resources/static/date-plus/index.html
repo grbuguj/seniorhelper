@@ -7,7 +7,7 @@
     <meta name="description" content="특정 날짜에서 N일 후의 날짜를 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/date-plus/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>➕</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -136,78 +136,78 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">➕</span>
-            <h1 class="page-title">날짜 더하기</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">➕</span>
+                <h1 class="page-title">날짜 더하기</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">기준 날짜</label>
+                        <input type="date" id="baseDate" class="input-field">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">더할 일수</label>
+                        <input type="number" id="days" class="input-field" placeholder="예: 100" min="0">
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">계산하기</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
+                        <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                        <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        계약 만료일, 출산 예정일 등을 계산할 때 유용합니다.
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="input-group">
-                    <label class="input-label">기준 날짜</label>
-                    <input type="date" id="baseDate" class="input-field">
-                </div>
-                <div class="input-group">
-                    <label class="input-label">더할 일수</label>
-                    <input type="number" id="days" class="input-field" placeholder="예: 100" min="0">
-                </div>
-                <button class="btn-primary" onclick="calculate()">계산하기</button>
-                <div id="result"></div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
-                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                    <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    계약 만료일, 출산 예정일 등을 계산할 때 유용합니다.
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('baseDate').value = `${yyyy}-${mm}-${dd}`;
-        document.getElementById('days').value = 100;
-    };
-
-    function calculate() {
-        const baseDate = document.getElementById('baseDate').value;
-        const days = parseInt(document.getElementById('days').value);
-
-        if (!baseDate || !days) {
-            alert('날짜와 일수를 모두 입력해주세요');
-            return;
-        }
-
-        const base = new Date(baseDate);
-        const result = new Date(base);
-        result.setDate(result.getDate() + days);
-
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-
-        let html = `
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('baseDate').value = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('days').value = 100;
+        };
+        
+        function calculate() {
+            const baseDate = document.getElementById('baseDate').value;
+            const days = parseInt(document.getElementById('days').value);
+            
+            if (!baseDate || !days) {
+                alert('날짜와 일수를 모두 입력해주세요');
+                return;
+            }
+            
+            const base = new Date(baseDate);
+            const result = new Date(base);
+            result.setDate(result.getDate() + days);
+            
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            
+            let html = `
                 <div class="result-box">
                     <div class="result-main">${result.getFullYear()}년 ${result.getMonth()+1}월 ${result.getDate()}일 (${dayNames[result.getDay()]})</div>
                     <div style="text-align:center; font-size:0.875rem; color:var(--text-light);">
@@ -215,15 +215,15 @@
                     </div>
                 </div>
             `;
-
-        document.getElementById('result').innerHTML = html;
-    }
-
-    ['baseDate', 'days'].forEach(id => {
-        document.getElementById(id).addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') calculate();
+            
+            document.getElementById('result').innerHTML = html;
+        }
+        
+        ['baseDate', 'days'].forEach(id => {
+            document.getElementById(id).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') calculate();
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>

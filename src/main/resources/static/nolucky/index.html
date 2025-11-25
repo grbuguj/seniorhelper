@@ -7,7 +7,7 @@
     <meta name="description" content="이사, 개업, 손잡이 행사에 좋은 손없는날을 확인하세요">
     <link rel="canonical" href="https://woong.io.kr/nolucky/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍀</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -162,126 +162,129 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">🍀</span>
-            <h1 class="page-title">손없는날</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🍀</span>
+                <h1 class="page-title">손없는날</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="today-info">
+                        <div class="today-date" id="todayInfo"></div>
+                    </div>
+                    
+                    <div class="month-nav">
+                        <button class="month-btn" onclick="changeMonth(-1)">◀ 이전</button>
+                        <span class="month-current" id="currentMonth"></span>
+                        <button class="month-btn" onclick="changeMonth(1)">다음 ▶</button>
+                    </div>
+                    
+                    <div class="calendar" id="calendar">
+                        <!-- 캘린더 내용이 여기에 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                        <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
+                        <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        손없는날은 이사, 개업, 손잡이 등 중요한 일을 하기 좋은 날로 알려져 있습니다.
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="today-info">
-                    <div class="today-date" id="todayInfo"></div>
-                </div>
-
-                <div class="month-nav">
-                    <button class="month-btn" onclick="changeMonth(-1)">◀ 이전</button>
-                    <span class="month-current" id="currentMonth"></span>
-                    <button class="month-btn" onclick="changeMonth(1)">다음 ▶</button>
-                </div>
-
-                <div class="calendar">
-                    <div class="day-header sun">일</div>
-                    <div class="day-header">월</div>
-                    <div class="day-header">화</div>
-                    <div class="day-header">수</div>
-                    <div class="day-header">목</div>
-                    <div class="day-header">금</div>
-                    <div class="day-header sat">토</div>
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                    <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
-                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    손없는날은 이사, 개업, 손잡이 등 중요한 일을 하기 좋은 날로 알려져 있습니다.
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    let currentYear, currentMonth;
-    const today = new Date();
-
-    window.onload = function() {
-        currentYear = today.getFullYear();
-        currentMonth = today.getMonth() + 1;
-        updateCalendar();
-    };
-
-    function changeMonth(delta) {
-        currentMonth += delta;
-        if (currentMonth < 1) { currentMonth = 12; currentYear--; }
-        if (currentMonth > 12) { currentMonth = 1; currentYear++; }
-        updateCalendar();
-    }
-
-    function updateCalendar() {
-        document.getElementById('currentMonth').textContent = `${currentYear}년 ${currentMonth}월`;
-
-        const isToday = currentYear === today.getFullYear() && currentMonth === today.getMonth() + 1;
-        if (isToday) {
-            document.getElementById('todayInfo').innerHTML = `오늘은 <strong>${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일</strong>`;
-        } else {
-            document.getElementById('todayInfo').innerHTML = `<strong>${currentYear}년 ${currentMonth}월</strong> 손없는날`;
+    
+    <script>
+        let currentYear, currentMonth;
+        const today = new Date();
+        
+        window.onload = function() {
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth() + 1;
+            updateCalendar();
+        };
+        
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth < 1) { currentMonth = 12; currentYear--; }
+            if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+            updateCalendar();
         }
-
-        const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
-        const lastDate = new Date(currentYear, currentMonth, 0).getDate();
-
-        let html = '';
-        for (let i = 0; i < firstDay; i++) {
-            html += '<div class="day-cell"></div>';
-        }
-
-        for (let day = 1; day <= lastDate; day++) {
-            const date = new Date(currentYear, currentMonth - 1, day);
-            const dayOfWeek = date.getDay();
-            const isNolucky = isNoLuckyDay(currentYear, currentMonth, day);
-            const isTodayDate = isToday && day === today.getDate();
-
-            let classes = 'day-cell';
-            if (dayOfWeek === 0) classes += ' sun';
-            if (dayOfWeek === 6) classes += ' sat';
-            if (isNolucky) classes += ' nolucky';
-            if (isTodayDate) classes += ' today';
-
-            html += `<div class="${classes}">
+        
+        function updateCalendar() {
+            document.getElementById('currentMonth').textContent = `${currentYear}년 ${currentMonth}월`;
+            
+            const isToday = currentYear === today.getFullYear() && currentMonth === today.getMonth() + 1;
+            if (isToday) {
+                document.getElementById('todayInfo').innerHTML = `오늘은 <strong>${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일</strong>`;
+            } else {
+                document.getElementById('todayInfo').innerHTML = `<strong>${currentYear}년 ${currentMonth}월</strong> 손없는날`;
+            }
+            
+            const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const lastDate = new Date(currentYear, currentMonth, 0).getDate();
+            
+            let html = '';
+            // 요일 헤더 추가
+            html += '<div class="day-header sun">일</div>';
+            html += '<div class="day-header">월</div>';
+            html += '<div class="day-header">화</div>';
+            html += '<div class="day-header">수</div>';
+            html += '<div class="day-header">목</div>';
+            html += '<div class="day-header">금</div>';
+            html += '<div class="day-header sat">토</div>';
+            
+            // 빈 셀 추가
+            for (let i = 0; i < firstDay; i++) {
+                html += '<div class="day-cell"></div>';
+            }
+            
+            for (let day = 1; day <= lastDate; day++) {
+                const date = new Date(currentYear, currentMonth - 1, day);
+                const dayOfWeek = date.getDay();
+                const isNolucky = isNoLuckyDay(currentYear, currentMonth, day);
+                const isTodayDate = isToday && day === today.getDate();
+                
+                let classes = 'day-cell';
+                if (dayOfWeek === 0) classes += ' sun';
+                if (dayOfWeek === 6) classes += ' sat';
+                if (isNolucky) classes += ' nolucky';
+                if (isTodayDate) classes += ' today';
+                
+                html += `<div class="${classes}">
                     <span>${day}</span>
                     ${isNolucky ? '<span class="lucky-mark">🍀</span>' : ''}
                 </div>`;
+            }
+            
+            document.getElementById('calendar').innerHTML = html;
         }
-
-        document.getElementById('calendar').innerHTML = html;
-    }
-
-    function isNoLuckyDay(year, month, day) {
-        // 손없는날 계산 로직 (9일+10일 간격)
-        const luckyDays = [];
-        for (let d = 9; d <= 28; d += 10) {
-            luckyDays.push(d);
+        
+        function isNoLuckyDay(year, month, day) {
+            // 손없는날 계산 로직 (9일+10일 간격)
+            const luckyDays = [];
+            for (let d = 9; d <= 28; d += 10) {
+                luckyDays.push(d);
+            }
+            return luckyDays.includes(day);
         }
-        return luckyDays.includes(day);
-    }
-</script>
+    </script>
 </body>
 </html>

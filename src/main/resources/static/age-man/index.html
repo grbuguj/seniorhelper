@@ -7,7 +7,7 @@
     <meta name="description" content="생년월일로 정확한 만 나이를 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/age-man/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -141,82 +141,82 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">🎂</span>
-            <h1 class="page-title">만 나이 계산</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🎂</span>
+                <h1 class="page-title">만 나이 계산</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">생년월일</label>
+                        <input type="date" id="birthDate" class="input-field">
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">만 나이 계산</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>한국나이 계산</span></a>
+                        <a href="../age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
+                        <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        만 나이는 공식 문서에서 사용되는 법적 나이입니다. 생일이 지나야 한 살 올라갑니다.
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="input-group">
-                    <label class="input-label">생년월일</label>
-                    <input type="date" id="birthDate" class="input-field">
-                </div>
-                <button class="btn-primary" onclick="calculate()">만 나이 계산</button>
-                <div id="result"></div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>한국나이 계산</span></a>
-                    <a href="../age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
-                    <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    만 나이는 공식 문서에서 사용되는 법적 나이입니다. 생일이 지나야 한 살 올라갑니다.
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('birthDate').value = `${yyyy-30}-${mm}-${dd}`;
-    };
-
-    function calculate() {
-        const birthDate = document.getElementById('birthDate').value;
-        if (!birthDate) {
-            alert('생년월일을 입력해주세요');
-            return;
-        }
-
-        const birth = new Date(birthDate);
-        const today = new Date();
-
-        let age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            age--;
-        }
-
-        const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
-        if (nextBirthday < today) {
-            nextBirthday.setFullYear(today.getFullYear() + 1);
-        }
-
-        const daysUntilBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
-
-        let html = `
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('birthDate').value = `${yyyy-30}-${mm}-${dd}`;
+        };
+        
+        function calculate() {
+            const birthDate = document.getElementById('birthDate').value;
+            if (!birthDate) {
+                alert('생년월일을 입력해주세요');
+                return;
+            }
+            
+            const birth = new Date(birthDate);
+            const today = new Date();
+            
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+            if (nextBirthday < today) {
+                nextBirthday.setFullYear(today.getFullYear() + 1);
+            }
+            
+            const daysUntilBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+            
+            let html = `
                 <div class="result-box">
                     <div class="result-main">만 ${age}세</div>
                     <div class="result-detail">
@@ -226,13 +226,13 @@
                     </div>
                 </div>
             `;
-
-        document.getElementById('result').innerHTML = html;
-    }
-
-    document.getElementById('birthDate').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') calculate();
-    });
-</script>
+            
+            document.getElementById('result').innerHTML = html;
+        }
+        
+        document.getElementById('birthDate').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
+        });
+    </script>
 </body>
 </html>

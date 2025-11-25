@@ -7,7 +7,7 @@
     <meta name="description" content="두 날짜 사이의 일수, 주, 개월 차이를 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/date-diff/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -141,81 +141,81 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">📊</span>
-            <h1 class="page-title">날짜 차이 계산</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">📊</span>
+                <h1 class="page-title">날짜 차이 계산</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">시작 날짜</label>
+                        <input type="date" id="startDate" class="input-field">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">종료 날짜</label>
+                        <input type="date" id="endDate" class="input-field">
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">날짜 차이 계산</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                        <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
+                        <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
+                        <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        두 날짜 사이의 일수를 정확하게 계산합니다. 시작일과 종료일 포함 여부를 확인하세요!
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="input-group">
-                    <label class="input-label">시작 날짜</label>
-                    <input type="date" id="startDate" class="input-field">
-                </div>
-                <div class="input-group">
-                    <label class="input-label">종료 날짜</label>
-                    <input type="date" id="endDate" class="input-field">
-                </div>
-                <button class="btn-primary" onclick="calculate()">날짜 차이 계산</button>
-                <div id="result"></div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                    <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
-                    <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
-                    <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    두 날짜 사이의 일수를 정확하게 계산합니다. 시작일과 종료일 포함 여부를 확인하세요!
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-
-        document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
-        document.getElementById('endDate').value = `${yyyy}-${mm}-${String(today.getDate() + 30).padStart(2, '0')}`;
-    };
-
-    function calculate() {
-        const start = document.getElementById('startDate').value;
-        const end = document.getElementById('endDate').value;
-
-        if (!start || !end) {
-            alert('날짜를 모두 입력해주세요');
-            return;
-        }
-
-        const startDate = new Date(start);
-        const endDate = new Date(end);
-
-        const diffTime = endDate - startDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        const diffWeeks = Math.floor(diffDays / 7);
-        const diffMonths = Math.floor(diffDays / 30);
-
-        let html = `
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            
+            document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('endDate').value = `${yyyy}-${mm}-${String(today.getDate() + 30).padStart(2, '0')}`;
+        };
+        
+        function calculate() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            
+            if (!start || !end) {
+                alert('날짜를 모두 입력해주세요');
+                return;
+            }
+            
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            
+            const diffTime = endDate - startDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffWeeks = Math.floor(diffDays / 7);
+            const diffMonths = Math.floor(diffDays / 30);
+            
+            let html = `
                 <div class="result-box">
                     <div class="result-main">${Math.abs(diffDays)}일</div>
                     <div class="result-detail">
@@ -226,9 +226,9 @@
                     </div>
                 </div>
             `;
-
-        document.getElementById('result').innerHTML = html;
-    }
-</script>
+            
+            document.getElementById('result').innerHTML = html;
+        }
+    </script>
 </body>
 </html>

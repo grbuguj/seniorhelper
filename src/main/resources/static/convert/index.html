@@ -7,7 +7,7 @@
     <meta name="description" content="양력을 음력으로, 음력을 양력으로 빠르게 변환하세요">
     <link rel="canonical" href="https://woong.io.kr/convert/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -142,158 +142,158 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">🌙</span>
-            <h1 class="page-title">양력음력 변환</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🌙</span>
+                <h1 class="page-title">양력음력 변환</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <!-- 양력 → 음력 -->
+                <div class="main-card">
+                    <h2 class="card-title">☀️ 양력 → 음력</h2>
+                    <div class="input-group">
+                        <label class="input-label">양력 날짜</label>
+                        <div class="input-row">
+                            <input type="number" id="solarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
+                            <input type="number" id="solarMonth" class="input-field" placeholder="월" min="1" max="12">
+                            <input type="number" id="solarDay" class="input-field" placeholder="일" min="1" max="31">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="solarToLunar()">음력으로 변환</button>
+                    <div id="solarResult"></div>
+                    <div class="hint-text">
+                        💡 양력 날짜를 입력하면 해당하는 음력 날짜로 변환합니다
+                    </div>
+                </div>
+
+                <!-- 음력 → 양력 -->
+                <div class="main-card">
+                    <h2 class="card-title">🌙 음력 → 양력</h2>
+                    <div class="input-group">
+                        <label class="input-label">음력 날짜</label>
+                        <div class="input-row">
+                            <input type="number" id="lunarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
+                            <input type="number" id="lunarMonth" class="input-field" placeholder="월" min="1" max="12">
+                            <input type="number" id="lunarDay" class="input-field" placeholder="일" min="1" max="30">
+                        </div>
+                        <div class="input-row">
+                            <select id="isLeapMonth" class="select-field">
+                                <option value="0">평달</option>
+                                <option value="1">윤달</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="lunarToSolar()">양력으로 변환</button>
+                    <div id="lunarResult"></div>
+                    <div class="hint-text">
+                        💡 음력 날짜를 입력하면 해당하는 양력 날짜로 변환합니다. 윤달이 있는 해는 윤달을 선택하세요.
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../solar-to-lunar/" class="sidebar-link"><span>☀️</span><span>양력→음력 전용</span></a>
+                        <a href="../lunar-to-solar/" class="sidebar-link"><span>🌙</span><span>음력→양력 전용</span></a>
+                        <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        제사나 명절, 음력 생일 등을 확인할 때 유용합니다. 윤달이 있는 해는 주의하세요!
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <!-- 양력 → 음력 -->
-            <div class="main-card">
-                <h2 class="card-title">☀️ 양력 → 음력</h2>
-                <div class="input-group">
-                    <label class="input-label">양력 날짜</label>
-                    <div class="input-row">
-                        <input type="number" id="solarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
-                        <input type="number" id="solarMonth" class="input-field" placeholder="월" min="1" max="12">
-                        <input type="number" id="solarDay" class="input-field" placeholder="일" min="1" max="31">
-                    </div>
-                </div>
-                <button class="btn-primary" onclick="solarToLunar()">음력으로 변환</button>
-                <div id="solarResult"></div>
-                <div class="hint-text">
-                    💡 양력 날짜를 입력하면 해당하는 음력 날짜로 변환합니다
-                </div>
-            </div>
-
-            <!-- 음력 → 양력 -->
-            <div class="main-card">
-                <h2 class="card-title">🌙 음력 → 양력</h2>
-                <div class="input-group">
-                    <label class="input-label">음력 날짜</label>
-                    <div class="input-row">
-                        <input type="number" id="lunarYear" class="input-field" placeholder="년 (예: 2025)" min="1900" max="2100">
-                        <input type="number" id="lunarMonth" class="input-field" placeholder="월" min="1" max="12">
-                        <input type="number" id="lunarDay" class="input-field" placeholder="일" min="1" max="30">
-                    </div>
-                    <div class="input-row">
-                        <select id="isLeapMonth" class="select-field">
-                            <option value="0">평달</option>
-                            <option value="1">윤달</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="btn-primary" onclick="lunarToSolar()">양력으로 변환</button>
-                <div id="lunarResult"></div>
-                <div class="hint-text">
-                    💡 음력 날짜를 입력하면 해당하는 양력 날짜로 변환합니다. 윤달이 있는 해는 윤달을 선택하세요.
-                </div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../solar-to-lunar/" class="sidebar-link"><span>☀️</span><span>양력→음력 전용</span></a>
-                    <a href="../lunar-to-solar/" class="sidebar-link"><span>🌙</span><span>음력→양력 전용</span></a>
-                    <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일 확인</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    제사나 명절, 음력 생일 등을 확인할 때 유용합니다. 윤달이 있는 해는 주의하세요!
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script src="../holiday/korean-lunar-calendar.min.js"></script>
-<script>
-    // 오늘 날짜로 초기화
-    window.onload = function() {
-        const today = new Date();
-        document.getElementById('solarYear').value = today.getFullYear();
-        document.getElementById('solarMonth').value = today.getMonth() + 1;
-        document.getElementById('solarDay').value = today.getDate();
-
-        document.getElementById('lunarYear').value = today.getFullYear();
-    };
-
-    function solarToLunar() {
-        const year = parseInt(document.getElementById('solarYear').value);
-        const month = parseInt(document.getElementById('solarMonth').value);
-        const day = parseInt(document.getElementById('solarDay').value);
-
-        if (!year || !month || !day) {
-            alert('날짜를 모두 입력해주세요');
-            return;
-        }
-
-        try {
-            const lunar = KoreanLunarCalendar.solarToLunar(year, month, day);
-            const leapText = lunar.isLeapMonth ? ' (윤달)' : '';
-
-            let html = `
+    
+    <script src="../holiday/korean-lunar-calendar.min.js"></script>
+    <script>
+        // 오늘 날짜로 초기화
+        window.onload = function() {
+            const today = new Date();
+            document.getElementById('solarYear').value = today.getFullYear();
+            document.getElementById('solarMonth').value = today.getMonth() + 1;
+            document.getElementById('solarDay').value = today.getDate();
+            
+            document.getElementById('lunarYear').value = today.getFullYear();
+        };
+        
+        function solarToLunar() {
+            const year = parseInt(document.getElementById('solarYear').value);
+            const month = parseInt(document.getElementById('solarMonth').value);
+            const day = parseInt(document.getElementById('solarDay').value);
+            
+            if (!year || !month || !day) {
+                alert('날짜를 모두 입력해주세요');
+                return;
+            }
+            
+            try {
+                const lunar = KoreanLunarCalendar.solarToLunar(year, month, day);
+                const leapText = lunar.isLeapMonth ? ' (윤달)' : '';
+                
+                let html = `
                     <div class="result-box">
                         <div class="result-main">음력: ${lunar.year}년 ${lunar.month}월 ${lunar.day}일${leapText}</div>
                         <div class="result-sub">양력: ${year}년 ${month}월 ${day}일 → 음력 변환 결과</div>
                     </div>
                 `;
-            document.getElementById('solarResult').innerHTML = html;
-        } catch (e) {
-            alert('변환 중 오류가 발생했습니다: ' + e.message);
+                document.getElementById('solarResult').innerHTML = html;
+            } catch (e) {
+                alert('변환 중 오류가 발생했습니다: ' + e.message);
+            }
         }
-    }
-
-    function lunarToSolar() {
-        const year = parseInt(document.getElementById('lunarYear').value);
-        const month = parseInt(document.getElementById('lunarMonth').value);
-        const day = parseInt(document.getElementById('lunarDay').value);
-        const isLeap = parseInt(document.getElementById('isLeapMonth').value);
-
-        if (!year || !month || !day) {
-            alert('날짜를 모두 입력해주세요');
-            return;
-        }
-
-        try {
-            const solar = KoreanLunarCalendar.lunarToSolar(year, month, day, isLeap);
-            const leapText = isLeap ? ' (윤달)' : '';
-
-            let html = `
+        
+        function lunarToSolar() {
+            const year = parseInt(document.getElementById('lunarYear').value);
+            const month = parseInt(document.getElementById('lunarMonth').value);
+            const day = parseInt(document.getElementById('lunarDay').value);
+            const isLeap = parseInt(document.getElementById('isLeapMonth').value);
+            
+            if (!year || !month || !day) {
+                alert('날짜를 모두 입력해주세요');
+                return;
+            }
+            
+            try {
+                const solar = KoreanLunarCalendar.lunarToSolar(year, month, day, isLeap);
+                const leapText = isLeap ? ' (윤달)' : '';
+                
+                let html = `
                     <div class="result-box">
                         <div class="result-main">양력: ${solar.year}년 ${solar.month}월 ${solar.day}일</div>
                         <div class="result-sub">음력: ${year}년 ${month}월 ${day}일${leapText} → 양력 변환 결과</div>
                     </div>
                 `;
-            document.getElementById('lunarResult').innerHTML = html;
-        } catch (e) {
-            alert('변환 중 오류가 발생했습니다: ' + e.message);
+                document.getElementById('lunarResult').innerHTML = html;
+            } catch (e) {
+                alert('변환 중 오류가 발생했습니다: ' + e.message);
+            }
         }
-    }
-
-    // Enter 키 지원
-    ['solarYear', 'solarMonth', 'solarDay'].forEach(id => {
-        document.getElementById(id).addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') solarToLunar();
+        
+        // Enter 키 지원
+        ['solarYear', 'solarMonth', 'solarDay'].forEach(id => {
+            document.getElementById(id).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') solarToLunar();
+            });
         });
-    });
-
-    ['lunarYear', 'lunarMonth', 'lunarDay'].forEach(id => {
-        document.getElementById(id).addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') lunarToSolar();
+        
+        ['lunarYear', 'lunarMonth', 'lunarDay'].forEach(id => {
+            document.getElementById(id).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') lunarToSolar();
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>

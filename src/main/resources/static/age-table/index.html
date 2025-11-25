@@ -7,7 +7,7 @@
     <meta name="description" content="2025년 기준 출생연도별 나이표를 확인하세요">
     <link rel="canonical" href="https://woong.io.kr/age-table/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -130,81 +130,81 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">📋</span>
-            <h1 class="page-title">나이표</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">📋</span>
+                <h1 class="page-title">나이표</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="year-selector">
+                        <button class="year-btn" onclick="changeYear(-1)">◀ 이전</button>
+                        <span class="year-display" id="yearDisplay">2025년</span>
+                        <button class="year-btn" onclick="changeYear(1)">다음 ▶</button>
+                    </div>
+                    
+                    <table class="age-table" id="ageTable">
+                        <thead>
+                            <tr>
+                                <th>출생년도</th>
+                                <th>띠</th>
+                                <th>만 나이</th>
+                                <th>한국나이</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                        <a href="../age-man/" class="sidebar-link"><span>📆</span><span>만 나이 계산</span></a>
+                        <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        출생연도별 나이를 한눈에 확인하세요. 만 나이는 생일 전/후 기준입니다.
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="year-selector">
-                    <button class="year-btn" onclick="changeYear(-1)">◀ 이전</button>
-                    <span class="year-display" id="yearDisplay">2025년</span>
-                    <button class="year-btn" onclick="changeYear(1)">다음 ▶</button>
-                </div>
-
-                <table class="age-table" id="ageTable">
-                    <thead>
-                    <tr>
-                        <th>출생년도</th>
-                        <th>띠</th>
-                        <th>만 나이</th>
-                        <th>한국나이</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
-                    <a href="../age-man/" class="sidebar-link"><span>📆</span><span>만 나이 계산</span></a>
-                    <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠 확인</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    출생연도별 나이를 한눈에 확인하세요. 만 나이는 생일 전/후 기준입니다.
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    let currentYear = 2025;
-    const zodiacAnimals = ['원숭이', '닭', '개', '돼지', '쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양'];
-
-    function changeYear(delta) {
-        currentYear += delta;
-        if (currentYear < 1900) currentYear = 1900;
-        if (currentYear > 2100) currentYear = 2100;
-        updateTable();
-    }
-
-    function updateTable() {
-        document.getElementById('yearDisplay').textContent = `${currentYear}년`;
-
-        let html = '';
-        for (let birthYear = currentYear - 1; birthYear >= currentYear - 100; birthYear--) {
-            const manAge = currentYear - birthYear - 1;
-            const koreanAge = currentYear - birthYear + 1;
-            const zodiacIndex = (birthYear - 4) % 12;
-            const zodiac = zodiacAnimals[zodiacIndex];
-
-            html += `
+    
+    <script>
+        let currentYear = 2025;
+        const zodiacAnimals = ['원숭이', '닭', '개', '돼지', '쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양'];
+        
+        function changeYear(delta) {
+            currentYear += delta;
+            if (currentYear < 1900) currentYear = 1900;
+            if (currentYear > 2100) currentYear = 2100;
+            updateTable();
+        }
+        
+        function updateTable() {
+            document.getElementById('yearDisplay').textContent = `${currentYear}년`;
+            
+            let html = '';
+            for (let birthYear = currentYear - 1; birthYear >= currentYear - 100; birthYear--) {
+                const manAge = currentYear - birthYear - 1;
+                const koreanAge = currentYear - birthYear + 1;
+                const zodiacIndex = (birthYear - 4) % 12;
+                const zodiac = zodiacAnimals[zodiacIndex];
+                
+                html += `
                     <tr>
                         <td>${birthYear}년</td>
                         <td>${zodiac}</td>
@@ -212,12 +212,12 @@
                         <td>${koreanAge}세</td>
                     </tr>
                 `;
+            }
+            
+            document.getElementById('tableBody').innerHTML = html;
         }
-
-        document.getElementById('tableBody').innerHTML = html;
-    }
-
-    window.onload = updateTable;
-</script>
+        
+        window.onload = updateTable;
+    </script>
 </body>
 </html>

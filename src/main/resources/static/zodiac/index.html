@@ -7,7 +7,7 @@
     <meta name="description" content="생년월일로 띠를 확인하고 띠궁합을 알아보세요">
     <link rel="canonical" href="https://woong.io.kr/zodiac/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -57,7 +57,7 @@
         }
         .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
         .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
-
+        
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -86,7 +86,7 @@
             color: var(--text);
             line-height: 1.4;
         }
-
+        
         .sub-section {
             background: white;
             border-radius: 16px;
@@ -121,7 +121,7 @@
             background: rgba(99, 102, 241, 0.1);
             transform: translateY(-2px);
         }
-
+        
         .sidebar { display: flex; flex-direction: column; gap: 20px; }
         .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
         .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
@@ -146,7 +146,7 @@
             font-size: 0.875rem;
             line-height: 1.6;
         }
-
+        
         @media (max-width: 1024px) {
             .main-layout { grid-template-columns: 1fr; }
             .sidebar { order: -1; }
@@ -161,64 +161,64 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">🐉</span>
-            <h1 class="page-title">띠궁합</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🐉</span>
+                <h1 class="page-title">띠궁합</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="menu-grid">
+                    <a href="my-zodiac.html" class="menu-card">
+                        <div class="menu-icon">🐲</div>
+                        <div class="menu-title">내 띠<br>알아보기</div>
+                    </a>
+
+                    <a href="compatibility.html" class="menu-card">
+                        <div class="menu-icon">❤️</div>
+                        <div class="menu-title">띠궁합<br>확인하기</div>
+                    </a>
+                </div>
+
+                <div class="sub-section">
+                    <h3 class="sub-title">더 보기</h3>
+                    <div class="sub-grid">
+                        <a href="future-baby.html" class="sub-card">
+                            👶<br>손주 띠<br>미리보기
+                        </a>
+                        <a href="personality.html" class="sub-card">
+                            📖<br>띠별 성격/<br>운세
+                        </a>
+                        <a href="zodiac-match.html" class="sub-card">
+                            🔢<br>띠동갑<br>계산기
+                        </a>
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                        <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                        <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        12띠는 쥐, 소, 호랑이, 토끼, 용, 뱀, 말, 양, 원숭이, 닭, 개, 돼지 순서로 12년마다 반복됩니다.
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="menu-grid">
-                <a href="my-zodiac.html" class="menu-card">
-                    <div class="menu-icon">🐲</div>
-                    <div class="menu-title">내 띠<br>알아보기</div>
-                </a>
-
-                <a href="compatibility.html" class="menu-card">
-                    <div class="menu-icon">❤️</div>
-                    <div class="menu-title">띠궁합<br>확인하기</div>
-                </a>
-            </div>
-
-            <div class="sub-section">
-                <h3 class="sub-title">더 보기</h3>
-                <div class="sub-grid">
-                    <a href="future-baby.html" class="sub-card">
-                        👶<br>손주 띠<br>미리보기
-                    </a>
-                    <a href="personality.html" class="sub-card">
-                        📖<br>띠별 성격/<br>운세
-                    </a>
-                    <a href="zodiac-match.html" class="sub-card">
-                        🔢<br>띠동갑<br>계산기
-                    </a>
-                </div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
-                    <a href="../convert/" class="sidebar-link"><span>🌙</span><span>양력음력 변환</span></a>
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                    <a href="../anniversary/" class="sidebar-link"><span>💝</span><span>기념일 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    12띠는 쥐, 소, 호랑이, 토끼, 용, 뱀, 말, 양, 원숭이, 닭, 개, 돼지 순서로 12년마다 반복됩니다.
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
 </body>
 </html>

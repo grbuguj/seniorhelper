@@ -3,305 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO Meta Tags -->
-    <title>학교 입학·졸업 계산기 - 손주 학년 확인 | woong.io.kr</title>
-    <meta name="description" content="손주가 지금 몇 학년인지, 언제 입학하고 졸업하는지 계산하세요. 초등학교부터 고등학교까지 한눈에 확인하세요.">
-    <meta name="keywords" content="입학 계산, 졸업 계산, 학년 확인, 손주 학년, 초등학교 입학">
-
+    <title>입학졸업 계산기</title>
+    <meta name="description" content="출생연도로 입학, 졸업 연도를 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/school/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="학교 입학·졸업 계산기 | woong.io.kr">
-    <meta property="og:description" content="손주의 입학, 졸업 시기를 계산하세요">
-    <meta property="og:url" content="https://woong.io.kr/school/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "학교 입학·졸업 계산기",
-      "url": "https://woong.io.kr/school/",
-      "description": "학생의 입학 및 졸업 시기 계산 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
-    <link rel="stylesheet" href="../css/base.css">
-
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    
     <style>
-        .input-box {
-            background: var(--card);
-            padding: 26px;
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            margin-top: 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
         }
-        .input-title {
-            font-size: 30px;
-            text-align: center;
-            margin-bottom: 14px;
-        }
-        .big-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 28px;
-            border-radius: 14px;
-            border: 2px solid var(--border);
-            text-align: center;
-        }
-        .btn-main {
-            width: 100%;
-            padding: 22px;
-            margin-top: 20px;
-            font-size: 30px;
-            border-radius: 14px;
-            border: none;
-            background: var(--primary);
-            color: white;
-        }
-        .result-card {
-            background: var(--card);
-            padding: 26px;
-            margin-top: 26px;
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            font-size: 28px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
         }
-        .highlight {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        table {
-            width: 100%;
-            margin-top: 14px;
-            font-size: 26px;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 2px solid var(--border);
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* zodiac */
-        .zodiac-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-        }
-        .zodiac-grid button {
-            padding: 20px 0;
-            font-size: 26px;
-            border: 2px solid var(--primary);
-            border-radius: 14px;
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
             background: white;
-        }
-        .cand-year-btn {
-            margin: 6px;
-            padding: 14px 18px;
-            font-size: 24px;
-            border-radius: 12px;
-            border: 2px solid var(--primary);
-            background: white;
-        }
-
-        .info-box {
-            background: var(--card);
-            padding: 26px;
             border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border);
-            margin-top: 40px;
-            font-size: 26px;
-            line-height: 1.55;
-        }
-        .sub-btns {
-            margin-top: 30px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
         }
-        .small-btn {
-            padding: 18px 26px;
-            font-size: 26px;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
+        .result-grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .result-card {
+            padding: 16px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             border-radius: 12px;
             border: 2px solid var(--primary);
-            background: white;
         }
+        .result-label { font-size: 0.875rem; color: var(--text-light); margin-bottom: 4px; }
+        .result-value { font-size: 1.125rem; font-weight: 700; color: var(--primary); }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
-
 <body>
-<div class="page">
-
-    <a href="../index.html" class="back-btn">←</a>
-
-    <h1 class="page-title">학교 입학·졸업 계산기</h1>
-
-    <div class="input-box">
-        <div class="input-title">출생 연도</div>
-        <input id="birthYearOnly" type="number" placeholder="예: 2018" class="big-input">
-
-        <div style="text-align:center; font-size:24px; margin:14px 0;">또는</div>
-
-        <div class="input-title">출생 날짜</div>
-        <input id="birthDateFull" type="date" class="big-input">
-
-        <button class="btn-main" onclick="calc()">계산하기</button>
-    </div>
-
-    <!-- 띠 선택 안내 -->
-    <div style="margin-top:32px; font-size:30px; font-weight:600;">
-        혹시 연도가 기억나지 않으신가요?
-    </div>
-
-    <div class="input-box">
-        <div style="font-size:26px; margin-bottom:12px; color:var(--text-sub);">
-            태어난 띠를 누르시면 가능한 출생 연도가 아래에 나옵니다.
-        </div>
-
-        <!-- 12띠 -->
-        <div class="zodiac-grid">
-            <button onclick="selectZodiac('쥐')">쥐띠</button>
-            <button onclick="selectZodiac('소')">소띠</button>
-            <button onclick="selectZodiac('호랑이')">호랑이띠</button>
-            <button onclick="selectZodiac('토끼')">토끼띠</button>
-
-            <button onclick="selectZodiac('용')">용띠</button>
-            <button onclick="selectZodiac('뱀')">뱀띠</button>
-            <button onclick="selectZodiac('말')">말띠</button>
-            <button onclick="selectZodiac('양')">양띠</button>
-
-            <button onclick="selectZodiac('원숭이')">원숭이띠</button>
-            <button onclick="selectZodiac('닭')">닭띠</button>
-            <button onclick="selectZodiac('개')">개띠</button>
-            <button onclick="selectZodiac('돼지')">돼지띠</button>
-        </div>
-
-        <div id="yearList" style="margin-top:20px; font-size:26px;"></div>
-    </div>
-
-    <div id="results"></div>
-
-    <div class="info-box">
-        <div style="font-size:30px; margin-bottom:10px;">한국의 학교 입학 기준</div>
-
-        한국은 6-3-3 학제를 사용합니다.<br><br>
-        • 초등학교 6년<br>
-        • 중학교 3년<br>
-        • 고등학교 3년<br><br>
-
-        초등학교 입학 기준은 <span class="highlight">만 6세가 되는 해</span>입니다.<br>
-        같은 해에 태어난 아이들은 모두 같은 해에 초등학교에 입학합니다.<br><br>
-
-        이 계산기는 손주가 <span class="highlight">지금 몇 학년인지</span>,
-        앞으로 <span class="highlight">언제 초·중·고를 입학하고 졸업하는지</span>를 알려드립니다.
-    </div>
-
-    <div class="sub-btns">
-        <button class="small-btn" onclick="location.href='../dday/index.html'">디데이 계산기</button>
-        <button class="small-btn" onclick="location.href='../date-diff/index.html'">날짜 차이 계산기</button>
-        <button class="small-btn" onclick="location.href='../date-plusminus/index.html'">날짜 더하기·빼기</button>
-        <button class="small-btn" onclick="location.href='../index.html'">메인 화면</button>
-    </div>
-
-</div>
-
-<script>
-    /* =======================
-        출생연도 → 계산 실행
-    ======================== */
-    function calc(yearOverride = null) {
-        let year = yearOverride;
-
-        if (!year) {
-            const yOnly = document.getElementById("birthYearOnly").value;
-            const full = document.getElementById("birthDateFull").value;
-
-            if (full) {
-                year = new Date(full).getFullYear();
-            } else if (yOnly) {
-                year = Number(yOnly);
-            } else {
-                return alert("출생 정보를 입력해주세요.");
-            }
-        }
-
-        const currentYear = 2025;
-        const age = currentYear - year +1;
-
-        const grade = age - 6 + 1;
-
-        function gradeText(g) {
-            if (g < 1) return "아직 학생이 아닙니다.";
-            if (g <= 6) return `초등학교 ${g}학년`;
-            if (g <= 9) return `중학교 ${g-6}학년`;
-            if (g <= 12) return `고등학교 ${g-9}학년`;
-            return "학교를 졸업한 연령입니다.";
-        }
-
-
-        const elementaryEnter = year + 7;
-        const elementaryGrad = elementaryEnter + 6;
-
-        const middleEnter = elementaryGrad;
-        const middleGrad = middleEnter + 3;
-
-        const highEnter = middleGrad;
-        const highGrad = highEnter + 3;
-
-        const univEnter = highGrad;
-
-        document.getElementById("results").innerHTML = `
-            <div class="result-card">
-                <div><span class="highlight">${year}</span>년생의 2025년 기준 나이는 <span class="highlight">${age}세</span>입니다.</div>
-                <div style="margin-top:14px;">현재 학년: <span class="highlight">${gradeText(grade)}</span></div>
-
-                <table>
-                    <tr><th>구분</th><th>입학</th><th>졸업</th></tr>
-                    <tr><td>초등학교</td><td>${elementaryEnter}</td><td>${elementaryGrad}</td></tr>
-                    <tr><td>중학교</td><td>${middleEnter}</td><td>${middleGrad}</td></tr>
-                    <tr><td>고등학교</td><td>${highEnter}</td><td>${highGrad}</td></tr>
-                    <tr><td>대학교</td><td>${univEnter}</td><td>-</td></tr>
-                </table>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🎓</span>
+                <h1 class="page-title">입학졸업 계산</h1>
             </div>
-        `;
-    }
-
-    /* =======================
-        띠 선택 → 연도 후보 표시
-    ======================== */
-
-    const CURRENT_YEAR = new Date().getFullYear();
-
-    const zodiacOrder = {
-        "쥐": 4, "소": 5, "호랑이": 6, "토끼": 7,
-        "용": 8, "뱀": 9, "말": 10, "양": 11,
-        "원숭이": 0, "닭": 1, "개": 2, "돼지": 3
-    };
-
-    function selectZodiac(zodiac) {
-        const targetIdx = zodiacOrder[zodiac];
-        const years = [];
-
-        for (let y = CURRENT_YEAR - 120; y <= CURRENT_YEAR; y++) {
-            if (y % 12 === targetIdx) years.push(y);
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">출생연도</label>
+                        <input type="number" id="birthYear" class="input-field" placeholder="예: 2010" min="1900" max="2100">
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">계산하기</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                        <a href="../age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        초등학교~대학교 입학 및 졸업 연도를 자동으로 계산합니다.
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            document.getElementById('birthYear').value = today.getFullYear() - 10;
+        };
+        
+        function calculate() {
+            const birthYear = parseInt(document.getElementById('birthYear').value);
+            if (!birthYear) {
+                alert('출생연도를 입력해주세요');
+                return;
+            }
+            
+            const schools = [
+                { name: '초등학교 입학', year: birthYear + 8 },
+                { name: '초등학교 졸업', year: birthYear + 13 },
+                { name: '중학교 입학', year: birthYear + 14 },
+                { name: '중학교 졸업', year: birthYear + 16 },
+                { name: '고등학교 입학', year: birthYear + 17 },
+                { name: '고등학교 졸업', year: birthYear + 19 },
+                { name: '대학교 입학', year: birthYear + 20 },
+                { name: '대학교 졸업 (4년제)', year: birthYear + 23 }
+            ];
+            
+            let html = '<div class="result-grid">';
+            schools.forEach(s => {
+                html += `
+                    <div class="result-card">
+                        <div class="result-label">${s.name}</div>
+                        <div class="result-value">${s.year}년 3월</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            document.getElementById('result').innerHTML = html;
         }
-
-        const box = document.getElementById("yearList");
-
-        box.innerHTML =
-            `<div style="font-size:28px; color:var(--primary); font-weight:600; margin-bottom:12px;">
-                가능한 출생 연도
-             </div>` +
-            years
-                .map(y => `<button class="cand-year-btn" onclick="calc(${y})">${y}년</button>`)
-                .join("");
-    }
-</script>
-
+        
+        document.getElementById('birthYear').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
+        });
+    </script>
 </body>
 </html>

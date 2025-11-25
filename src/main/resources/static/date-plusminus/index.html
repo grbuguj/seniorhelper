@@ -3,201 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO Meta Tags -->
-    <title>날짜 더하기·빼기 계산기 - 날짜 연산 | woong.io.kr</title>
-    <meta name="description" content="특정 날짜에서 며칠 후, 며칠 전을 계산하세요. 약 복용 주기, 예약 날짜 등을 쉽게 계산하세요.">
-    <meta name="keywords" content="날짜 더하기, 날짜 빼기, 날짜 계산, 며칠 후, 며칠 전">
-
+    <title>날짜 더하기빼기 계산기</title>
+    <meta name="description" content="날짜를 더하거나 빼서 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/date-plusminus/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="날짜 더하기·빼기 계산기 | woong.io.kr">
-    <meta property="og:description" content="날짜에서 며칠 후, 며칠 전을 계산하세요">
-    <meta property="og:url" content="https://woong.io.kr/date-plusminus/">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "날짜 더하기·빼기 계산기",
-      "url": "https://woong.io.kr/date-plusminus/",
-      "description": "날짜 연산 도구",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
-    <link rel="stylesheet" href="../css/base.css">
-
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>➕➖</text></svg>">
+    
     <style>
-        .wrapper { max-width:750px; margin:auto; padding:20px; }
-        .page-title { font-size:40px; text-align:center; margin-bottom:12px; }
-        .page-subtitle { font-size:26px; text-align:center; color:var(--text-sub); margin-bottom:30px; }
-
-        .card {
-            background: var(--card);
-            padding: 30px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
             border-radius: 16px;
-            border: 2px solid var(--border);
-            margin-bottom: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .label { font-size:28px; margin-bottom:12px; }
-
-        .big-input {
-            width:100%;
-            padding:20px;
-            font-size:30px;
-            border-radius:16px;
-            border:2px solid var(--border);
-            margin-bottom:16px;
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .today-btn {
-            width:100%;
-            padding:16px;
-            font-size:26px;
-            background:#dceaff;
-            border:2px solid var(--primary);
-            border-radius:12px;
-            margin-bottom:24px;
-        }
-
-        .radio-group {
-            margin: 18px 0 22px 0;
-            font-size:28px;
-            line-height: 1.8;
-        }
-
-        .big-btn {
-            width:100%;
-            padding:20px;
-            font-size:32px;
-            background:var(--primary);
-            color:white;
-            border-radius:16px;
-            border:none;
-            margin-top:10px;
-        }
-
-        .result-box {
-            background:var(--card);
-            padding:26px;
-            border-radius:16px;
-            border:2px solid var(--primary);
-            font-size:28px;
-            line-height:1.6;
-            margin-top:30px;
-            display:none;
-        }
-
-        .highlight {
-            color: var(--primary);
-            font-weight:700;
-        }
-
-        .nav-area {
-            display:flex;
-            justify-content:center;
-            gap:12px;
-            margin-top:24px;
-            flex-wrap:wrap;
-        }
-
-        .small-nav-btn {
-            padding: 18px 24px;
-            font-size: 26px;
+        .home-btn {
+            padding: 10px 20px;
             background: var(--primary);
             color: white;
-            border-radius: 14px;
             border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
         }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; display: block; color: var(--text-light); }
+        .input-row { display: flex; gap: 12px; }
+        .input-field, .select-field {
+            flex: 1;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .input-field:focus, .select-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
+        .result-box {
+            margin-top: 24px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+        }
+        .result-main {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
-
 <body>
-
-<div class="wrapper">
-
-    <div class="page-title">날짜 더하기·빼기</div>
-    <div class="page-subtitle">특정 날짜에 일수를 더하거나 뺍니다</div>
-
-    <!-- 입력 카드 -->
-    <div class="card">
-
-        <div class="label">기준 날짜</div>
-        <input type="date" id="base" class="big-input">
-        <button class="today-btn" onclick="setToday('base')">오늘 날짜로 입력하기</button>
-
-        <div class="radio-group">
-            <label><input type="radio" name="mode" value="add" checked> 날짜 더하기</label><br>
-            <label><input type="radio" name="mode" value="sub"> 날짜 빼기</label>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">➕➖</span>
+                <h1 class="page-title">날짜 더하기빼기</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">기준 날짜</label>
+                        <input type="date" id="baseDate" class="input-field">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">계산</label>
+                        <div class="input-row">
+                            <select id="operation" class="select-field">
+                                <option value="plus">더하기 (+)</option>
+                                <option value="minus">빼기 (-)</option>
+                            </select>
+                            <input type="number" id="days" class="input-field" placeholder="일수" min="0">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">계산하기</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
+                        <a href="../date-minus/" class="sidebar-link"><span>➖</span><span>날짜 빼기</span></a>
+                        <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        날짜를 더하거나 빼서 미래/과거 날짜를 쉽게 계산하세요!
+                    </div>
+                </div>
+            </aside>
         </div>
-
-        <div class="label">며칠을 더하거나 뺄까요?</div>
-        <input type="number" id="days" class="big-input" placeholder="예: 100">
-
-        <button class="big-btn" onclick="calculate()">계산하기</button>
     </div>
-
-    <!-- 결과 카드 -->
-    <div id="resultCard" class="result-box"></div>
-
-    <div class="nav-area">
-        <button class="small-nav-btn" onclick="location.href='../date-diff/index.html'">날짜 차이 계산</button>
-        <button class="small-nav-btn" onclick="location.href='../dday/index.html'">디데이 계산</button>
-        <button class="small-nav-btn" onclick="location.href='../dday/annivercity.html'">
-            기념일 계산기
-        </button>
-    </div>
-
-    <div class="nav-area">
-        <button class="small-nav-btn" onclick="scrollTo({top:0, behavior:'smooth'})">다시 계산하기</button>
-        <button class="small-nav-btn" onclick="location.href='../../index.html'">메인 화면</button>
-    </div>
-
-</div>
-
-
-<script>
-    function setToday(id){
-        const t = new Date();
-        const yyyy = t.getFullYear();
-        const mm = String(t.getMonth()+1).padStart(2,'0');
-        const dd = String(t.getDate()).padStart(2,'0');
-        document.getElementById(id).value = `${yyyy}-${mm}-${dd}`;
-    }
-
-    function calculate(){
-        const baseVal = document.getElementById("base").value;
-        const days = Number(document.getElementById("days").value);
-        const mode = document.querySelector("input[name='mode']:checked").value;
-
-        if(!baseVal) return alert("기준 날짜를 선택하세요");
-        if(!days) return alert("일수를 입력하세요");
-
-        const base = new Date(baseVal);
-        base.setHours(0,0,0,0);
-
-        const result = new Date(base);
-        if(mode==="add") result.setDate(result.getDate() + days);
-        else result.setDate(result.getDate() - days);
-
-        const format = d => `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
-
-        document.getElementById("resultCard").innerHTML = `
-        기준 날짜인 <span class="highlight">${format(base)}</span>에서<br>
-        ${mode==="add" ? "앞으로" : "뒤로"}
-        <span class="highlight">${days}일</span> 계산하면,<br><br>
-        결과는<br>
-        <span class="highlight" style="font-size:34px;">${format(result)}</span> 입니다.
-    `;
-
-        document.getElementById("resultCard").style.display = "block";
-        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
-    }
-</script>
-
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('baseDate').value = `${yyyy}-${mm}-${dd}`;
+            document.getElementById('days').value = 100;
+        };
+        
+        function calculate() {
+            const baseDate = document.getElementById('baseDate').value;
+            const operation = document.getElementById('operation').value;
+            const days = parseInt(document.getElementById('days').value);
+            
+            if (!baseDate || !days) {
+                alert('날짜와 일수를 모두 입력해주세요');
+                return;
+            }
+            
+            const base = new Date(baseDate);
+            const result = new Date(base);
+            
+            if (operation === 'plus') {
+                result.setDate(result.getDate() + days);
+            } else {
+                result.setDate(result.getDate() - days);
+            }
+            
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            const opSymbol = operation === 'plus' ? '+' : '-';
+            
+            let html = `
+                <div class="result-box">
+                    <div class="result-main">${result.getFullYear()}년 ${result.getMonth()+1}월 ${result.getDate()}일 (${dayNames[result.getDay()]})</div>
+                    <div style="text-align:center; font-size:0.875rem; color:var(--text-light);">
+                        ${base.getFullYear()}년 ${base.getMonth()+1}월 ${base.getDate()}일 ${opSymbol} ${days}일
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('result').innerHTML = html;
+        }
+        
+        ['baseDate', 'days'].forEach(id => {
+            document.getElementById(id).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') calculate();
+            });
+        });
+    </script>
 </body>
 </html>

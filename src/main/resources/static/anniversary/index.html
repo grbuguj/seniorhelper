@@ -7,7 +7,7 @@
     <meta name="description" content="연인, 결혼, 입사 등 기념일을 계산하세요">
     <link rel="canonical" href="https://woong.io.kr/anniversary/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
-
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -146,84 +146,84 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="header-left">
-            <span class="logo">💝</span>
-            <h1 class="page-title">기념일 계산</h1>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">💝</span>
+                <h1 class="page-title">기념일 계산</h1>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="input-group">
+                        <label class="input-label">시작 날짜 (예: 사귄 날, 결혼일, 입사일)</label>
+                        <input type="date" id="startDate" class="input-field">
+                    </div>
+                    <button class="btn-primary" onclick="calculate()">기념일 계산</button>
+                    <div id="result"></div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
+                        <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
+                        <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        100일, 200일, 300일, 1주년, 2주년 등 주요 기념일을 한번에 확인하세요!
+                    </div>
+                </div>
+            </aside>
         </div>
-        <a href="../" class="home-btn">홈으로</a>
-    </header>
-
-    <div class="main-layout">
-        <main>
-            <div class="main-card">
-                <div class="input-group">
-                    <label class="input-label">시작 날짜 (예: 사귄 날, 결혼일, 입사일)</label>
-                    <input type="date" id="startDate" class="input-field">
-                </div>
-                <button class="btn-primary" onclick="calculate()">기념일 계산</button>
-                <div id="result"></div>
-            </div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3 class="sidebar-title">관련 기능</h3>
-                <div class="sidebar-links">
-                    <a href="../dday/" class="sidebar-link"><span>📅</span><span>디데이 계산</span></a>
-                    <a href="../date-diff/" class="sidebar-link"><span>📊</span><span>날짜 차이</span></a>
-                    <a href="../date-plus/" class="sidebar-link"><span>➕</span><span>날짜 더하기</span></a>
-                    <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <div class="sidebar-tip">
-                    <strong>💡 Tip</strong><br>
-                    100일, 200일, 300일, 1주년, 2주년 등 주요 기념일을 한번에 확인하세요!
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('startDate').value = `${yyyy-1}-${mm}-${dd}`;
-    };
-
-    function calculate() {
-        const startDate = document.getElementById('startDate').value;
-        if (!startDate) {
-            alert('시작 날짜를 입력해주세요');
-            return;
-        }
-
-        const start = new Date(startDate);
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-
-        const anniversaries = [
-            { label: '100일', days: 100 },
-            { label: '200일', days: 200 },
-            { label: '300일', days: 300 },
-            { label: '500일', days: 500 },
-            { label: '1000일', days: 1000 },
-            { label: '1주년', days: 365 },
-            { label: '2주년', days: 730 },
-            { label: '3주년', days: 1095 }
-        ];
-
-        let html = '<div class="result-grid">';
-        anniversaries.forEach(ann => {
-            const result = new Date(start);
-            result.setDate(result.getDate() + ann.days);
-
-            html += `
+    
+    <script>
+        window.onload = function() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('startDate').value = `${yyyy-1}-${mm}-${dd}`;
+        };
+        
+        function calculate() {
+            const startDate = document.getElementById('startDate').value;
+            if (!startDate) {
+                alert('시작 날짜를 입력해주세요');
+                return;
+            }
+            
+            const start = new Date(startDate);
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            
+            const anniversaries = [
+                { label: '100일', days: 100 },
+                { label: '200일', days: 200 },
+                { label: '300일', days: 300 },
+                { label: '500일', days: 500 },
+                { label: '1000일', days: 1000 },
+                { label: '1주년', days: 365 },
+                { label: '2주년', days: 730 },
+                { label: '3주년', days: 1095 }
+            ];
+            
+            let html = '<div class="result-grid">';
+            anniversaries.forEach(ann => {
+                const result = new Date(start);
+                result.setDate(result.getDate() + ann.days);
+                
+                html += `
                     <div class="result-card">
                         <div class="result-label">${ann.label}</div>
                         <div class="result-value">
@@ -232,15 +232,15 @@
                         </div>
                     </div>
                 `;
+            });
+            html += '</div>';
+            
+            document.getElementById('result').innerHTML = html;
+        }
+        
+        document.getElementById('startDate').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculate();
         });
-        html += '</div>';
-
-        document.getElementById('result').innerHTML = html;
-    }
-
-    document.getElementById('startDate').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') calculate();
-    });
-</script>
+    </script>
 </body>
 </html>
