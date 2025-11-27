@@ -193,6 +193,7 @@
                     <thead>
                     <tr>
                         <th>출생연도</th>
+                        <th>간지</th>
                         <th>띠</th>
                         <th>만 나이</th>
                         <th>한국나이</th>
@@ -227,6 +228,8 @@
 <script>
     let currentYear = 2025;
     const zodiacAnimals = ['쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양', '원숭이', '닭', '개', '돼지'];
+    const gan = [['갑','甲'],['을','乙'],['병','丙'],['정','丁'],['무','戊'],['기','己'],['경','庚'],['신','辛'],['임','壬'],['계','癸']];
+    const ji = [['자','子'],['축','丑'],['인','寅'],['묘','卯'],['진','辰'],['사','巳'],['오','午'],['미','未'],['신','申'],['유','酉'],['술','戌'],['해','亥']];
 
     function changeYear(delta) {
         currentYear += delta;
@@ -245,11 +248,15 @@
             const koreanAge = currentYear - birthYear + 1;
             const zodiacIndex = ((birthYear - 2020) % 12 + 12) % 12;
             const zodiac = zodiacAnimals[zodiacIndex];
+            const ganIndex = (birthYear - 4 + 10) % 10;
+            const jiIndex = (birthYear - 4 + 12) % 12;
+            const ganji = gan[ganIndex][0] + ji[jiIndex][0] + `(${gan[ganIndex][1]}${ji[jiIndex][1]})`;
             const highlight = searchYear && birthYear == searchYear ? 'highlight' : '';
 
             html += `
                     <tr class="${highlight}" id="row-${birthYear}">
                         <td><a href="/age/result.html?year=${birthYear}" style="color:#6366f1;text-decoration:underline;cursor:pointer">${birthYear}년</a></td>
+                        <td style="font-size:0.8125rem;color:#6b7280">${ganji}</td>
                         <td><a href="/zodiac/my-zodiac-result.html?animal=${zodiac}" style="color:#6366f1;text-decoration:underline;cursor:pointer">${zodiac}</a></td>
                         <td>${manAge}세</td>
                         <td>${koreanAge}세</td>
