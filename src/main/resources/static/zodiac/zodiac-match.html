@@ -1,156 +1,131 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>띠동갑 계산기</title>
-
-    <link rel="stylesheet" href="../css/base.css">
-
-    <style>
-        .result-card {
-            background: var(--card);
-            padding: 24px;
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            margin-top: 22px;
-            font-size: 28px;
-            line-height: 1.5;
-        }
-        .year-item {
-            padding: 18px;
-            background: var(--card);
-            border-radius: 14px;
-            border: 2px solid var(--border);
-            margin-top: 14px;
-            font-size: 26px;
-            cursor: pointer;
-        }
-        .year-item:hover {
-            background: #eef4ff;
-        }
-        .year-title {
-            font-size: 30px;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        .highlight {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        .emoji {
-            font-size: 30px;
-            margin-left: 6px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>띠 궁합 보기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:2rem}
+.page-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-btn{padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#818cf8;transform:translateY(-2px)}
+.main-layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.main-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border)}
+.section-title{font-size:1.125rem;font-weight:700;margin-bottom:20px}
+.zodiac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.zodiac-btn{padding:20px 8px;font-size:1.5rem;background:var(--bg);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;font-weight:600}
+.zodiac-btn:hover{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border-color:transparent;transform:translateY(-2px)}
+.zodiac-btn.selected{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border-color:transparent}
+.btn-check{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:24px}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,.3)}
+.result-box{margin-top:24px;padding:24px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid var(--primary)}
+.result-title{font-size:1.5rem;font-weight:800;color:var(--primary);text-align:center;margin-bottom:16px}
+.result-desc{font-size:.9375rem;line-height:1.8}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sidebar-card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border)}
+.sidebar-title{font-size:1.125rem;font-weight:700;margin-bottom:16px}
+.sidebar-links{display:flex;flex-direction:column;gap:8px}
+.sidebar-link{padding:12px 16px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar-link:hover{background:rgba(99,102,241,.1);color:var(--primary);transform:translateX(4px)}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr}.sidebar{order:-1}.zodiac-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.zodiac-grid{grid-template-columns:repeat(2,1fr)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.main-card,.sidebar-card{animation:fadeIn .5s ease-out}
+</style>
 </head>
-
 <body>
-<div class="page">
-    <a href="../index.html" class="back-btn">←</a>
-
-    <div class="page-title">띠동갑 계산기</div>
-    <div class="page-subtitle">출생 연도를 넣으면 같은 띠인 연도를 모두 보여드립니다.</div>
-
-    <!-- 입력 -->
-    <div class="input-card">
-        <input id="birthYear" class="big-input" type="number" placeholder="예: 1969" />
-        <button class="big-btn" onclick="calc()">계산하기</button>
-    </div>
-
-
-    <div class="result-card">
-        <div style="font-size:30px; font-weight:600;">띠동갑이란?</div>
-        띠동갑은 12년 차이가 나는 사람을 뜻합니다.<br><br>
-        12지(쥐·소·호랑이 … 돼지)가 12년 주기로 반복되기 때문에<br>
-        나이 차이가 정확히 12살 나면 같은 띠가 됩니다.<br><br>
-        예)<br>
-        1988년(용띠) → 2000년(용띠)<br>
-        1975년(토끼띠) → 1987년(토끼띠)
-
-    <div id="result"></div>
-
+<div class="container">
+<header>
+<div class="header-left">
+<span class="logo">💕</span>
+<h1 class="page-title">띠 궁합</h1>
 </div>
-
+<a href="index.html" class="home-btn">띠궁합</a>
+</header>
+<div class="main-layout">
+<main>
+<div class="main-card">
+<div class="section-title">내 띠 선택</div>
+<div class="zodiac-grid" id="grid1">
+<button class="zodiac-btn" onclick="select(1,0)">🐭<br>쥐띠</button>
+<button class="zodiac-btn" onclick="select(1,1)">🐮<br>소띠</button>
+<button class="zodiac-btn" onclick="select(1,2)">🐯<br>호랑이띠</button>
+<button class="zodiac-btn" onclick="select(1,3)">🐰<br>토끼띠</button>
+<button class="zodiac-btn" onclick="select(1,4)">🐲<br>용띠</button>
+<button class="zodiac-btn" onclick="select(1,5)">🐍<br>뱀띠</button>
+<button class="zodiac-btn" onclick="select(1,6)">🐴<br>말띠</button>
+<button class="zodiac-btn" onclick="select(1,7)">🐑<br>양띠</button>
+<button class="zodiac-btn" onclick="select(1,8)">🐵<br>원숭이띠</button>
+<button class="zodiac-btn" onclick="select(1,9)">🐔<br>닭띠</button>
+<button class="zodiac-btn" onclick="select(1,10)">🐶<br>개띠</button>
+<button class="zodiac-btn" onclick="select(1,11)">🐷<br>돼지띠</button>
+</div>
+<div class="section-title" style="margin-top:32px">상대 띠 선택</div>
+<div class="zodiac-grid" id="grid2">
+<button class="zodiac-btn" onclick="select(2,0)">🐭<br>쥐띠</button>
+<button class="zodiac-btn" onclick="select(2,1)">🐮<br>소띠</button>
+<button class="zodiac-btn" onclick="select(2,2)">🐯<br>호랑이띠</button>
+<button class="zodiac-btn" onclick="select(2,3)">🐰<br>토끼띠</button>
+<button class="zodiac-btn" onclick="select(2,4)">🐲<br>용띠</button>
+<button class="zodiac-btn" onclick="select(2,5)">🐍<br>뱀띠</button>
+<button class="zodiac-btn" onclick="select(2,6)">🐴<br>말띠</button>
+<button class="zodiac-btn" onclick="select(2,7)">🐑<br>양띠</button>
+<button class="zodiac-btn" onclick="select(2,8)">🐵<br>원숭이띠</button>
+<button class="zodiac-btn" onclick="select(2,9)">🐔<br>닭띠</button>
+<button class="zodiac-btn" onclick="select(2,10)">🐶<br>개띠</button>
+<button class="zodiac-btn" onclick="select(2,11)">🐷<br>돼지띠</button>
+</div>
+<button class="btn-check" onclick="checkMatch()">궁합 확인</button>
+<div id="result"></div>
+</div>
+</main>
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3 class="sidebar-title">관련 기능</h3>
+<div class="sidebar-links">
+<a href="my-zodiac.html" class="sidebar-link"><span>🐉</span><span>내 띠 보기</span></a>
+<a href="personality.html" class="sidebar-link"><span>✨</span><span>띠별 성격</span></a>
+<a href="future-baby.html" class="sidebar-link"><span>👶</span><span>미래 아기 띠</span></a>
+<a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+</div>
+</div>
+</aside>
+</div>
+</div>
 <script>
-    /* ---------- 12띠, 간지 ---------- */
-    const animals = ["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
-    const emoji = {
-        쥐:"🐭", 소:"🐮", 호랑이:"🐯", 토끼:"🐰",
-        용:"🐉", 뱀:"🐍", 말:"🐴", 양:"🐑",
-        원숭이:"🐒", 닭:"🐔", 개:"🐶", 돼지:"🐷"
-    };
-    const gan = ["갑","을","병","정","무","기","경","신","임","계"];
-    const ganH = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
-    const ji = ["자","축","인","묘","진","사","오","미","신","유","술","해"];
-    const jiH = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
-
-    function getGanji(year) {
-        const g = (year - 4) % 10;
-        const j = (year - 4) % 12;
-        return `${gan[g]}${ji[j]}(${ganH[g]}${jiH[j]})`;
-    }
-
-    function calc() {
-        const y = Number(document.getElementById("birthYear").value);
-        if (!y) return alert("출생 연도를 입력해주세요.");
-
-        const baseAnimal = animals[y % 12];
-        const baseEmoji = emoji[baseAnimal];
-        const CURRENT = new Date().getFullYear();
-
-        let html = `
-        <div class="result-card">
-            <span class="highlight">${y}년생</span>은 ${baseAnimal}띠 ${baseEmoji} 입니다.
-        </div>
-    `;
-
-
-        /* ------- 연도 리스트 (−8번 회귀 ~ 현재년도까지) ------- */
-        html += `
-        <div class="result-card">
-            <div style="font-size:30px; font-weight:600; margin-bottom:12px;">
-                같은 띠인 연도 모음
-            </div>
-    `;
-
-        let start = y - (12 * 8); // 96년 전부터
-        let list = [];
-        let years = [];
-
-// 먼저 같은 띠 연도를 배열에 수집
-        for (let year = start; year <= CURRENT; year++) {
-            if (animals[year % 12] === baseAnimal) {
-                years.push(year);
-            }
-        }
-
-// 최신 → 오래된 순으로 뒤집기
-        years.reverse();
-
-// HTML 생성
-        years.forEach(year => {
-            const gj = getGanji(year);
-            list.push(`
-        <div class="year-item"
-             onclick="location.href='http://localhost:8081/age/result.html?year=${year}'">
-            <div class="year-title">
-                <span class="highlight">${year}년생</span>
-                <span class="emoji">${baseEmoji}</span>
-            </div>
-            <div style="color:var(--text-sub);">${gj}년</div>
-        </div>
-    `);
-        });
-
-        html += list.join("") + "</div>";
-
-
-
-
-        document.getElementById("result").innerHTML = html;
-    }
+const animals=["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
+let sel1=-1,sel2=-1;
+function select(grid,idx){
+if(grid===1){
+document.querySelectorAll('#grid1 .zodiac-btn').forEach((b,i)=>b.classList.toggle('selected',i===idx));
+sel1=idx;
+}else{
+document.querySelectorAll('#grid2 .zodiac-btn').forEach((b,i)=>b.classList.toggle('selected',i===idx));
+sel2=idx;
+}
+}
+function checkMatch(){
+if(sel1===-1||sel2===-1){alert('두 띠를 모두 선택해주세요');return}
+const a1=animals[sel1],a2=animals[sel2];
+const good={쥐:["용","원숭이","소"],소:["쥐","닭","뱀"],호랑이:["말","돼지"],토끼:["양","돼지","개"],용:["쥐","원숭이","닭"],뱀:["소","닭"],말:["호랑이","양"],양:["토끼","말","돼지"],원숭이:["쥐","용"],닭:["소","용"],개:["토끼","말"],돼지:["호랑이","토끼"]};
+const bad={쥐:["양","말"],소:["말","양"],호랑이:["뱀","원숭이"],토끼:["닭","용"],용:["개","토끼"],뱀:["돼지","호랑이"],말:["쥐","소"],양:["쥐","소"],원숭이:["돼지","호랑이"],닭:["토끼"],개:["용"],돼지:["뱀"]};
+let result="";
+if(good[a1]?.includes(a2)){
+result=`<div class="result-box"><div class="result-title">💕 환상의 궁합!</div><div class="result-desc">${a1}띠와 ${a2}띠는 잘 맞는 조합입니다. 서로를 이해하고 존중하며 좋은 관계를 유지할 수 있습니다.</div></div>`;
+}else if(bad[a1]?.includes(a2)){
+result=`<div class="result-box" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#f59e0b"><div class="result-title" style="color:#d97706">⚠️ 조심스러운 궁합</div><div class="result-desc">${a1}띠와 ${a2}띠는 조심해야 할 조합입니다. 서로 이해하려는 노력이 필요합니다.</div></div>`;
+}else{
+result=`<div class="result-box"><div class="result-title">😊 무난한 궁합</div><div class="result-desc">${a1}띠와 ${a2}띠는 무난한 조합입니다. 서로 노력하면 좋은 관계를 만들 수 있습니다.</div></div>`;
+}
+document.getElementById('result').innerHTML=result;
+}
 </script>
-
 </body>
 </html>

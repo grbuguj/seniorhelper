@@ -1,42 +1,101 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>손주 띠 미리보기</title>
-    <link rel="stylesheet" href="../css/base.css">
-
-    <style>
-        .year-input { width: 200px; padding: 16px; font-size: 32px; text-align:center; border:2px solid var(--border); border-radius:14px; }
-        .btn { width:100%; padding:18px; font-size:28px; margin-top:16px; background:var(--primary); color:white; border:none; border-radius:12px; }
-        .result { margin-top: 30px; padding: 26px; background:var(--card); border-radius:16px; border:2px solid var(--primary); font-size:30px; text-align:center;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미래 아기 띠</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👶</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:2rem}
+.page-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-btn{padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#818cf8;transform:translateY(-2px)}
+.main-layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.main-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border)}
+.input-group{margin-bottom:20px}
+.input-label{font-size:.875rem;font-weight:600;margin-bottom:8px;display:block;color:var(--text-light)}
+.input-field{width:100%;padding:12px 14px;font-size:1rem;border:2px solid var(--border);border-radius:10px;transition:all .2s}
+.input-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,.3)}
+.result-grid{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.year-card{padding:20px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid var(--primary);text-align:center;cursor:pointer;transition:all .2s}
+.year-card:hover{transform:translateY(-2px)}
+.year-num{font-size:1.125rem;font-weight:700;color:var(--primary);margin-bottom:8px}
+.year-animal{font-size:2rem;margin-bottom:4px}
+.year-name{font-size:.875rem;color:var(--text-light)}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sidebar-card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border)}
+.sidebar-title{font-size:1.125rem;font-weight:700;margin-bottom:16px}
+.sidebar-links{display:flex;flex-direction:column;gap:8px}
+.sidebar-link{padding:12px 16px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar-link:hover{background:rgba(99,102,241,.1);color:var(--primary);transform:translateX(4px)}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr}.sidebar{order:-1}.result-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.result-grid{grid-template-columns:1fr}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.main-card,.sidebar-card{animation:fadeIn .5s ease-out}
+</style>
 </head>
-
 <body>
-<div class="page">
-    <a href="index.html" class="back-btn">←</a>
-    <div class="page-title">손주 띠 미리보기</div>
-
-    <div style="font-size:26px; margin-bottom:20px;">태어날 해(년도)를 입력하세요.</div>
-
-    <input id="by" class="year-input" placeholder="2026"> 년
-    <button class="btn" onclick="calc()">확인하기</button>
-
-    <div id="ra"></div>
+<div class="container">
+<header>
+<div class="header-left">
+<span class="logo">👶</span>
+<h1 class="page-title">미래 아기 띠</h1>
 </div>
-
+<a href="index.html" class="home-btn">띠궁합</a>
+</header>
+<div class="main-layout">
+<main>
+<div class="main-card">
+<div class="input-group">
+<label class="input-label">출산 예정 연도</label>
+<input type="number" id="year" class="input-field" placeholder="2025" min="2025" max="2040">
+</div>
+<button class="btn-primary" onclick="calculate()">아기 띠 확인</button>
+<div id="result"></div>
+</div>
+</main>
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3 class="sidebar-title">관련 기능</h3>
+<div class="sidebar-links">
+<a href="my-zodiac.html" class="sidebar-link"><span>🐉</span><span>내 띠 보기</span></a>
+<a href="zodiac-match.html" class="sidebar-link"><span>💕</span><span>띠 궁합</span></a>
+<a href="personality.html" class="sidebar-link"><span>✨</span><span>띠별 성격</span></a>
+<a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+</div>
+</div>
+</aside>
+</div>
+</div>
 <script>
-    const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
-    const emojis  = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
-
-    function calc(){
-        const y = document.getElementById("by").value;
-        if(!y) return alert("해(년도)를 입력하세요.");
-        const idx = (y-4)%12;
-        document.getElementById("ra").innerHTML =
-            `<div class="result">${y}년은 ${emojis[idx]} ${animals[idx]}띠입니다!</div>`;
-    }
+window.onload=()=>{document.getElementById('year').value=new Date().getFullYear()};
+const animals=["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
+const emojis=["🐵","🐔","🐶","🐷","🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑"];
+function calculate(){
+const year=parseInt(document.getElementById('year').value);
+if(!year){alert('연도를 입력해주세요');return}
+let html='<div class="result-grid">';
+for(let i=0;i<12;i++){
+const y=year+i;
+const idx=y%12;
+html+=`<div class="year-card" onclick="location.href='my-zodiac-result.html?animal=${encodeURIComponent(animals[idx])}'">
+<div class="year-num">${y}년</div>
+<div class="year-animal">${emojis[idx]}</div>
+<div class="year-name">${animals[idx]}띠</div>
+</div>`;
+}
+html+='</div>';
+document.getElementById('result').innerHTML=html;
+}
+document.getElementById('year').addEventListener('keypress',e=>{if(e.key==='Enter')calculate()});
 </script>
 </body>
 </html>

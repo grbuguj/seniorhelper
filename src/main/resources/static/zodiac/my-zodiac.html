@@ -3,133 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 띠 알아보기 - 어르신 생활도우미</title>
-    <link rel="stylesheet" href="../css/base.css">
+    <title>내 띠 알아보기</title>
+    <meta name="description" content="내 띠를 확인하세요">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
     
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-card { background: white; border-radius: 16px; padding: 32px; border: 1px solid var(--border); }
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
         .zodiac-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-            margin-top: 20px;
+            margin-bottom: 32px;
         }
-        
         .zodiac-btn {
-            padding: 24px 8px;
-            font-size: 28px;
-            background: var(--card);
-            border: 2px solid var(--primary);
+            padding: 20px 8px;
+            font-size: 1.5rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s;
+            font-weight: 600;
         }
-        
         .zodiac-btn:hover {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
         }
-        
         .divider {
             margin: 32px 0;
             text-align: center;
-            font-size: 24px;
-            color: var(--text-sub);
+            font-size: 0.875rem;
+            color: var(--text-light);
         }
-        
-        .year-input-section {
-            background: var(--card);
+        .year-section {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
             padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
+            border-radius: 12px;
+            border: 2px solid var(--primary);
         }
-        
-        .year-input-label {
-            font-size: 26px;
+        .year-label {
+            font-size: 1rem;
+            font-weight: 600;
             margin-bottom: 16px;
             text-align: center;
+            color: var(--text);
         }
-        
-        .year-input-wrapper {
+        .year-input-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-bottom: 16px;
         }
-        
         .year-input {
             width: 200px;
-            padding: 16px;
-            font-size: 32px;
+            padding: 12px;
+            font-size: 1.5rem;
             text-align: center;
             border: 2px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
         }
-        
-        .year-unit {
-            font-size: 28px;
-            font-weight: 600;
+        .year-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
-        
-        .confirm-btn {
+        .year-unit { font-size: 1.25rem; font-weight: 600; }
+        .btn-confirm {
             width: 100%;
-            margin-top: 16px;
-            padding: 18px;
-            font-size: 28px;
-            background: var(--primary);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        
-        .confirm-btn:hover {
-            opacity: 0.9;
+        .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3); }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card { background: white; border-radius: 16px; padding: 24px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 16px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .sidebar-link:hover { background: rgba(99, 102, 241, 0.1); color: var(--primary); transform: translateX(4px); }
+        .sidebar-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+            .zodiac-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .zodiac-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
     </style>
 </head>
 <body>
-    <div class="page">
-        <a href="index.html" class="back-btn">←</a>
-        
-        <div class="page-title">내 띠 알아보기</div>
-        <div class="page-subtitle">띠를 선택하거나 출생 연도를 입력하세요.</div>
-        
-        <!-- 12띠 선택 -->
-        <div class="zodiac-grid">
-            <button class="zodiac-btn" onclick="selectZodiac('쥐', 0)">🐭<br>쥐띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('소', 1)">🐮<br>소띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('호랑이', 2)">🐯<br>호랑이띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('토끼', 3)">🐰<br>토끼띠</button>
-            
-            <button class="zodiac-btn" onclick="selectZodiac('용', 4)">🐲<br>용띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('뱀', 5)">🐍<br>뱀띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('말', 6)">🐴<br>말띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('양', 7)">🐑<br>양띠</button>
-            
-            <button class="zodiac-btn" onclick="selectZodiac('원숭이', 8)">🐵<br>원숭이띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('닭', 9)">🐔<br>닭띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('개', 10)">🐶<br>개띠</button>
-            <button class="zodiac-btn" onclick="selectZodiac('돼지', 11)">🐷<br>돼지띠</button>
-        </div>
-        
-        <!-- 구분선 -->
-        <div class="divider">────────────────────</div>
-        
-        <!-- 연도 입력 -->
-        <div class="year-input-section">
-            <div class="year-input-label">띠를 모르시나요?</div>
-            
-            <div class="year-input-wrapper">
-                <input type="number" 
-                       id="birthYear" 
-                       class="year-input" 
-                       placeholder="1950"
-                       min="1900"
-                       max="2030">
-                <span class="year-unit">년</span>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🐉</span>
+                <h1 class="page-title">내 띠 알아보기</h1>
             </div>
+            <a href="index.html" class="home-btn">띠궁합</a>
+        </header>
+        
+        <div class="main-layout">
+            <main>
+                <div class="main-card">
+                    <div class="section-title">띠를 선택하세요</div>
+                    <div class="zodiac-grid">
+                        <button class="zodiac-btn" onclick="selectZodiac('쥐', 0)">🐭<br>쥐띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('소', 1)">🐮<br>소띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('호랑이', 2)">🐯<br>호랑이띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('토끼', 3)">🐰<br>토끼띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('용', 4)">🐲<br>용띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('뱀', 5)">🐍<br>뱀띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('말', 6)">🐴<br>말띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('양', 7)">🐑<br>양띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('원숭이', 8)">🐵<br>원숭이띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('닭', 9)">🐔<br>닭띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('개', 10)">🐶<br>개띠</button>
+                        <button class="zodiac-btn" onclick="selectZodiac('돼지', 11)">🐷<br>돼지띠</button>
+                    </div>
+                    
+                    <div class="divider">또는</div>
+                    
+                    <div class="year-section">
+                        <div class="year-label">출생 연도로 찾기</div>
+                        <div class="year-input-row">
+                            <input type="number" id="birthYear" class="year-input" placeholder="1990" min="1900" max="2030">
+                            <span class="year-unit">년</span>
+                        </div>
+                        <button class="btn-confirm" onclick="findZodiacByYear()">확인하기</button>
+                    </div>
+                </div>
+            </main>
             
-            <button class="confirm-btn" onclick="findZodiacByYear()">확인하기</button>
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="zodiac-match.html" class="sidebar-link"><span>💕</span><span>띠 궁합</span></a>
+                        <a href="personality.html" class="sidebar-link"><span>✨</span><span>띠별 성격</span></a>
+                        <a href="future-baby.html" class="sidebar-link"><span>👶</span><span>미래 아기 띠</span></a>
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-tip">
+                        <strong>💡 Tip</strong><br>
+                        12년마다 같은 띠가 돌아옵니다. 자신의 띠를 확인해보세요!
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
     
@@ -137,33 +244,29 @@
         const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
         const animalEmojis = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
         
-        // 띠 버튼 직접 클릭
         function selectZodiac(name, index) {
             location.href = `my-zodiac-result.html?animal=${encodeURIComponent(name)}&emoji=${encodeURIComponent(animalEmojis[index])}`;
         }
         
-        // 연도로 띠 찾기
         function findZodiacByYear() {
             const year = document.getElementById('birthYear').value;
-            
             if (!year) {
                 alert('출생 연도를 입력해주세요.');
                 return;
             }
-            
             if (year < 1900 || year > 2030) {
                 alert('1900년부터 2030년 사이의 연도를 입력해주세요.');
                 return;
             }
-            
-            // 쥐띠: 1900, 1912, 1924, ... (year % 12 === 4)
-            // 년도로 띠 계산
             const zodiacIndex = (parseInt(year) - 4) % 12;
             const animalName = animals[zodiacIndex];
             const emoji = animalEmojis[zodiacIndex];
-            
             location.href = `my-zodiac-result.html?year=${year}&animal=${encodeURIComponent(animalName)}&emoji=${encodeURIComponent(emoji)}`;
         }
+        
+        document.getElementById('birthYear').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') findZodiacByYear();
+        });
     </script>
 </body>
 </html>

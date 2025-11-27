@@ -3,147 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나이 계산 결과 - 어르신 생활도우미</title>
-
-    <!-- 기본 공통 스타일 -->
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/age.css">
-
+    <title>나이 계산 결과</title>
+    <meta name="description" content="나이 계산 결과를 확인하세요">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg: #fafafa;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .logo { font-size: 2rem; }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { font-size: 0.875rem; color: var(--text-light); margin-top: 4px; }
+        .home-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .home-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .main-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+        .main-content { display: flex; flex-direction: column; gap: 24px; }
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .result-grid {
+            display: grid;
+            gap: 12px;
+        }
+        .result-item {
+            padding: 16px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+        }
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+        .sidebar-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .sidebar-link {
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-link:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+        @media (max-width: 1024px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-card, .sidebar-card { animation: fadeIn 0.5s ease-out; }
+    </style>
 </head>
 <body>
-
-<div class="result-wrapper">
-
-    <h1 class="page-title">나이 계산 결과</h1>
-    <p class="page-subtitle" id="subtitleText"></p>
-
-    <!-- 카드 1: 나이 정보 -->
-    <div class="result-card">
-        <div class="result-title">나이 정보</div>
-
-        <div class="result-line">한국 나이는 <span class="highlight" id="kAge"></span>입니다.</div>
-        <div class="result-line">만 나이는 <span class="highlight" id="mAge"></span>입니다.</div>
-        <div class="result-line">연 나이는 <span class="highlight" id="yAge"></span>입니다.</div>
-    </div>
-
-    <!-- 카드 2: 출생 해 정보 -->
-    <div class="result-card">
-        <div class="result-title">태어난 해 정보</div>
-
-        <div class="result-line">
-            <span class="highlight" id="birthAnimal"></span>입니다.
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <span class="logo">🎂</span>
+                <div>
+                    <h1 class="page-title">나이 계산 결과</h1>
+                    <div class="subtitle" id="subtitle"></div>
+                </div>
+            </div>
+            <a href="../" class="home-btn">홈으로</a>
+        </header>
+        
+        <div class="main-layout">
+            <main class="main-content">
+                <!-- 나이 정보 -->
+                <div class="result-card">
+                    <div class="card-title">📊 나이 정보</div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="result-label">한국 나이 (세는나이)</div>
+                            <div class="result-value" id="koreanAge"></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">만 나이</div>
+                            <div class="result-value" id="manAge"></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">연 나이</div>
+                            <div class="result-value" id="yearAge"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 출생 해 정보 -->
+                <div class="result-card">
+                    <div class="card-title">🐉 태어난 해 정보</div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="result-label">띠</div>
+                            <div class="result-value" id="birthAnimal"></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">간지</div>
+                            <div class="result-value" id="birthGanji"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 올해 정보 -->
+                <div class="result-card">
+                    <div class="card-title">📅 2025년 정보</div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="result-label">올해 띠</div>
+                            <div class="result-value" id="yearAnimal"></div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">올해 간지</div>
+                            <div class="result-value" id="yearGanji"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title" id="relatedTitle">관련 기능</h3>
+                    <div class="sidebar-links">
+                        <a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+                        <a href="../age-man/" class="sidebar-link"><span>📊</span><span>만 나이</span></a>
+                        <a href="../age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
+                        <a href="../zodiac/" class="sidebar-link"><span>🐉</span><span>띠궁합</span></a>
+                        <a href="../school/" class="sidebar-link"><span>🎓</span><span>입학졸업</span></a>
+                        <a href="../holiday/" class="sidebar-link"><span>🎉</span><span>공휴일</span></a>
+                    </div>
+                </div>
+            </aside>
         </div>
-
-        <div class="result-line">
-            <span class="highlight" id="birthGanji"></span>입니다.
-        </div>
     </div>
-
-    <!-- 카드 3: 올해 정보 -->
-    <div class="result-card">
-        <div class="result-title">2025년 정보</div>
-
-        <div class="result-line">
-            <span class="highlight" id="yearAnimalLine"></span>입니다.
-        </div>
-
-        <div class="result-line">
-            <span class="highlight" id="yearGanjiLine"></span>입니다.
-        </div>
-    </div>
-
-    <!-- 관련 버튼 -->
-    <div style="text-align:center; font-size:30px; margin-top:28px;">
-        <span id="birthYearTitle"></span> 관련
-    </div>
-
-    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:16px;">
-        <button class="small-nav-btn" onclick="location.href='../age/'">만나이</button>
-        <button class="small-nav-btn" onclick="location.href='../zodiac/'">띠궁합</button>
-        <button class="small-nav-btn" onclick="location.href='../articles/'">연예인</button>
-        <button class="small-nav-btn" onclick="location.href='../age/table.html'">일람표</button>
-        <button class="small-nav-btn" onclick="location.href='../school/'">학교</button>
-        <button class="small-nav-btn" onclick="location.href='../holiday/'">공휴일</button>
-    </div>
-
-    <button class="back-main-btn" onclick="location.href='../../index.html'">메인 화면</button>
-
-</div>
-
-
-<script>
-    const params = new URLSearchParams(location.search);
-
-    const year = Number(params.get("year"));   // 출생 연도
-    const month = Number(params.get("month"));
-    const day = Number(params.get("day"));
-
-    const CURRENT_YEAR = new Date().getFullYear();
-    const TODAY = new Date(2025, 0, 1);  // 2025년 기준
-    const birthdayThisYear = new Date(2025, month - 1, day);
-
-    // 한국 나이 (세는나이) = 현재연도 - 출생연도 + 1
-    const koreanAge = CURRENT_YEAR - year + 1;
-
-    // 만 나이
-    let manAge = CURRENT_YEAR - year;
-    if (TODAY < birthdayThisYear) manAge--;
-
-    // 연 나이 = 현재연도 - 출생연도
-    const yonAge = CURRENT_YEAR - year;
-
-    document.getElementById("kAge").innerText = koreanAge + "살";
-    document.getElementById("mAge").innerText = manAge + "살";
-    document.getElementById("yAge").innerText = yonAge + "살";
-
-    document.getElementById("birthYearTitle").innerText = `${year}년`;
-
-    document.getElementById("subtitleText").innerText =
-        `${CURRENT_YEAR}년도 기준 ${year}년생의 나이 정보입니다.`;
-
-
-    /* ------------------- 띠 / 간지 계산 ------------------- */
-
-    const animals = ["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
-
-    const gan = [
-        ["갑","甲"], ["을","乙"], ["병","丙"], ["정","丁"], ["무","戊"],
-        ["기","己"], ["경","庚"], ["신","辛"], ["임","壬"], ["계","癸"]
-    ];
-
-    const ji = [
-        ["자","子"], ["축","丑"], ["인","寅"], ["묘","卯"], ["진","辰"], ["사","巳"],
-        ["오","午"], ["미","未"], ["신","申"], ["유","酉"], ["술","戌"], ["해","亥"]
-    ];
-
-    // 출생 띠
-    const birthAnimal = animals[year % 12];
-
-    // 출생 간지
-    const birthGanji =
-        gan[(year - 4) % 10][0] + ji[(year - 4) % 12][0] +
-        `(${gan[(year - 4) % 10][1]}${ji[(year - 4) % 12][1]})년`;
-
-    // 올해 띠
-    const yearAnimal = animals[CURRENT_YEAR % 12];
-
-    // 올해 간지
-    const yearGanji =
-        gan[(CURRENT_YEAR - 4) % 10][0] + ji[(CURRENT_YEAR - 4) % 12][0] +
-        `(${gan[(CURRENT_YEAR - 4) % 10][1]}${ji[(CURRENT_YEAR - 4) % 12][1]})년`;
-
-
-    /* ------------------- UI에 출력 ------------------- */
-
-    document.getElementById("birthAnimal").innerText = `${year}년은 ${birthAnimal}띠 해`;
-    document.getElementById("birthGanji").innerText = `${year}년은 ${birthGanji}`;
-
-
-    document.getElementById("yearAnimalLine").innerText =
-        `${CURRENT_YEAR}년은 ${yearAnimal}띠 해`;
-    document.getElementById("yearGanjiLine").innerText =
-        `${CURRENT_YEAR}년은 ${yearGanji}`;
-</script>
-
+    
+    <script>
+        const params = new URLSearchParams(location.search);
+        const year = Number(params.get("year"));
+        const month = Number(params.get("month"));
+        const day = Number(params.get("day"));
+        
+        const CURRENT_YEAR = 2025;
+        const TODAY = new Date(2025, 0, 1);
+        const birthdayThisYear = new Date(2025, month - 1, day);
+        
+        // 한국 나이
+        const koreanAge = CURRENT_YEAR - year + 1;
+        
+        // 만 나이
+        let manAge = CURRENT_YEAR - year;
+        if (TODAY < birthdayThisYear) manAge--;
+        
+        // 연 나이
+        const yonAge = CURRENT_YEAR - year;
+        
+        // 띠/간지 데이터
+        const animals = ["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
+        const gan = [["갑","甲"],["을","乙"],["병","丙"],["정","丁"],["무","戊"],["기","己"],["경","庚"],["신","辛"],["임","壬"],["계","癸"]];
+        const ji = [["자","子"],["축","丑"],["인","寅"],["묘","卯"],["진","辰"],["사","巳"],["오","午"],["미","未"],["신","申"],["유","酉"],["술","戌"],["해","亥"]];
+        
+        const birthAnimal = animals[year % 12];
+        const birthGanjiText = gan[(year - 4) % 10][0] + ji[(year - 4) % 12][0] + `(${gan[(year - 4) % 10][1]}${ji[(year - 4) % 12][1]})`;
+        
+        const yearAnimal = animals[CURRENT_YEAR % 12];
+        const yearGanjiText = gan[(CURRENT_YEAR - 4) % 10][0] + ji[(CURRENT_YEAR - 4) % 12][0] + `(${gan[(CURRENT_YEAR - 4) % 10][1]}${ji[(CURRENT_YEAR - 4) % 12][1]})`;
+        
+        // UI 업데이트
+        document.getElementById('subtitle').textContent = `${year}년 ${month}월 ${day}일생의 ${CURRENT_YEAR}년 기준 나이`;
+        document.getElementById('koreanAge').textContent = koreanAge + '살';
+        document.getElementById('manAge').textContent = manAge + '살';
+        document.getElementById('yearAge').textContent = yonAge + '살';
+        document.getElementById('birthAnimal').textContent = birthAnimal + '띠 해';
+        document.getElementById('birthGanji').textContent = birthGanjiText + '년';
+        document.getElementById('yearAnimal').textContent = yearAnimal + '띠 해';
+        document.getElementById('yearGanji').textContent = yearGanjiText + '년';
+        document.getElementById('relatedTitle').textContent = year + '년 관련 기능';
+    </script>
 </body>
 </html>

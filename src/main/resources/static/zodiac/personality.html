@@ -1,62 +1,119 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>띠별 성격/운세</title>
-    <link rel="stylesheet" href="../css/base.css">
-
-    <style>
-        .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px; }
-        .card { background:var(--card); border:2px solid var(--primary); border-radius:14px; padding:20px; text-align:center; font-size:26px; cursor:pointer; }
-        .detail { margin-top:30px; padding:26px; background:var(--card); border-radius:16px; border:2px solid var(--primary); }
-        .title { font-size:32px; margin-bottom:14px; }
-        .desc { font-size:26px; line-height:1.6; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>띠별 성격</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:2rem}
+.page-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-btn{padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#818cf8;transform:translateY(-2px)}
+.main-layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.main-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border)}
+.zodiac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.zodiac-card{padding:20px 8px;background:var(--bg);border:1px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all .2s}
+.zodiac-card:hover{background:rgba(99,102,241,.1);border-color:var(--primary);transform:translateY(-2px)}
+.zodiac-emoji{font-size:2.5rem;margin-bottom:8px}
+.zodiac-name{font-size:.875rem;font-weight:600}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sidebar-card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border)}
+.sidebar-title{font-size:1.125rem;font-weight:700;margin-bottom:16px}
+.sidebar-links{display:flex;flex-direction:column;gap:8px}
+.sidebar-link{padding:12px 16px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar-link:hover{background:rgba(99,102,241,.1);color:var(--primary);transform:translateX(4px)}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr}.sidebar{order:-1}.zodiac-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.zodiac-grid{grid-template-columns:repeat(2,1fr)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.main-card,.sidebar-card{animation:fadeIn .5s ease-out}
+</style>
 </head>
-
 <body>
-<div class="page">
-    <a href="index.html" class="back-btn">←</a>
-    <div class="page-title">띠별 성격/운세</div>
-
-    <div class="grid" id="g"></div>
-
-    <div id="detail"></div>
+<div class="container">
+<header>
+<div class="header-left">
+<span class="logo">✨</span>
+<h1 class="page-title">띠별 성격</h1>
 </div>
-
+<a href="index.html" class="home-btn">띠궁합</a>
+</header>
+<div class="main-layout">
+<main>
+<div class="main-card">
+<div class="zodiac-grid">
+<div class="zodiac-card" onclick="go('쥐')">
+<div class="zodiac-emoji">🐭</div>
+<div class="zodiac-name">쥐띠</div>
+</div>
+<div class="zodiac-card" onclick="go('소')">
+<div class="zodiac-emoji">🐮</div>
+<div class="zodiac-name">소띠</div>
+</div>
+<div class="zodiac-card" onclick="go('호랑이')">
+<div class="zodiac-emoji">🐯</div>
+<div class="zodiac-name">호랑이띠</div>
+</div>
+<div class="zodiac-card" onclick="go('토끼')">
+<div class="zodiac-emoji">🐰</div>
+<div class="zodiac-name">토끼띠</div>
+</div>
+<div class="zodiac-card" onclick="go('용')">
+<div class="zodiac-emoji">🐲</div>
+<div class="zodiac-name">용띠</div>
+</div>
+<div class="zodiac-card" onclick="go('뱀')">
+<div class="zodiac-emoji">🐍</div>
+<div class="zodiac-name">뱀띠</div>
+</div>
+<div class="zodiac-card" onclick="go('말')">
+<div class="zodiac-emoji">🐴</div>
+<div class="zodiac-name">말띠</div>
+</div>
+<div class="zodiac-card" onclick="go('양')">
+<div class="zodiac-emoji">🐑</div>
+<div class="zodiac-name">양띠</div>
+</div>
+<div class="zodiac-card" onclick="go('원숭이')">
+<div class="zodiac-emoji">🐵</div>
+<div class="zodiac-name">원숭이띠</div>
+</div>
+<div class="zodiac-card" onclick="go('닭')">
+<div class="zodiac-emoji">🐔</div>
+<div class="zodiac-name">닭띠</div>
+</div>
+<div class="zodiac-card" onclick="go('개')">
+<div class="zodiac-emoji">🐶</div>
+<div class="zodiac-name">개띠</div>
+</div>
+<div class="zodiac-card" onclick="go('돼지')">
+<div class="zodiac-emoji">🐷</div>
+<div class="zodiac-name">돼지띠</div>
+</div>
+</div>
+</div>
+</main>
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3 class="sidebar-title">관련 기능</h3>
+<div class="sidebar-links">
+<a href="my-zodiac.html" class="sidebar-link"><span>🐉</span><span>내 띠 보기</span></a>
+<a href="zodiac-match.html" class="sidebar-link"><span>💕</span><span>띠 궁합</span></a>
+<a href="future-baby.html" class="sidebar-link"><span>👶</span><span>미래 아기 띠</span></a>
+<a href="../age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+</div>
+</div>
+</aside>
+</div>
+</div>
 <script>
-    const animals = ["쥐","소","호랑이","토끼","용","뱀","말","양","원숭이","닭","개","돼지"];
-    const emojis  = ["🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑","🐵","🐔","🐶","🐷"];
-
-    const personalities = {
-        "쥐":["총명하고 재치있음","계획적이고 현실적","사교성이 좋음"],
-        "소":["성실하고 책임감 강함","차분하고 신중함","꾸준한 노력"],
-        "호랑이":["용감하고 리더 성향","결단력 우수","정의감 강함"],
-        "토끼":["온화하고 친절함","감수성 풍부","대인관계 좋음"],
-        "용":["열정적·창의적","리더십 강함","자존심 강함"],
-        "뱀":["지혜롭고 분석적","직관력 우수","침착함"],
-        "말":["활발·외향적","낙천적","매력적인 성향"],
-        "양":["온순하고 정 많음","평화적","예술 감각"],
-        "원숭이":["영리하고 재능 다수","유머 감각","빠른 적응"],
-        "닭":["성실·부지런","관찰력 뛰어남","정직함"],
-        "개":["충직·성실","정의감 강함","배려심 깊음"],
-        "돼지":["순수·후함","편안한 성향","신뢰감 높음"]
-    };
-
-    document.getElementById("g").innerHTML =
-        animals.map((a,i)=>`
-            <div class="card" onclick="show('${a}', '${emojis[i]}')">${emojis[i]}<br>${a}띠</div>
-        `).join("");
-
-    function show(a, e){
-        document.getElementById("detail").innerHTML = `
-            <div class="detail">
-                <div class="title">${e} ${a}띠 성격</div>
-                <div class="desc">${personalities[a].map(v=>"• "+v).join("<br>")}</div>
-            </div>
-        `;
-    }
+function go(animal){location.href=`my-zodiac-result.html?animal=${encodeURIComponent(animal)}`}
 </script>
 </body>
 </html>

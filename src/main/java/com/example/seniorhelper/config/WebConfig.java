@@ -27,6 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/solar-to-lunar/").setViewName("forward:/solar-to-lunar/index.html");
         registry.addViewController("/lunar-to-solar/").setViewName("forward:/lunar-to-solar/index.html");
         registry.addViewController("/anniversary/").setViewName("forward:/anniversary/index.html");
+        registry.addViewController("/zodiac/same-age/").setViewName("forward:/zodiac/same-age/index.html");
+        registry.addViewController("/zodiac/grandchild/").setViewName("forward:/zodiac/grandchild/index.html");
         
         // 정책 페이지
         registry.addViewController("/privacy/").setViewName("forward:/privacy/index.html");

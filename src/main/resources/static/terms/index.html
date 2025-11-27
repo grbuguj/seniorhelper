@@ -1,116 +1,108 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이용약관 - woong.io.kr</title>
-    <meta name="description" content="woong.io.kr의 이용약관을 확인하세요">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://woong.io.kr/terms/">
-    
-    <link rel="stylesheet" href="../css/base.css">
-    
-    <style>
-        body {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        h2 {
-            font-size: 24px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        p, li {
-            font-size: 18px;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-        
-        .back-btn {
-            display: inline-block;
-            margin: 30px auto;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이용약관 - woong.io.kr</title>
+<meta name="description" content="woong.io.kr의 이용약관을 확인하세요">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://woong.io.kr/terms/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:32px;margin-bottom:24px;border:1px solid var(--border);text-align:center}
+.logo{font-size:3rem;margin-bottom:16px}
+.page-title{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.subtitle{color:var(--text-light);font-size:.9375rem}
+.content{background:white;border-radius:16px;padding:40px;border:1px solid var(--border);margin-bottom:24px}
+h2{font-size:1.5rem;font-weight:700;color:var(--primary);margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+h2:first-of-type{margin-top:0}
+p{margin-bottom:16px;font-size:1rem}
+ul{margin-left:24px;margin-bottom:16px}
+li{margin-bottom:8px}
+strong{color:var(--text);font-weight:700}
+.warning-box{background:linear-gradient(135deg,#fef3c7,#fde68a);padding:20px;border-radius:12px;margin:24px 0;border-left:4px solid #f59e0b}
+.warning-box strong{color:#d97706}
+.contact-box{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:20px;border-radius:12px;margin:24px 0;text-align:center;border:2px solid var(--primary)}
+.date{color:var(--text-light);font-size:.875rem;margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:right}
+.back-btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border-radius:10px;font-weight:700;text-decoration:none;transition:all .2s;margin-top:24px}
+.back-btn:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,.3)}
+.text-center{text-align:center}
+@media(max-width:768px){.content{padding:24px}h2{font-size:1.25rem}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+header,.content{animation:fadeIn .5s ease-out}
+</style>
 </head>
 <body>
-    <!-- 글자 크게 보기 버튼 -->
-    <button id="textSizeBtn" class="text-size-btn" onclick="toggleTextSize()">글자 크게</button>
-    
-    <h1>이용약관</h1>
-    
-    <h2>제1조 (목적)</h2>
-    <p>본 약관은 <strong>woong.io.kr</strong>(이하 "서비스")가 제공하는 각종 계산기 서비스의 이용과 관련하여 필요한 사항을 규정함을 목적으로 합니다.</p>
-    
-    <h2>제2조 (서비스의 내용)</h2>
-    <p>본 서비스는 다음의 기능을 제공합니다:</p>
-    <ul>
-        <li>나이 계산 (만 나이, 연 나이, 출생연도별 나이표)</li>
-        <li>띠 및 띠궁합 정보</li>
-        <li>날짜 관련 계산 (디데이, 날짜 차이, 날짜 더하기·빼기, 기념일)</li>
-        <li>학교 입학·졸업 계산</li>
-        <li>공휴일 및 손없는날 정보</li>
-        <li>양력·음력 변환</li>
-    </ul>
-    
-    <h2>제3조 (서비스 이용)</h2>
-    <ul>
-        <li>본 서비스는 무료로 제공됩니다</li>
-        <li>별도의 회원가입 없이 누구나 이용할 수 있습니다</li>
-        <li>모든 계산은 이용자의 기기(브라우저)에서 처리되며, 서버로 전송되지 않습니다</li>
-    </ul>
-    
-    <h2>제4조 (서비스 제공의 중단)</h2>
-    <p>다음의 경우 서비스 제공이 일시적으로 중단될 수 있습니다:</p>
-    <ul>
-        <li>서버 점검 또는 유지보수</li>
-        <li>기술적 문제 발생</li>
-        <li>천재지변 등 불가항력적 사유</li>
-    </ul>
-    
-    <h2>제5조 (정확성 및 책임의 제한)</h2>
-    <ul>
-        <li>본 서비스는 계산 결과의 정확성을 위해 노력하지만, <strong>모든 결과의 정확성을 보장하지 않습니다</strong></li>
-        <li>특히 음력 변환, 공휴일, 손없는날 등의 정보는 <strong>참고용</strong>으로만 사용하시기 바랍니다</li>
-        <li>중요한 결정을 하기 전에는 반드시 공식 기관이나 전문가와 확인하시기 바랍니다</li>
-        <li>본 서비스 이용으로 발생한 어떠한 손해에 대해서도 책임을 지지 않습니다</li>
-    </ul>
-    
-    <h2>제6조 (저작권)</h2>
-    <p>본 서비스의 모든 콘텐츠에 대한 저작권은 "woong.io.kr"에 있습니다.</p>
-    
-    <h2>제7조 (문의)</h2>
-    <p>서비스 이용과 관련한 문의사항은 아래로 연락 주시기 바랍니다:</p>
-    <p><strong>이메일</strong>: woong.io.kr@gmail.com</p>
-    
-    <h2>제8조 (약관의 변경)</h2>
-    <p>본 약관은 필요에 따라 변경될 수 있으며, 변경 시 웹사이트를 통해 공지합니다.</p>
-    
-    <p><strong>시행일</strong>: 2025년 1월 15일</p>
-    
-    <div class="text-center">
-        <a href="../" class="back-btn">메인으로 돌아가기</a>
-    </div>
-    
-    <script src="../js/common.js"></script>
+<div class="container">
+<header>
+<div class="logo">📋</div>
+<h1 class="page-title">이용약관</h1>
+<p class="subtitle">woong.io.kr</p>
+</header>
+<div class="content">
+<h2>제1조 (목적)</h2>
+<p>본 약관은 <strong>woong.io.kr</strong>(이하 "서비스")가 제공하는 각종 계산기 서비스의 이용과 관련하여 필요한 사항을 규정함을 목적으로 합니다.</p>
+
+<h2>제2조 (서비스의 내용)</h2>
+<p>본 서비스는 다음의 기능을 제공합니다:</p>
+<ul>
+<li>나이 계산 (만 나이, 연 나이, 출생연도별 나이표)</li>
+<li>띠 및 띠궁합 정보</li>
+<li>날짜 관련 계산 (디데이, 날짜 차이, 날짜 더하기·빼기, 기념일)</li>
+<li>학교 입학·졸업 계산</li>
+<li>공휴일 및 손없는날 정보</li>
+<li>양력·음력 변환</li>
+</ul>
+
+<h2>제3조 (서비스 이용)</h2>
+<ul>
+<li>본 서비스는 무료로 제공됩니다</li>
+<li>별도의 회원가입 없이 누구나 이용할 수 있습니다</li>
+<li>모든 계산은 이용자의 기기(브라우저)에서 처리되며, 서버로 전송되지 않습니다</li>
+</ul>
+
+<h2>제4조 (서비스 제공의 중단)</h2>
+<p>다음의 경우 서비스 제공이 일시적으로 중단될 수 있습니다:</p>
+<ul>
+<li>서버 점검 또는 유지보수</li>
+<li>기술적 문제 발생</li>
+<li>천재지변 등 불가항력적 사유</li>
+</ul>
+
+<h2>제5조 (정확성 및 책임의 제한)</h2>
+<div class="warning-box">
+<strong>⚠️ 중요 고지</strong><br>
+본 서비스는 계산 결과의 정확성을 위해 노력하지만, <strong>모든 결과의 정확성을 보장하지 않습니다</strong>.
+</div>
+<ul>
+<li>특히 음력 변환, 공휴일, 손없는날 등의 정보는 <strong>참고용</strong>으로만 사용하시기 바랍니다</li>
+<li>중요한 결정을 하기 전에는 반드시 공식 기관이나 전문가와 확인하시기 바랍니다</li>
+<li>본 서비스 이용으로 발생한 어떠한 손해에 대해서도 책임을 지지 않습니다</li>
+</ul>
+
+<h2>제6조 (저작권)</h2>
+<p>본 서비스의 모든 콘텐츠에 대한 저작권은 "woong.io.kr"에 있습니다.</p>
+
+<h2>제7조 (문의)</h2>
+<p>서비스 이용과 관련한 문의사항은 아래로 연락 주시기 바랍니다:</p>
+<div class="contact-box">
+<strong>📧 이메일</strong><br>
+woong.io.kr@gmail.com
+</div>
+
+<h2>제8조 (약관의 변경)</h2>
+<p>본 약관은 필요에 따라 변경될 수 있으며, 변경 시 웹사이트를 통해 공지합니다.</p>
+
+<p class="date"><strong>시행일</strong>: 2025년 1월 15일</p>
+</div>
+
+<div class="text-center">
+<a href="/" class="back-btn">🏠 메인으로 돌아가기</a>
+</div>
+</div>
 </body>
 </html>
