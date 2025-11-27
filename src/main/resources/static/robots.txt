@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
 Sitemap: https://woong.io.kr/sitemap.xml
-
-# Crawl-delay for being polite
-Crawl-delay: 1
