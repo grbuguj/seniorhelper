@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>띠동갑 계산기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔄</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:2rem}
+.page-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-btn{padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#818cf8;transform:translateY(-2px)}
+.main-layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.main-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border)}
+.input-group{margin-bottom:20px}
+.input-label{font-size:.875rem;font-weight:600;margin-bottom:8px;display:block;color:var(--text-light)}
+.input-field{width:100%;padding:12px 14px;font-size:1rem;border:2px solid var(--border);border-radius:10px;transition:all .2s}
+.input-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,.3)}
+.result-box{margin-top:24px;padding:24px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid var(--primary)}
+.result-main{font-size:1.5rem;font-weight:800;color:var(--primary);text-align:center;margin-bottom:16px}
+.result-detail{font-size:.9375rem;color:var(--text-light);text-align:center;line-height:1.8}
+.year-link{color:var(--primary);font-weight:700;text-decoration:none;transition:all .2s;display:inline-block}
+.year-link:hover{color:var(--accent);transform:translateX(2px)}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sidebar-card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border)}
+.sidebar-title{font-size:1.125rem;font-weight:700;margin-bottom:16px}
+.sidebar-links{display:flex;flex-direction:column;gap:8px}
+.sidebar-link{padding:12px 16px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar-link:hover{background:rgba(99,102,241,.1);color:var(--primary);transform:translateX(4px)}
+.sidebar-tip{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:16px;border-radius:12px;font-size:.875rem;line-height:1.6}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr}.sidebar{order:-1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.main-card,.sidebar-card{animation:fadeIn .5s ease-out}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="header-left">
+<span class="logo">🔄</span>
+<h1 class="page-title">띠동갑 계산기</h1>
+</div>
+<a href="/" class="home-btn">🏠 홈으로</a>
+</header>
+<div class="main-layout">
+<main>
+<div class="main-card">
+<div class="input-group">
+<label class="input-label">출생연도를 입력하세요</label>
+<input type="number" id="year" class="input-field" placeholder="예: 1990">
+</div>
+<button class="btn-primary" onclick="calculate()">계산하기</button>
+<div id="result"></div>
+</div>
+</main>
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3 class="sidebar-title">관련 기능</h3>
+<div class="sidebar-links">
+<a href="/zodiac/" class="sidebar-link"><span>🐉</span><span>띠궁합</span></a>
+<a href="/age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+<a href="/age-table/" class="sidebar-link"><span>📋</span><span>나이표</span></a>
+</div>
+</div>
+<div class="sidebar-card">
+<div class="sidebar-tip">
+<strong>💡 Tip</strong><br>
+띠동갑은 12년 차이! 같은 띠를 가진 사람은 12년마다 만나요.
+</div>
+</div>
+</aside>
+</div>
+</div>
+<script>
+window.onload=()=>{document.getElementById('year').value=new Date().getFullYear()-30};
+const animals=["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
+const emojis=["🐵","🐔","🐶","🐷","🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑"];
+function calculate(){
+const year=parseInt(document.getElementById('year').value);
+if(!year){alert('출생연도를 입력해주세요');return}
+const idx=year%12;
+const animal=animals[idx];
+const emoji=emojis[idx];
+let html=`
+<div class="result-box">
+<div class="result-main">${emoji} ${animal}띠</div>
+<div class="result-detail">
+${year}년생과 띠동갑인 사람:<br><br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year-60}년생</a> (60살 위)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year-48}년생</a> (48살 위)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year-36}년생</a> (36살 위)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year-24}년생</a> (24살 위)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year-12}년생</a> (12살 위)<br><br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year+12}년생</a> (12살 아래)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year+24}년생</a> (24살 아래)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year+36}년생</a> (36살 아래)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year+48}년생</a> (48살 아래)<br>
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="year-link">${year+60}년생</a> (60살 아래)<br><br>
+12년마다 같은 띠가 반복됩니다!
+</div>
+</div>
+`;
+document.getElementById('result').innerHTML=html;
+}
+document.getElementById('year').addEventListener('keypress',e=>{if(e.key==='Enter')calculate()});
+</script>
+</body>
+</html>

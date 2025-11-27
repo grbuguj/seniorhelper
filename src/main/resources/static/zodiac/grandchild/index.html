@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>손주 띠 미리보기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👵</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#ec4899;--bg:#fafafa;--text:#1f2937;--text-light:#6b7280;--border:#e5e7eb}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:2rem}
+.page-title{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-btn{padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#818cf8;transform:translateY(-2px)}
+.main-layout{display:grid;grid-template-columns:1fr 320px;gap:24px}
+.main-card{background:white;border-radius:16px;padding:32px;border:1px solid var(--border)}
+.input-group{margin-bottom:20px}
+.input-label{font-size:.875rem;font-weight:600;margin-bottom:8px;display:block;color:var(--text-light)}
+.input-field{width:100%;padding:12px 14px;font-size:1rem;border:2px solid var(--border);border-radius:10px;transition:all .2s}
+.input-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(99,102,241,.3)}
+.result-box{margin-top:24px;padding:32px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid var(--primary);text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);display:block}
+.result-box:hover{transform:translateY(-4px);box-shadow:0 8px 16px rgba(99,102,241,.2)}
+.result-year{font-size:1.125rem;color:var(--text-light);margin-bottom:12px}
+.result-emoji{font-size:4rem;margin:16px 0}
+.result-animal{font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:16px}
+.result-desc{font-size:.9375rem;color:var(--text-light);line-height:1.8}
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sidebar-card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border)}
+.sidebar-title{font-size:1.125rem;font-weight:700;margin-bottom:16px}
+.sidebar-links{display:flex;flex-direction:column;gap:8px}
+.sidebar-link{padding:12px 16px;background:var(--bg);border-radius:8px;text-decoration:none;color:var(--text);font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar-link:hover{background:rgba(99,102,241,.1);color:var(--primary);transform:translateX(4px)}
+.sidebar-tip{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:16px;border-radius:12px;font-size:.875rem;line-height:1.6}
+@media(max-width:1024px){.main-layout{grid-template-columns:1fr}.sidebar{order:-1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.main-card,.sidebar-card{animation:fadeIn .5s ease-out}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="header-left">
+<span class="logo">👵</span>
+<h1 class="page-title">손주 띠 미리보기</h1>
+</div>
+<a href="/" class="home-btn">🏠 홈으로</a>
+</header>
+<div class="main-layout">
+<main>
+<div class="main-card">
+<div class="input-group">
+<label class="input-label">손주 출생연도를 입력하세요</label>
+<input type="number" id="grandchildYear" class="input-field" placeholder="예: 2020">
+</div>
+<button class="btn-primary" onclick="calculate()">손주 띠 보기</button>
+<div id="result"></div>
+</div>
+</main>
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3 class="sidebar-title">관련 기능</h3>
+<div class="sidebar-links">
+<a href="/zodiac/" class="sidebar-link"><span>🐉</span><span>띠궁합</span></a>
+<a href="/zodiac/future-baby.html" class="sidebar-link"><span>👶</span><span>미래 아기 띠</span></a>
+<a href="/age/" class="sidebar-link"><span>🎂</span><span>나이 계산</span></a>
+</div>
+</div>
+<div class="sidebar-card">
+<div class="sidebar-tip">
+<strong>💡 Tip</strong><br>
+손주의 출생연도를 입력하면 그 해의 띠 정보를 확인할 수 있어요!
+</div>
+</div>
+</aside>
+</div>
+</div>
+<script>
+window.onload=()=>{document.getElementById('grandchildYear').value=new Date().getFullYear()};
+const animals=["원숭이","닭","개","돼지","쥐","소","호랑이","토끼","용","뱀","말","양"];
+const emojis=["🐵","🐔","🐶","🐷","🐭","🐮","🐯","🐰","🐲","🐍","🐴","🐑"];
+const descriptions={
+"쥐":"총명하고 재치있으며 꼼꼼한 성격",
+"소":"성실하고 책임감이 강하며 헌신적인 성격",
+"호랑이":"리더십이 뛰어나고 배포가 크며 정의감이 강한 성격",
+"토끼":"온화하고 다정하며 배려심이 많은 성격",
+"용":"열정적이고 에너지가 넘치며 창의적인 성격",
+"뱀":"지혜롭고 분석적이며 통찰력이 뛰어난 성격",
+"말":"활발하고 밝으며 적응력이 좋은 성격",
+"양":"온순하고 정이 많으며 예술 감각이 뛰어난 성격",
+"원숭이":"영리하고 재치있으며 순발력이 뛰어난 성격",
+"닭":"성실하고 부지런하며 정확성을 중시하는 성격",
+"개":"의리있고 진심어린 태도로 책임감이 강한 성격",
+"돼지":"넉넉하고 따뜻하며 평화를 사랑하는 성격"
+};
+function calculate(){
+const year=parseInt(document.getElementById('grandchildYear').value);
+if(!year){alert('손주 출생연도를 입력해주세요');return}
+const idx=year%12;
+const animal=animals[idx];
+const emoji=emojis[idx];
+const desc=descriptions[animal];
+let html=`
+<a href="/zodiac/my-zodiac-result.html?animal=${animal}" class="result-box">
+<div class="result-year">${year}년생</div>
+<div class="result-emoji">${emoji}</div>
+<div class="result-animal">${animal}띠</div>
+<div class="result-desc">${desc}</div>
+</a>
+`;
+document.getElementById('result').innerHTML=html;
+}
+document.getElementById('grandchildYear').addEventListener('keypress',e=>{if(e.key==='Enter')calculate()});
+</script>
+</body>
+</html>
