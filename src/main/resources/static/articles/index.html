@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>ReelsPlace – Instagram Reel Preview</title>
@@ -27,6 +27,7 @@
             text-align: center;
             color: #555;
             margin-bottom: 24px;
+            line-height: 1.5;
         }
 
         .box {
@@ -69,6 +70,7 @@
             color: #c00;
             margin-top: 12px;
             text-align: center;
+            white-space: pre-wrap;
         }
 
         iframe {
@@ -92,8 +94,8 @@
 <div class="container">
     <h1>📍 ReelsPlace</h1>
     <div class="desc">
-        Instagram Reel URL을 입력하면<br />
-        Meta oEmbed API를 통해 미리보기를 가져옵니다
+        Enter a public Instagram Reel URL<br />
+        to preview it using the Meta oEmbed API.
     </div>
 
     <div class="box">
@@ -101,7 +103,7 @@
                 id="reelUrl"
                 placeholder="https://www.instagram.com/reel/..."
         />
-        <button onclick="loadEmbed()">Get!</button>
+        <button onclick="loadEmbed()">Preview Reel</button>
 
         <div id="error" class="error"></div>
         <div id="result" class="result"></div>
@@ -118,7 +120,7 @@
         error.innerText = "";
 
         if (!url) {
-            error.innerText = "Instagram Reel URL을 입력하세요.";
+            error.innerText = "Please enter an Instagram Reel URL.";
             return;
         }
 
@@ -130,21 +132,21 @@
 
             if (!res.ok) {
                 error.innerText =
-                    data?.error?.message || "oEmbed 요청 실패";
+                    data?.error?.message || "Failed to fetch oEmbed data.";
                 result.innerHTML =
                     "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
                 return;
             }
 
-            // oEmbed HTML 삽입
+            // Insert oEmbed HTML
             result.innerHTML = `
-          <div>
-            ${data.html}
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-          </div>
-        `;
+                <div>
+                    ${data.html}
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
 
-            // Instagram embed script 강제 실행
+            // Force Instagram embed script execution
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
             } else {
@@ -154,7 +156,7 @@
                 document.body.appendChild(script);
             }
         } catch (e) {
-            error.innerText = "서버 오류가 발생했습니다.";
+            error.innerText = "A server error occurred.";
         }
     }
 </script>
